@@ -1,34 +1,28 @@
 import Image from "next/image";
-import Link from "next/link";
+import Button from "./ui/Button";
+import SectionLabel from "./ui/SectionLabel";
 
 const categories = [
-  { label: "Technology", icon: "/homepage/Technology — connected digital platforms (1).png" },
-  { label: "Innovation", icon: "/homepage/Innovation — ideas into opportunity.png" },
-  { label: "Skills", icon: "/homepage/Skills — learning and progression.png" },
-  { label: "Enterprise", icon: "/homepage/Enterprise — tools for business growth.png" },
-  { label: "AI", icon: "/homepage/AI — connected intelligence.png" },
-  { label: "Web3", icon: "/homepage/Web3 — distributed digital ownership.png" },
-  { label: "Research", icon: "/homepage/Research — insight from evidence.png" },
-  { label: "Community", icon: "/homepage/Community — shared participation and ownership.png" },
+  { label: "Technology", icon: "/homepage/technology-icon.png" },
+  { label: "Innovation", icon: "/homepage/innovation-icon.png" },
+  { label: "Skills", icon: "/homepage/skills-icon.png" },
+  { label: "Enterprise", icon: "/homepage/enterprise-icon.png" },
+  { label: "AI", icon: "/homepage/ai-icon.png" },
+  { label: "Web3", icon: "/homepage/web3-icon.png" },
+  { label: "Research", icon: "/homepage/research-icon.png" },
+  { label: "Community", icon: "/homepage/community-icon.png" },
 ];
 
 export default function WhoWeAreSection() {
   return (
-    <section className="overflow-hidden bg-[#FAFAF9] pb-20 pt-[70px] text-[#161415] md:pb-24">
+    <section id="who-we-are" className="overflow-hidden bg-[#FAFAF9] pb-20 pt-[70px] text-[#161415] md:pb-24">
       <div className="mx-auto w-full max-w-[1200px] px-6 md:px-12">
-        <div className="mb-[38px] flex items-center gap-1 lg:ml-12">
-          <span className="flex h-6 w-6 items-center justify-center rounded-full border border-[#E97868] text-xs text-[#E97868]">
-            ✳
-          </span>
-          <span className="inline-flex h-6 items-center rounded-full bg-[#E97868] px-3 text-xs font-medium text-[#161415]">
-            Who We Are
-          </span>
-        </div>
+        <SectionLabel className="mb-[38px] lg:ml-12">Who We Are</SectionLabel>
 
         <div className="grid items-center gap-8 lg:grid-cols-[40%_1fr] lg:gap-30">
           <div className="relative flex justify-center lg:justify-start">
             <Image
-              src="/homepage/Frame5311.png"
+              src="/homepage/community-decoration.png"
               alt=""
               aria-hidden="true"
               width={180}
@@ -36,7 +30,7 @@ export default function WhoWeAreSection() {
               className="absolute -left-14 -top-13 z-0 hidden h-[250px] w-[180px] object-fill lg:block"
             />
             <Image
-              src="/homepage/whoweare_image.png"
+              src="/homepage/community-panel.png"
               alt="Black Tech Expo community member speaking at an event"
               width={360}
               height={390}
@@ -55,12 +49,9 @@ export default function WhoWeAreSection() {
               Partnerships And Infrastructure Needed To Help Communities And
               Organisations Participate In The Digital Economy.
             </p>
-            <Link
-              href="#"
-              className="mt-6 inline-flex items-center gap-2 rounded-full bg-[#B04333] px-5 py-3.5 text-sm font-medium text-white transition-colors hover:bg-[#923327]"
-            >
+            <Button href="#" size="large" className="mt-6">
               Work with BTE <span aria-hidden="true">↗</span>
-            </Link>
+            </Button>
           </div>
         </div>
 

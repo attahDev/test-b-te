@@ -4,7 +4,7 @@
   --background: #161415;
   --foreground: #FAFAF9;
   --brand-red: #B04333;
-  --brand-light: #E5E5E5;
+  --brand-light: #F2F1F0;
   --text-red: #923327;
   --text-dark: #161415;
   --text-light: #FAFAF9;
@@ -33,17 +33,57 @@ body {
   overflow-x: hidden;
 }
 
+h1, h2, h3, h4 {
+  font-family: var(--font-manrope), var(--font-sans), sans-serif;
+  text-wrap: balance;
+}
+
+img {
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
+  -webkit-touch-callout: none;
+}
+
+a, button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.site-button {
+  transition: transform 350ms cubic-bezier(.22,1,.36,1), background-color 250ms, box-shadow 350ms;
+}
+.site-button:active { transform: scale(.97); }
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .site-button:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgb(0 0 0 / .15); }
+  [data-carousel-card] { transition: translate 450ms cubic-bezier(.22,1,.36,1), box-shadow 450ms; }
+  [data-carousel-card]:hover { translate: 0 -6px; box-shadow: 0 12px 24px rgb(0 0 0 / .08); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 /* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
 }
+
 ::-webkit-scrollbar-track {
   background: #161415;
 }
+
 ::-webkit-scrollbar-thumb {
   background: #333;
   border-radius: 4px;
 }
+
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }

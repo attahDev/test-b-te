@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Manrope } from "next/font/google";
+import SiteEnhancements from "./components/SiteEnhancements";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -12,6 +13,8 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const manrope = Manrope({ variable: "--font-manrope", subsets: ["latin"], display: "swap" });
+
 export const metadata: Metadata = {
   title: "Black Tech Expo - More Than A Network",
   description:
@@ -22,9 +25,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} ${manrope.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col"><SiteEnhancements />{children}</body>
     </html>
   );
 }

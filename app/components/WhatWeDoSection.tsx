@@ -1,4 +1,5 @@
 import Image from "next/image";
+import SectionLabel from "./ui/SectionLabel";
 
 const items = [
   {
@@ -33,7 +34,7 @@ export default function WhatWeDoSection() {
     <section className="relative overflow-hidden bg-[#101010] py-12 md:py-16">
       <div className="absolute inset-0 z-0">
         <Image
-          src="/homepage/imgi_29_aYePB90YXLCxVj72_adrien-olichon-_UuN_2ixJvA-unsplash 1.png"
+          src="/homepage/architectural-background.png"
           alt=""
           fill
           className="object-cover opacity-20"
@@ -41,32 +42,25 @@ export default function WhatWeDoSection() {
         <div className="absolute inset-0 bg-[#101010]/55" />
       </div>
 
-      <div className="relative z-10 mx-auto grid w-full max-w-[1200px] gap-8 px-6 md:px-12 lg:grid-cols-[32%_1fr] lg:gap-10">
-        <div className="min-h-[320px] overflow-hidden md:min-h-[440px]">
+      <div className="relative z-10 mx-auto grid w-full max-w-[1200px] gap-8 px-6 md:px-12 lg:grid-cols-[29%_1fr] lg:gap-8">
+        <div className="min-h-[320px] overflow-hidden md:min-h-[440px] lg:mt-14 lg:min-h-[456px]">
           <Image
-            src="/homepage/whoweare_image.png"
+            src="/homepage/community-panel.png"
             alt="Black Tech Expo members collaborating"
             width={600}
             height={800}
-            className="h-full min-h-[320px] w-full object-cover grayscale md:min-h-[440px]"
+            className="h-full min-h-[320px] w-full object-cover grayscale md:min-h-[440px] lg:min-h-[456px]"
           />
         </div>
 
         <div>
-          <div className="mb-8 flex items-center justify-center gap-1">
-            <span className="flex h-6 w-6 items-center justify-center rounded-full border border-[#E97868] text-xs text-[#E97868]">
-              ✳
-            </span>
-            <span className="inline-flex items-center rounded-full bg-[#E97868] px-3 py-1 text-xs font-medium text-[#161415]">
-              What We Do
-            </span>
-          </div>
+          <SectionLabel className="mb-8">What We Do</SectionLabel>
 
           <div className="grid gap-3 md:grid-cols-2">
             {items.slice(0, 4).map((item) => (
               <article
                 key={item.num}
-                className="relative flex min-h-36 items-end overflow-hidden bg-[#F1F0EF] px-4 pb-4 pt-5 md:min-h-40 md:px-5"
+                className="relative flex min-h-36 items-end overflow-hidden bg-[#F1F0EF] px-4 pb-4 pt-5 md:min-h-36 md:px-5"
               >
                 <span
                   className={`absolute -bottom-5 left-5 text-7xl font-black leading-none md:text-8xl ${
@@ -77,8 +71,8 @@ export default function WhatWeDoSection() {
                 >
                   {item.num}
                 </span>
-                <div className="relative ml-auto w-[61%]">
-                  <h3 className="text-center text-base font-black leading-tight text-[#161415] md:text-lg">
+                <div className="relative ml-auto w-[53%]">
+                  <h3 className="text-left text-base font-black leading-tight text-[#161415] md:text-lg">
                     {item.title}
                   </h3>
                   <p className="mt-2 text-xs leading-[1.35] text-[#161415]/75">

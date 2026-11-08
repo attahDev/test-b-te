@@ -5,29 +5,34 @@ import { useEffect, useRef, useState } from "react";
 
 const pillars = [
   {
-    icon: "/homepage/Frame 427319145 (1).png",
+    icon: "/homepage/intellectual-property.png",
     title: "Intellectual Property",
     tone: "blue",
   },
   {
-    icon: "/homepage/Frame 427319146.svg",
+    icon: "/homepage/digital-infrastructure.svg",
     title: "Digital Infrastructure",
     tone: "dark",
   },
   {
-    icon: "/homepage/Frame 427319121.svg",
+    icon: "/homepage/community-infrastructure.svg",
     title: "Community Infrastructure",
     tone: "light",
   },
   {
-    icon: "/homepage/Frame 427319145.svg",
+    icon: "/homepage/partnership-infrastructure.svg",
     title: "Partnership Infrastructure",
     tone: "blue",
   },
   {
-    icon: "/homepage/Research — insight from evidence.png",
-    title: "Research Infrastructure",
+    icon: "/homepage/recognition-infrastructure.svg",
+    title: "Recognition Infrastructure",
     tone: "dark",
+  },
+  {
+    icon: "/homepage/knowledge-infrastructure.svg",
+    title: "Knowledge Infrastructure",
+    tone: "light",
   },
 ];
 
@@ -51,9 +56,34 @@ export default function MoreThanNetworkSection() {
     const firstCard = carousel?.querySelector<HTMLElement>("[data-carousel-card]");
     if (!carousel || !firstCard) return;
 
-    const gap = Number.parseFloat(getComputedStyle(carousel).columnGap) || 0;
-    carousel.scrollBy({
-      left: direction * (firstCard.offsetWidth + gap),
+    const cards = Array.from(
+      carousel.querySelectorAll<HTMLElement>("[data-carousel-card]"),
+    );
+    const maxScrollLeft = carousel.scrollWidth - carousel.clientWidth;
+    const currentPosition = carousel.scrollLeft;
+    const carouselLeft = carousel.getBoundingClientRect().left;
+    const positions = cards.map((card) =>
+      Math.min(maxScrollLeft, card.getBoundingClientRect().left - carouselLeft + currentPosition),
+    );
+    const nextIndex =
+      direction === 1
+        ? positions.findIndex((position) => position > currentPosition + 8)
+        : positions.findLastIndex((position) => position < currentPosition - 8);
+    const targetCard = cards[nextIndex];
+    const endGutter = Number.parseFloat(getComputedStyle(carousel).paddingRight) || 0;
+    const finalCard = cards[cards.length - 1];
+    const finalCardRight = finalCard.getBoundingClientRect().right - carouselLeft + currentPosition;
+    const nextPosition = positions[nextIndex] ?? maxScrollLeft;
+    const target =
+      !targetCard || nextIndex === cards.length - 1 ||
+      (direction === 1 && finalCardRight - (nextPosition + carousel.clientWidth) <= endGutter)
+        ? direction === 1
+          ? maxScrollLeft
+          : 0
+        : positions[nextIndex];
+
+    carousel.scrollTo({
+      left: target,
       behavior: "smooth",
     });
   }
@@ -73,16 +103,16 @@ export default function MoreThanNetworkSection() {
     <section className="overflow-hidden bg-[#FAFAF9] pb-16 pt-20 text-[#161415] md:pb-16 md:pt-[88px]">
       <div className="mx-auto w-full max-w-[1400px] pl-[clamp(24px,6.7vw,100px)]">
         <header className="mb-[60px] mr-6 text-center md:mb-[64px]">
-          <h2 className="text-[36px] font-black leading-[0.98] tracking-[-0.045em] text-[#333333] md:text-[48px]">
-            <span className="relative mx-auto block w-fit pb-2">
+          <h2 className="text-[36px] font-black leading-[0.98] tracking-[0.025em] text-[#333333] md:text-[48px]">
+            <span className="relative mx-auto block w-fit pb-3">
               MORE THAN A
               <Image
-                src="/homepage/Vector 18.png"
+                src="/homepage/red-underline.png"
                 alt=""
                 aria-hidden="true"
-                width={180}
+                width={100}
                 height={24}
-                className="absolute bottom-0 left-1/2 h-3 w-[46%] -translate-x-1/2 object-fill"
+                className="absolute bottom-0 left-[3%] h-3 w-[40%] object-fill"
               />
             </span>
             <span className="block">NETWORK.</span>
@@ -95,14 +125,14 @@ export default function MoreThanNetworkSection() {
         <div
           ref={carouselRef}
           aria-label="More than a network cards"
-          className="flex w-[calc(100%+clamp(24px,6.7vw,100px))] snap-x snap-mandatory gap-7 overflow-x-auto pb-2 pr-6 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          className="flex w-full snap-x snap-mandatory gap-7 overflow-x-auto pb-2 pr-[clamp(48px,6.7vw,100px)] [scroll-padding-right:clamp(48px,6.7vw,100px)] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
           onScroll={updateScrollControls}
         >
-          {pillars.map((pillar) => (
+          {pillars.map((pillar, index) => (
             <article
               key={pillar.title}
               data-carousel-card
-              className={`flex h-[334px] w-[248px] shrink-0 snap-start flex-col px-[19px] pb-[18px] pt-6 ${
+              className={`flex h-[334px] w-[248px] shrink-0 ${index === pillars.length - 1 ? "snap-end" : "snap-start"} flex-col px-[19px] pb-[18px] pt-6 ${
                 pillar.tone === "dark"
                   ? "bg-[#171516] text-[#FAFAF9]"
                   : pillar.tone === "light"

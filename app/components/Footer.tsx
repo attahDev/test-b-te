@@ -3,49 +3,49 @@ import Link from "next/link";
 
 export default function Footer() {
   return (
-    <footer className="relative overflow-hidden bg-[#121212] pt-14 pb-8 md:pt-20">
+    <footer className="relative isolate overflow-hidden bg-[#121212] pb-12 pt-16 text-[#FAFAF9] md:min-h-[633px] md:pb-[120px] md:pt-[109px]">
       {/* Background wave at bottom */}
-      <div className="absolute bottom-0 left-0 right-0 h-40 z-0 opacity-10">
-        <Image src="/homepage/Image.svg" alt="" fill className="object-cover object-bottom" />
+      <div aria-hidden="true" className="pointer-events-none absolute -right-12 bottom-0 z-0 h-[240px] w-[926px] max-w-none select-none">
+        <Image src="/homepage/footer-wave.svg" alt="" fill sizes="926px" className="object-contain object-bottom" />
       </div>
 
-      <div className="relative z-10 mx-auto w-full max-w-[1200px] px-6 md:px-8">
-        <div className="mb-14 grid grid-cols-1 gap-10 md:grid-cols-[2.2fr_0.9fr_1.4fr_1.3fr] md:gap-8">
+      <div className="relative z-10 mx-auto w-full max-w-[1200px] px-6">
+        <div className="mb-16 grid grid-cols-2 gap-x-8 gap-y-10 md:mb-[104px] md:grid-cols-[2.05fr_0.95fr_1.45fr_1.45fr] md:gap-x-8">
           {/* Logo and tagline */}
-          <div className="flex flex-col gap-6">
+          <div className="col-span-2 flex flex-col items-start md:col-span-1">
             <Image
-              src="/homepage/BTE Logo.png"
+              src="/homepage/bte-logo.png"
               alt="Black Tech Expo"
-              width={80}
-              height={80}
-              className="h-14 w-auto"
+              width={92}
+              height={53}
+              className="h-auto w-[92px]"
             />
-            <p className="text-[10px] leading-tight text-[#FAFAF9]/80">
+            <p className="mt-1.5 text-[8px] font-medium leading-[1.2] text-[#FAFAF9]">
               Empowering Innovation,
               <br />
               Uniting Communities
             </p>
-            <p className="mt-1 text-sm italic text-[#FAFAF9]/70">
+            <p className="mt-[50px] whitespace-nowrap text-xl italic leading-tight tracking-[-0.04em] text-[#FAFAF9]">
               ...Leave no one behind
             </p>
           </div>
 
           {/* Site links */}
           <div>
-            <h4 className="text-[#FAFAF9] font-semibold mb-4">Site</h4>
-            <ul className="space-y-3">
+            <h4 className="mb-3 text-lg font-semibold leading-6 text-[#FAFAF9]">Site</h4>
+            <ul className="max-w-[220px] space-y-3">
               <li>
                 <Link
-                  href="#"
-                  className="text-[#FAFAF9]/50 hover:text-[#FAFAF9] transition-colors text-sm"
+                  href="/#who-we-are"
+                  className="inline-block text-base font-medium leading-[1.4] text-[#a3a3a3] transition-colors duration-300 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#E97868]"
                 >
                   Who We Are
                 </Link>
               </li>
               <li>
                 <Link
-                  href="#"
-                  className="text-[#FAFAF9]/50 hover:text-[#FAFAF9] transition-colors text-sm"
+                  href="/ecosystem"
+                  className="inline-block text-base font-medium leading-[1.4] text-[#a3a3a3] transition-colors duration-300 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#E97868]"
                 >
                   Our Ecosystem
                 </Link>
@@ -53,7 +53,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="#"
-                  className="text-[#FAFAF9]/50 hover:text-[#FAFAF9] transition-colors text-sm"
+                  className="inline-block text-base font-medium leading-[1.4] text-[#a3a3a3] transition-colors duration-300 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#E97868]"
                 >
                   Work With BTE
                 </Link>
@@ -63,12 +63,12 @@ export default function Footer() {
 
           {/* Programmes */}
           <div>
-            <h4 className="text-[#FAFAF9] font-semibold mb-4">Programmes</h4>
-            <ul className="space-y-3">
+            <h4 className="mb-3 text-lg font-semibold leading-6 text-[#FAFAF9]">Programmes</h4>
+            <ul className="max-w-[220px] space-y-3">
               <li>
                 <Link
                   href="#"
-                  className="text-[#FAFAF9]/50 hover:text-[#FAFAF9] transition-colors text-sm"
+                  className="inline-block text-base font-medium leading-[1.4] text-[#a3a3a3] transition-colors duration-300 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#E97868]"
                 >
                   Greater Manchester Black Tech Expo
                 </Link>
@@ -76,7 +76,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="#"
-                  className="text-[#FAFAF9]/50 hover:text-[#FAFAF9] transition-colors text-sm"
+                  className="inline-block text-base font-medium leading-[1.4] text-[#a3a3a3] transition-colors duration-300 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#E97868]"
                 >
                   South Yorkshire Black Tech Expo
                 </Link>
@@ -84,7 +84,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="#"
-                  className="text-[#FAFAF9]/50 hover:text-[#FAFAF9] transition-colors text-sm"
+                  className="inline-block text-base font-medium leading-[1.4] text-[#a3a3a3] transition-colors duration-300 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#E97868]"
                 >
                   BTE Academy
                 </Link>
@@ -92,7 +92,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="#"
-                  className="text-[#FAFAF9]/50 hover:text-[#FAFAF9] transition-colors text-sm"
+                  className="inline-block text-base font-medium leading-[1.4] text-[#a3a3a3] transition-colors duration-300 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#E97868]"
                 >
                   Black Tech Expo Hall of Fame
                 </Link>
@@ -102,12 +102,12 @@ export default function Footer() {
 
           {/* Legal */}
           <div>
-            <h4 className="text-[#FAFAF9] font-semibold mb-4">Legal</h4>
-            <ul className="space-y-3">
+            <h4 className="mb-3 text-lg font-semibold leading-6 text-[#FAFAF9]">Legal</h4>
+            <ul className="max-w-[220px] space-y-3">
               <li>
                 <Link
                   href="#"
-                  className="text-[#FAFAF9]/50 hover:text-[#FAFAF9] transition-colors text-sm"
+                  className="inline-block text-base font-medium leading-[1.4] text-[#a3a3a3] transition-colors duration-300 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#E97868]"
                 >
                   Privacy
                 </Link>
@@ -115,7 +115,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="#"
-                  className="text-[#FAFAF9]/50 hover:text-[#FAFAF9] transition-colors text-sm"
+                  className="inline-block text-base font-medium leading-[1.4] text-[#a3a3a3] transition-colors duration-300 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#E97868]"
                 >
                   Cookies
                 </Link>
@@ -123,7 +123,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="#"
-                  className="text-[#FAFAF9]/50 hover:text-[#FAFAF9] transition-colors text-sm"
+                  className="inline-block text-base font-medium leading-[1.4] text-[#a3a3a3] transition-colors duration-300 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#E97868]"
                 >
                   Accessibility Statement
                 </Link>
@@ -133,9 +133,9 @@ export default function Footer() {
         </div>
 
         {/* Divider */}
-        <div className="border-t border-[#FAFAF9]/10 pt-6 flex items-center justify-between">
-          <p className="text-[#FAFAF9]/40 text-sm">© BTE 2026</p>
-          <div className="flex items-center gap-2 text-[#FAFAF9]/40 text-sm">
+        <div className="flex items-center justify-between gap-6 border-t border-white/45 pt-9">
+          <p className="text-sm text-[#FAFAF9]">© BTE 2026</p>
+          <div className="flex items-center gap-2 text-sm text-[#FAFAF9]">
             <svg
               width="20"
               height="20"
