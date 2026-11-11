@@ -27,7 +27,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} ${manrope.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col"><SiteEnhancements />{children}</body>
+      <body className="min-h-full flex flex-col"><div aria-hidden="true" className="scroll-progress" /><SiteEnhancements />{children}</body>
     </html>
   );
 }

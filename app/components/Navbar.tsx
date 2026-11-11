@@ -76,6 +76,18 @@ export default function Navbar() {
         >
           Our Ecosystem
         </Link>
+        <Link
+          href="/#locations"
+          className="hover:text-[#FAFAF9] transition-colors"
+        >
+          Where We Work
+        </Link>
+        <Link
+          href="/#services"
+          className="hover:text-[#FAFAF9] transition-colors"
+        >
+          Tools
+        </Link>
         <div ref={programmesMenuRef} className="relative">
           <button
             type="button"
@@ -170,6 +182,20 @@ export default function Navbar() {
                 className="rounded-lg px-3 py-3 transition-colors hover:bg-white/10 hover:text-white"
               >
                 Our Ecosystem
+              </Link>
+              <Link
+                href="/#locations"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="rounded-lg px-3 py-3 transition-colors hover:bg-white/10 hover:text-white"
+              >
+                Where We Work
+              </Link>
+              <Link
+                href="/#services"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="rounded-lg px-3 py-3 transition-colors hover:bg-white/10 hover:text-white"
+              >
+                Tools
               </Link>
               <button
                 type="button"
