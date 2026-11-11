@@ -2,7 +2,6 @@ import Navbar from "@/app/components/Navbar";
 import HeroSection from "@/app/components/HeroSection";
 import WhoWeAreSection from "@/app/components/WhoWeAreSection";
 import WhatWeDoSection from "@/app/components/WhatWeDoSection";
-import EcosystemSection from "@/app/components/EcosystemSection";
 import GlobeSection from "@/app/components/GlobeSection";
 import ServicesSection from "@/app/components/ServicesSection";
 import MoreThanNetworkSection from "@/app/components/MoreThanNetworkSection";
@@ -16,7 +15,6 @@ export default function Home() {
       <HeroSection />
       <WhoWeAreSection />
       <WhatWeDoSection />
-      <EcosystemSection />
       <GlobeSection />
       <ServicesSection />
       <MoreThanNetworkSection />

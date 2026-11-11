@@ -1,9 +1,8 @@
-// Hero background layers (aurora curtains and particles) with a pause control for the motion.
+// Hero aurora curtains with a pause control for the motion.
 "use client";
 
 import { useState, useSyncExternalStore } from "react";
 import AuroraCurtains from "./AuroraCurtains";
-import Particles from "./Particles";
 
 const REDUCED = "(prefers-reduced-motion: reduce)";
 
@@ -22,7 +21,6 @@ export default function HeroBackdrop() {
     <>
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
         <AuroraCurtains paused={paused} />
-        <Particles paused={paused} />
       </div>
       <button
         type="button"
