@@ -3,19 +3,27 @@
 
 import { useEffect, useRef } from "react";
 
-type ParticlesProps = { className?: string };
+type ParticlesProps = { className?: string; paused?: boolean };
 
 const COLOURS = [
   [233, 120, 104],
   [180, 205, 235],
   [250, 250, 249],
   [96, 150, 240],
+  [60, 220, 180],
 ];
 
 type Mote = { x: number; y: number; z: number; r: number; vx: number; vy: number; phase: number; speed: number; colour: number };
 
-export default function Particles({ className = "" }: ParticlesProps) {
+export default function Particles({ className = "", paused = false }: ParticlesProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const pausedRef = useRef(paused);
+  const wakeRef = useRef<() => void>(() => {});
+
+  useEffect(() => {
+    pausedRef.current = paused;
+    wakeRef.current();
+  }, [paused]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -58,7 +66,7 @@ export default function Particles({ className = "" }: ParticlesProps) {
           vy: -(4 + z * 12),
           phase: Math.random() * Math.PI * 2,
           speed: 0.25 + Math.random() * 0.7,
-          colour: Math.random() < 0.38 ? 0 : Math.random() < 0.5 ? 1 : Math.random() < 0.6 ? 3 : 2,
+          colour: [0, 1, 2, 3, 4, 4, 3, 1][Math.floor(Math.random() * 8)],
         };
       });
     }
@@ -93,7 +101,7 @@ export default function Particles({ className = "" }: ParticlesProps) {
 
     function step(now: number) {
       raf = 0;
-      if (!visible || reduced.matches) return;
+      if (!visible || reduced.matches || pausedRef.current) return;
       const dt = Math.min(0.05, (now - (last || now)) / 1000);
       last = now;
       for (const m of motes) {
@@ -117,7 +125,7 @@ export default function Particles({ className = "" }: ParticlesProps) {
     }
 
     function wake() {
-      if (reduced.matches) { draw(performance.now()); return; }
+      if (reduced.matches || pausedRef.current) { draw(performance.now()); return; }
       if (!raf && visible) { last = 0; raf = requestAnimationFrame(step); }
     }
 
@@ -141,6 +149,7 @@ export default function Particles({ className = "" }: ParticlesProps) {
     io.observe(canvas);
     const ro = new ResizeObserver(resize);
     ro.observe(canvas);
+    wakeRef.current = wake;
     window.addEventListener("pointermove", onPointer, { passive: true });
     document.documentElement.addEventListener("pointerleave", onLeave);
     reduced.addEventListener("change", wake);
@@ -154,6 +163,7 @@ export default function Particles({ className = "" }: ParticlesProps) {
       window.removeEventListener("pointermove", onPointer);
       document.documentElement.removeEventListener("pointerleave", onLeave);
       reduced.removeEventListener("change", wake);
+      wakeRef.current = () => {};
     };
   }, []);
 

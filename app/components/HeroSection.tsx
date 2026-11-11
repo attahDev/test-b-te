@@ -1,6 +1,5 @@
 import Image from "next/image";
-import Aurora from "./Aurora";
-import Particles from "./Particles";
+import HeroBackdrop from "./HeroBackdrop";
 import Button from "./ui/Button";
 import SectionLabel from "./ui/SectionLabel";
 
@@ -17,9 +16,9 @@ export default function HeroSection() {
           priority
         />
         <div className="absolute inset-0 bg-black/40" />
-        <Aurora className="aurora-strong" />
-        <Particles />
       </div>
+
+      <HeroBackdrop />
 
       
       <div className="absolute inset-0 z-[1] bg-gradient-to-b from-[#161415]/70 via-transparent to-[#161415]" />

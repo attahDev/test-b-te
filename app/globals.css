@@ -116,15 +116,6 @@ a, button {
   animation-duration: 38s;
   animation-delay: -17s;
 }
-.aurora-strong .aurora-band {
-  opacity: 0.8;
-}
-.aurora-strong .aurora-band-c {
-  opacity: 0.55;
-}
-.aurora-strong .aurora-band-a {
-  height: 56%;
-}
 .aurora[data-paused="true"] .aurora-band {
   animation-play-state: paused;
 }
