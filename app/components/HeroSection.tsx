@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Aurora from "./Aurora";
+import Particles from "./Particles";
 import Button from "./ui/Button";
 import SectionLabel from "./ui/SectionLabel";
 
@@ -16,7 +17,8 @@ export default function HeroSection() {
           priority
         />
         <div className="absolute inset-0 bg-black/40" />
-        <Aurora />
+        <Aurora className="aurora-strong" />
+        <Particles />
       </div>
 
       
