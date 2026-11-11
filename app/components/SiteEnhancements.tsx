@@ -43,6 +43,7 @@ export default function SiteEnhancements() {
     document.querySelectorAll("section").forEach((section) => {
       section.querySelectorAll<HTMLElement>("h1, h2, article, [data-carousel-card], p").forEach((element, index) => {
         if (element.closest("article") && element.tagName !== "ARTICLE") return;
+        if (element.closest("[data-own-reveal]")) return;
         element.dataset.revealDelay = String(Math.min(index % 4, 3) * 70);
         observer.observe(element);
       });

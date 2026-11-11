@@ -1,5 +1,7 @@
 import Image from "next/image";
+import type { CSSProperties } from "react";
 import Button from "./ui/Button";
+import Reveal from "./ui/Reveal";
 import SectionLabel from "./ui/SectionLabel";
 
 const categories = [
@@ -13,68 +15,96 @@ const categories = [
   { label: "Community", icon: "/homepage/community-icon.png" },
 ];
 
+function Words({ text, start }: { text: string; start: number }) {
+  return text.split(" ").map((word, index) => (
+    <span key={`${start}-${index}`}>
+      <span className="who-word">
+        <span style={{ "--i": start + index } as CSSProperties}>{word}</span>
+      </span>{" "}
+    </span>
+  ));
+}
+
 export default function WhoWeAreSection() {
   return (
     <section id="who-we-are" className="overflow-hidden bg-[#FAFAF9] pb-20 pt-[70px] text-[#161415] md:pb-24">
       <div className="mx-auto w-full max-w-[1200px] px-6 md:px-12">
         <SectionLabel className="mb-[38px] lg:ml-12">Who We Are</SectionLabel>
 
-        <div className="grid items-center gap-8 lg:grid-cols-[40%_1fr] lg:gap-30">
+        <Reveal className="grid items-center gap-8 lg:grid-cols-[40%_1fr] lg:gap-30">
           <div className="relative flex justify-center lg:justify-start">
-            <Image
-              src="/homepage/community-decoration.png"
-              alt=""
-              aria-hidden="true"
-              width={180}
-              height={240}
-              className="absolute -left-14 -top-13 z-0 hidden h-[250px] w-[180px] object-fill lg:block"
-            />
-            <Image
-              src="/homepage/community-panel.png"
-              alt="Black Tech Expo community member speaking at an event"
-              width={360}
-              height={390}
-              className="h-[390px] w-[360px] max-w-full object-fill lg:ml-[142px]"
-            />
+            <div aria-hidden="true" className="who-drift-b absolute -left-14 -top-13 z-0 hidden h-[234px] w-[180px] lg:block">
+              <Image
+                src="/homepage/community-decoration.png"
+                alt=""
+                width={231}
+                height={301}
+                className="h-full w-full object-contain"
+              />
+              <span className="who-ripple" />
+              <span className="who-ripple" style={{ animationDelay: "1.8s" }} />
+            </div>
+            <div className="who-drift-a relative z-10 lg:ml-[142px]">
+              <Image
+                src="/homepage/community-panel.png"
+                alt="Black Tech Expo community member speaking at an event"
+                width={412}
+                height={430}
+                className="who-photo h-auto w-[360px] max-w-full"
+              />
+            </div>
           </div>
 
           <div className="max-w-[520px]">
             <h2 className="text-[32px] font-black leading-[1.05] tracking-[-0.055em] md:text-[36px]">
-              <span className="text-[#A43E30]">Black Tech Expo</span> was
-              <br className="hidden lg:block" /> created to do more than run
-              <br className="hidden lg:block" /> events.
+              <span className="relative inline-block text-[#A43E30]">
+                <Words text="Black Tech Expo" start={0} />
+                <svg aria-hidden="true" viewBox="0 0 240 12" preserveAspectRatio="none" className="who-underline pointer-events-none absolute -bottom-1.5 left-0 h-2.5 w-full overflow-visible">
+                  <path pathLength={1} d="M3 8 C 60 2, 150 2, 237 6" fill="none" stroke="#B04333" strokeWidth="4" strokeLinecap="round" />
+                </svg>
+              </span>{" "}
+              <Words text="was" start={3} />
+              <br className="hidden lg:block" />
+              <Words text="created to do more than run" start={4} />
+              <br className="hidden lg:block" />
+              <Words text="events." start={10} />
             </h2>
-            <p className="mt-5 text-lg leading-[1.4] text-[#252323] md:text-[22px]">
+            <p className="who-fade mt-5 text-lg leading-[1.4] text-[#252323] md:text-[22px]" style={{ "--d": 650 } as CSSProperties}>
               We Build And Connect The People, Technology, Programmes,
               Partnerships And Infrastructure Needed To Help Communities And
               Organisations Participate In The Digital Economy.
             </p>
-            <Button href="#" size="large" className="mt-6">
-              Work with BTE <span aria-hidden="true">↗</span>
-            </Button>
+            <div className="who-fade" style={{ "--d": 800 } as CSSProperties}>
+              <Button href="#" size="large" className="mt-6">
+                Work with BTE <span aria-hidden="true">↗</span>
+              </Button>
+            </div>
           </div>
-        </div>
+        </Reveal>
 
-        <div className="mt-20">
-          <p className="mb-6 text-base">Why Work With Us?</p>
-          <div className="grid grid-cols-4 gap-x-3 gap-y-5 lg:grid-cols-8">
-            {categories.map((cat) => (
-              <div
-                key={cat.label}
-                className="flex flex-col items-center gap-2 text-center text-base font-semibold leading-tight text-[#161415] md:text-lg"
-              >
-                <Image
-                  src={cat.icon}
-                  alt={cat.label}
-                  width={52}
-                  height={52}
-                  className="h-11 w-11 object-contain md:h-12 md:w-12"
-                />
-                <span>{cat.label}</span>
-              </div>
-            ))}
+        <Reveal className="mt-20" threshold={0.35}>
+          <p className="who-fade mb-7 flex items-center gap-3 text-base">
+            <span aria-hidden="true" className="h-px w-8 bg-[#B04333]" />
+            Why Work With Us?
+          </p>
+          <div className="relative">
+            <div aria-hidden="true" className="absolute left-[12.5%] right-[12.5%] top-7 z-0 hidden h-px bg-[#161415]/12 lg:block">
+              <span className="who-line block h-full w-full bg-[#B04333]/70" />
+            </div>
+            <ul className="relative z-10 grid grid-cols-4 gap-x-2 gap-y-7 lg:grid-cols-8">
+              {categories.map((cat, index) => (
+                <li key={cat.label} className="who-cat flex flex-col items-center gap-3 text-center" style={{ "--i": index } as CSSProperties}>
+                  <span className="who-cat-icon">
+                    <span className="who-cat-ring relative grid h-14 w-14 place-items-center rounded-full bg-[#FAFAF9]">
+                      <Image src={cat.icon} alt="" aria-hidden="true" width={64} height={64} className="h-9 w-9 object-contain" />
+                    </span>
+                  </span>
+                  <span className="who-cat-label text-[13px] font-semibold leading-tight sm:text-base md:text-lg">{cat.label}</span>
+                </li>
+              ))}
+            </ul>
           </div>
-        </div>
+        </Reveal>
       </div>
     </section>
   );
