@@ -1,4 +1,4 @@
-// GMBTE platform tools: a journey rail and tool list that tour themselves, with a tilting detail panel.
+// Tools and services: the GMBTE journey (self-touring list and tilting panel), the extra membership cards, and a marquee of every name.
 "use client";
 
 import { useEffect, useRef, useState } from "react";
@@ -16,6 +16,17 @@ const tools = [
   { name: "CV Builder", stage: "Career", text: "AI-written CVs with ATS scoring and tailoring for each role, linked to the member's Skills Passport and matched opportunities." },
 ];
 
+type Extra = { group: string; title: string; text: string; span: string; red?: boolean };
+
+const extras: Extra[] = [
+  { group: "Build", title: "Business Plan", text: "A structured plan with a roadmap to work through.", span: "lg:col-span-3" },
+  { group: "Connect", title: "My Mentor", text: "Guidance from mentors, with sessions you can book.", span: "lg:col-span-3" },
+  { group: "Connect", title: "Events", text: "BTE events and programmes in one place.", span: "lg:col-span-2" },
+  { group: "Insight", title: "Black Business Intelligence Index", text: "Index reports on Black-owned businesses, starting with Greater Manchester.", span: "lg:col-span-4", red: true },
+];
+
+const names = [...tools.map((item) => item.name), ...extras.map((item) => item.title)];
+
 const CYCLE = 5500;
 
 export default function GmbteToolsSection() {
@@ -23,6 +34,7 @@ export default function GmbteToolsSection() {
   const [held, setHeld] = useState(false);
   const [inView, setInView] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
+  const extrasRef = useRef<HTMLDivElement>(null);
   const tool = tools[index];
   const next = tools[(index + 1) % tools.length];
   const auto = inView && !held;
@@ -53,6 +65,15 @@ export default function GmbteToolsSection() {
     style.setProperty("--my", `${y * 100}%`);
   }
 
+  function track(event: PointerEvent<HTMLDivElement>) {
+    if (event.pointerType !== "mouse") return;
+    extrasRef.current?.querySelectorAll<HTMLElement>("[data-spot]").forEach((card) => {
+      const box = card.getBoundingClientRect();
+      card.style.setProperty("--mx", `${event.clientX - box.left}px`);
+      card.style.setProperty("--my", `${event.clientY - box.top}px`);
+    });
+  }
+
   function settle(event: PointerEvent<HTMLDivElement>) {
     const style = event.currentTarget.style;
     ["--ry", "--rx", "--mx", "--my"].forEach((name) => style.removeProperty(name));
@@ -69,7 +90,7 @@ export default function GmbteToolsSection() {
       </div>
 
       <div className="mx-auto w-full max-w-[1200px]">
-        <SectionLabel className="mb-5">GMBTE Tools</SectionLabel>
+        <SectionLabel className="mb-5">Tools And Services</SectionLabel>
         <h2 id="gmbte-tools-title" className="max-w-[640px] text-3xl font-black leading-[1.02] tracking-tight md:text-5xl">
           From first idea to funded venture
         </h2>
@@ -146,11 +167,40 @@ export default function GmbteToolsSection() {
           </div>
         </div>
 
+        <p className="mt-16 font-mono text-[11px] uppercase tracking-[0.18em] text-white/50">Also inside the membership</p>
+        <div ref={extrasRef} onPointerMove={track} className="mt-4 grid gap-3 md:grid-cols-2 lg:grid-cols-12">
+          {extras.map((item) => (
+            <article
+              key={item.title}
+              data-spot
+              className={`spot-card flex min-h-44 flex-col justify-between rounded-md p-6 md:min-h-52 ${item.span} ${
+                item.red ? "bg-[#B04333] text-white" : "border border-white/10 bg-[#101216]/80 text-[#FAFAF9] backdrop-blur-sm"
+              }`}
+            >
+              <span className={`text-[11px] font-medium uppercase tracking-[0.18em] ${item.red ? "text-white/75" : "text-[#E97868]"}`}>{item.group}</span>
+              <div>
+                <h3 className="text-xl font-bold leading-tight md:text-2xl">{item.title}</h3>
+                <p className={`mt-2 max-w-[34ch] text-sm leading-snug ${item.red ? "text-white/85" : "text-[#FAFAF9]/65"}`}>{item.text}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+
         <div className="mt-10">
           <Button href="/contact" variant="primary" size="large">
             Get access <span aria-hidden="true">↗</span>
           </Button>
         </div>
+      </div>
+
+      <div className="marquee mt-14 text-sm font-medium text-white/45" aria-hidden="true">
+        {[0, 1].map((copy) => (
+          <div key={copy} className="marquee-track">
+            {names.map((name) => (
+              <span key={name} className="flex-none whitespace-nowrap">{name}</span>
+            ))}
+          </div>
+        ))}
       </div>
     </section>
   );
