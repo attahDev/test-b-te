@@ -1,4 +1,4 @@
-// GMBTE platform tools: a tool list with a detail panel, plus the credit allowance each plan includes.
+// GMBTE platform tools: a tool list with a detail panel.
 "use client";
 
 import { useState } from "react";
@@ -14,14 +14,6 @@ const tools = [
   { name: "Brand Identity", stage: "Brand", text: "Logos and brand documents, exported as multi-page PDFs." },
   { name: "CV Builder", stage: "Career", text: "AI-written CVs with ATS scoring and tailoring for each role, linked to the member's Skills Passport and matched opportunities." },
 ];
-
-const plans = [
-  ["Explorer", 10],
-  ["Student", 75],
-  ["Professional", 250],
-  ["Founder", 500],
-  ["Executive", 1000],
-] as const;
 
 export default function GmbteToolsSection() {
   const [index, setIndex] = useState(0);
@@ -78,17 +70,6 @@ export default function GmbteToolsSection() {
               <p className="mt-4 max-w-[480px] text-base leading-snug text-white/75 md:text-lg">{tool.text}</p>
             </div>
 
-            <div className="mt-8 border-t border-white/10 pt-6">
-              <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-white/50">Credit allowance by plan</p>
-              <dl className="mt-3 flex flex-wrap gap-x-8 gap-y-2">
-                {plans.map(([plan, credits]) => (
-                  <div key={plan}>
-                    <dt className="inline text-sm text-white/60">{plan} </dt>
-                    <dd className="inline font-mono text-sm">{credits.toLocaleString("en-GB")}</dd>
-                  </div>
-                ))}
-              </dl>
-            </div>
           </div>
         </div>
 
