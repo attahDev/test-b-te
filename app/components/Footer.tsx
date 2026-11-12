@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function Footer() {
   return (
-    <footer className="relative isolate overflow-hidden bg-[#121212] pb-12 pt-16 text-[#FAFAF9] md:min-h-[633px] md:pb-[120px] md:pt-[109px]">
+    <footer id="contact" className="relative isolate overflow-hidden bg-[#121212] pb-12 pt-16 text-[#FAFAF9] md:min-h-[633px] md:pb-[120px] md:pt-[109px]">
       {/* Background wave at bottom */}
       <div aria-hidden="true" className="pointer-events-none absolute -right-12 bottom-0 z-0 h-[240px] w-[926px] max-w-none select-none">
         <Image src="/homepage/footer-wave.svg" alt="" fill sizes="926px" className="object-contain object-bottom" />
