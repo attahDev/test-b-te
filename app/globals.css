@@ -470,6 +470,18 @@ a, button {
   .rel-card:hover .rel-letter { -webkit-text-stroke-color: #d85643; color: rgb(216 86 67 / .06); translate: 6px 0; }
 }
 
+.partner-strip .partner-track { animation-duration: 55s; }
+.partner-strip .partner-reverse { animation-direction: reverse; animation-duration: 65s; }
+.partner-card { transition: border-color 300ms ease, box-shadow 300ms ease; }
+@media (hover: hover) {
+  .partner-card:hover { border-color: #d85643; box-shadow: 0 10px 24px rgb(0 0 0 / .08); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .partner-strip { overflow-x: auto; mask-image: none; -webkit-mask-image: none; }
+  .partner-strip .partner-track { animation: none; }
+  .partner-strip .partner-track + .partner-track { display: none; }
+}
+
 /* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
