@@ -1,5 +1,7 @@
 import Image from "next/image";
+import type { CSSProperties } from "react";
 import Button from "../ui/Button";
+import Reveal from "../ui/Reveal";
 
 const audiences = [
   {
@@ -101,10 +103,10 @@ export default function EcosystemHeroSection() {
       />
 
       {/* Stage Container */}
-      <div className="relative z-10 w-full max-w-[1280px] px-4 py-12 md:px-0 md:py-0">
+      <Reveal threshold={0.1} className="relative z-10 w-full max-w-[1280px] px-4 py-12 md:px-0 md:py-0">
         <div className="relative w-full max-md:mx-auto max-md:grid max-md:max-w-[500px] max-md:grid-cols-2 max-md:gap-3 md:aspect-[4/3]">
           {/* Center Hero Photo Card - Width slightly expanded to 24% & height reduced to 37.5% */}
-          <article className="relative overflow-hidden rounded-[12px] border border-white/[0.08] bg-[#0c0d12] shadow-[0_24px_70px_rgba(0,0,0,0.75)] max-md:col-span-2 max-md:mb-2 max-md:h-[340px] max-md:w-full md:absolute md:left-[38.0%] md:top-[21%] md:z-10 md:h-[37.5%] md:w-[24.0%]">
+          <article className="eco-center relative overflow-hidden rounded-[12px] border border-white/[0.08] bg-[#0c0d12] shadow-[0_24px_70px_rgba(0,0,0,0.75)] max-md:col-span-2 max-md:mb-2 max-md:h-[340px] max-md:w-full md:absolute md:left-[38.0%] md:top-[21%] md:z-10 md:h-[37.5%] md:w-[24.0%]">
             <Image
               src="/homepage/community-panel.png"
               alt="Three Black technology community members on a panel"
@@ -136,10 +138,11 @@ export default function EcosystemHeroSection() {
           </article>
 
           {/* 8 Audience Cards - Width increased to w-[16.2%], height reduced to h-[16.5%], and font size increased */}
-          {audiences.map((audience) => (
+          {audiences.map((audience, index) => (
             <article
               key={audience.number}
-              className={`relative flex flex-col justify-between overflow-hidden rounded-[10px] border border-white/[0.07] p-4 shadow-[0_14px_34px_rgba(0,0,0,0.45)] backdrop-blur-xl ${audience.tone} max-md:min-h-[120px] max-md:w-full md:absolute ${audience.position} md:z-20 md:h-[16.5%] md:w-[16.2%] md:p-[1.35%]`}
+              style={{ "--i": index } as CSSProperties}
+              className={`eco-card relative flex flex-col justify-between overflow-hidden rounded-[10px] border border-white/[0.07] p-4 shadow-[0_14px_34px_rgba(0,0,0,0.45)] backdrop-blur-xl ${audience.tone} max-md:min-h-[120px] max-md:w-full md:absolute ${audience.position} md:z-20 md:h-[16.5%] md:w-[16.2%] md:p-[1.35%]`}
             >
               {/* Subtle top-left inner highlight */}
               <div
@@ -149,12 +152,12 @@ export default function EcosystemHeroSection() {
 
               {/* Top Row: Number & Glowing Status Dot */}
               <div className="relative z-10 flex w-full items-center justify-between">
-                <span className="text-[11px] font-medium leading-none tracking-[-0.02em] text-white/70 md:text-[clamp(0.62rem,0.8vw,0.8rem)]">
+                <span className="eco-num text-[11px] font-medium leading-none tracking-[-0.02em] text-white/70 md:text-[clamp(0.62rem,0.8vw,0.8rem)]">
                   {audience.number}
                 </span>
                 <span
                   aria-hidden="true"
-                  className={`h-[6px] w-[6px] rounded-full ${audience.accent} shadow-[0_0_8px_currentColor]`}
+                  className={`eco-dot h-[6px] w-[6px] rounded-full ${audience.accent} shadow-[0_0_8px_currentColor]`}
                 />
               </div>
 
@@ -165,7 +168,7 @@ export default function EcosystemHeroSection() {
             </article>
           ))}
         </div>
-      </div>
+      </Reveal>
     </section>
   );
 }
