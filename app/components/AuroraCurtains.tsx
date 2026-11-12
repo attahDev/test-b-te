@@ -3,7 +3,8 @@
 
 import { useEffect, useRef } from "react";
 
-type AuroraCurtainsProps = { paused?: boolean; className?: string };
+type Rgb = number[];
+type AuroraCurtainsProps = { paused?: boolean; className?: string; palette?: [Rgb, Rgb, Rgb] };
 
 const TEAL = [40, 214, 170];
 const BLUE = [70, 128, 250];
@@ -15,14 +16,20 @@ function mix(a: number[], b: number[], k: number) {
   return [a[0] + (b[0] - a[0]) * k, a[1] + (b[1] - a[1]) * k, a[2] + (b[2] - a[2]) * k];
 }
 
-function ramp(p: number) {
-  return p < 0.5 ? mix(TEAL, BLUE, p * 2) : mix(BLUE, VIOLET, (p - 0.5) * 2);
+function ramp(p: number, [a, b, c]: Rgb[]) {
+  return p < 0.5 ? mix(a, b, p * 2) : mix(b, c, (p - 0.5) * 2);
 }
 
-export default function AuroraCurtains({ paused = false, className = "" }: AuroraCurtainsProps) {
+export default function AuroraCurtains({ paused = false, className = "", palette }: AuroraCurtainsProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const pausedRef = useRef(paused);
   const wakeRef = useRef<() => void>(() => {});
+  const targetRef = useRef<Rgb[]>(palette ?? [TEAL, BLUE, VIOLET]);
+
+  useEffect(() => {
+    targetRef.current = palette ?? [TEAL, BLUE, VIOLET];
+    wakeRef.current();
+  }, [palette]);
 
   useEffect(() => {
     pausedRef.current = paused;
@@ -38,6 +45,7 @@ export default function AuroraCurtains({ paused = false, className = "" }: Auror
     let w = 0;
     let h = 0;
     let t = 22;
+    const colors: Rgb[] = targetRef.current.map((color) => [...color]);
     let last = 0;
     let raf = 0;
     let visible = true;
@@ -49,6 +57,11 @@ export default function AuroraCurtains({ paused = false, className = "" }: Auror
       canvas!.width = w;
       canvas!.height = h;
       draw();
+    }
+
+    function blend(rate: number) {
+      const target = targetRef.current;
+      for (let i = 0; i < 3; i++) for (let j = 0; j < 3; j++) colors[i][j] += (target[i][j] - colors[i][j]) * rate;
     }
 
     function draw() {
@@ -71,7 +84,7 @@ export default function AuroraCurtains({ paused = false, className = "" }: Auror
           const height = h * (0.42 + 0.22 * Math.sin(x * 0.013 - t * 0.18 + off));
           const top = base - height;
           const bottom = base + h * 0.26;
-          const [r, g, b] = ramp(0.5 + 0.5 * Math.sin(u * 2.4 + t * 0.07 + off));
+          const [r, g, b] = ramp(0.5 + 0.5 * Math.sin(u * 2.4 + t * 0.07 + off), colors);
           const grad = ctx!.createLinearGradient(0, top, 0, bottom);
           grad.addColorStop(0, `rgba(${r | 0},${g | 0},${b | 0},0)`);
           grad.addColorStop(0.7, `rgba(${r | 0},${g | 0},${b | 0},${alpha})`);
@@ -85,14 +98,16 @@ export default function AuroraCurtains({ paused = false, className = "" }: Auror
     function step(now: number) {
       raf = 0;
       if (!visible || reduced.matches || pausedRef.current) return;
-      t += Math.min(0.05, (now - (last || now)) / 1000);
+      const dt = Math.min(0.05, (now - (last || now)) / 1000);
+      t += dt;
       last = now;
+      blend(1 - Math.exp(-dt * 1.6));
       draw();
       raf = requestAnimationFrame(step);
     }
 
     function wake() {
-      if (reduced.matches || pausedRef.current) { if (w) draw(); return; }
+      if (reduced.matches || pausedRef.current) { blend(1); if (w) draw(); return; }
       if (!raf && visible) { last = 0; raf = requestAnimationFrame(step); }
     }
     wakeRef.current = wake;

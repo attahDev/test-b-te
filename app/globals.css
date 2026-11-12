@@ -554,6 +554,13 @@ a, button {
 .nav-link[aria-current="page"]::after { transform: scaleX(1); }
 @media (hover: hover) { .nav-link:hover::after { transform: scaleX(1); } }
 
+.tour-globe { -webkit-mask-image: radial-gradient(closest-side, #000 84%, transparent 100%); mask-image: radial-gradient(closest-side, #000 84%, transparent 100%); }
+.tour-bg { transition: background-color 1200ms ease; }
+.tour-glow { transition: background 900ms ease; }
+.tour-cue { display: inline-block; animation: tour-cue 1.6s ease-in-out infinite; }
+@keyframes tour-cue { 50% { transform: translateY(5px); } }
+@media (prefers-reduced-motion: reduce) { .tour-cue { animation: none; } .tour-bg { transition: none; } }
+
 /* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
