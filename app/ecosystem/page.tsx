@@ -13,11 +13,11 @@ export default function EcosystemPage() {
     <main className="flex min-h-screen flex-col bg-[#08090d] text-white">
       <Navbar />
       <EcosystemHeroSection />
-      <RelationshipsSection />
       <ModelSection />
       <TechnologyModelSection />
       <ServicesSection />
       <GmbteToolsSection />
+      <RelationshipsSection />
       <BuildWithUsSection />
       <Footer />
     </main>

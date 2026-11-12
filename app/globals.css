@@ -578,3 +578,35 @@ a, button {
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+
+.gt-rail {
+  transform-origin: top;
+  transform: scaleY(var(--p, 0));
+  transition: transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.gt-bar { transform-origin: left; }
+.gt-panel {
+  transform: perspective(1100px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transition: transform 300ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.gt-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 300ms;
+  background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), rgb(233 120 104 / 0.16), transparent 70%);
+}
+@media (hover: hover) {
+  .gt-panel:hover::before { opacity: 1; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .gt-bar-run { animation: gt-fill 5500ms linear both; }
+  .gt-ghost { animation: gt-ghost 800ms cubic-bezier(0.22, 1, 0.36, 1) both; }
+}
+@keyframes gt-fill { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes gt-ghost { from { opacity: 0; transform: translateX(32px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .gt-rail, .gt-panel { transition: none; }
+}
