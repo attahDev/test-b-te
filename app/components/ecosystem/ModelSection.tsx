@@ -1,9 +1,8 @@
-// Our Model: a pinned, scroll-driven seven-step staircase built as a CSS 3D scene, with a context panel for the active step.
+// Our Model: a pinned, scroll-driven seven-step staircase with a context panel for the active step.
 "use client";
 
 import Image from "next/image";
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
-import type { CSSProperties, PointerEvent } from "react";
 import SectionLabel from "../ui/SectionLabel";
 
 const REDUCED = "(prefers-reduced-motion: reduce)";
@@ -59,20 +58,6 @@ export default function ModelSection() {
     window.scrollTo({ top: top + ((index + 0.5) / steps.length) * distance, behavior: "smooth" });
   }
 
-  function tilt(event: PointerEvent<HTMLDivElement>) {
-    if (event.pointerType !== "mouse" || reduced) return;
-    const box = event.currentTarget.getBoundingClientRect();
-    const x = (event.clientX - box.left) / box.width - 0.5;
-    const y = (event.clientY - box.top) / box.height - 0.5;
-    event.currentTarget.style.setProperty("--ry", `${x * 16}deg`);
-    event.currentTarget.style.setProperty("--rx", `${-y * 9}deg`);
-  }
-
-  function settle(event: PointerEvent<HTMLDivElement>) {
-    event.currentTarget.style.removeProperty("--ry");
-    event.currentTarget.style.removeProperty("--rx");
-  }
-
   const step = steps[active];
 
   return (
@@ -109,39 +94,30 @@ export default function ModelSection() {
             </p>
           </div>
 
-          <div className="model-scene min-h-0" onPointerMove={tilt} onPointerLeave={settle}>
-            <ol className="model-stair flex h-full items-end gap-1.5 sm:gap-2.5 lg:gap-3">
-              {steps.map((item, index) => {
-                const risen = reduced || index <= active;
-                const isActive = index === active;
-                return (
-                  <li key={item.title} className="flex h-full min-w-0 flex-1 items-end [transform-style:preserve-3d]">
-                    <div
-                      data-risen={risen}
-                      data-active={isActive}
-                      style={{ height: `${22 + (index * 78) / (steps.length - 1)}%`, "--i": index } as CSSProperties}
-                      className="model-box relative w-full"
-                    >
-                      <button
-                        type="button"
-                        onClick={() => jump(index)}
-                        aria-current={isActive ? "step" : undefined}
-                        aria-label={`Step ${index + 1}: ${item.title}`}
-                        data-risen={risen}
-                        data-active={isActive}
-                        className="model-step absolute inset-0 flex w-full flex-col justify-between overflow-hidden border border-white/10 p-2 text-left focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#e8776a] sm:p-3"
-                      >
-                        <span className="relative mt-3 text-xs font-black text-[#161415]/70 sm:mt-4 sm:text-lg">0{index + 1}</span>
-                        <span className="relative hidden text-xs font-bold leading-tight text-[#161415] xl:block">{item.title}</span>
-                      </button>
-                      <span aria-hidden="true" className="model-top" style={{ background: TOPS[index] }} />
-                      <span aria-hidden="true" className="model-side" />
-                    </div>
-                  </li>
-                );
-              })}
-            </ol>
-          </div>
+          <ol className="flex min-h-0 items-end gap-1.5 sm:gap-2.5 lg:gap-3">
+            {steps.map((item, index) => {
+              const risen = reduced || index <= active;
+              const isActive = index === active;
+              return (
+                <li key={item.title} className="flex h-full min-w-0 flex-1 items-end">
+                  <button
+                    type="button"
+                    onClick={() => jump(index)}
+                    aria-current={isActive ? "step" : undefined}
+                    aria-label={`Step ${index + 1}: ${item.title}`}
+                    data-risen={risen}
+                    data-active={isActive}
+                    style={{ height: `${22 + (index * 78) / (steps.length - 1)}%` }}
+                    className="model-step group relative flex w-full flex-col justify-between overflow-hidden border border-white/10 p-2 text-left focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#e8776a] sm:p-3"
+                  >
+                    <span aria-hidden="true" className="model-cap absolute inset-x-0 top-0 h-2.5 sm:h-3.5" style={{ background: TOPS[index] }} />
+                    <span className="relative mt-3 text-xs font-black text-[#161415]/70 sm:mt-4 sm:text-lg">0{index + 1}</span>
+                    <span className="relative hidden text-xs font-bold leading-tight text-[#161415] xl:block">{item.title}</span>
+                  </button>
+                </li>
+              );
+            })}
+          </ol>
         </div>
       </div>
     </section>
