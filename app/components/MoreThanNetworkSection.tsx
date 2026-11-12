@@ -1,110 +1,37 @@
-"use client";
-
+// "More than a network": the six infrastructure pillars as a fully visible, staggered grid.
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import type { CSSProperties } from "react";
+import Reveal from "./ui/Reveal";
 
 const pillars = [
-  {
-    icon: "/homepage/intellectual-property.png",
-    title: "Intellectual Property",
-    tone: "blue",
-  },
-  {
-    icon: "/homepage/digital-infrastructure.svg",
-    title: "Digital Infrastructure",
-    tone: "dark",
-  },
-  {
-    icon: "/homepage/community-infrastructure.svg",
-    title: "Community Infrastructure",
-    tone: "light",
-  },
-  {
-    icon: "/homepage/partnership-infrastructure.svg",
-    title: "Partnership Infrastructure",
-    tone: "blue",
-  },
-  {
-    icon: "/homepage/recognition-infrastructure.svg",
-    title: "Recognition Infrastructure",
-    tone: "dark",
-  },
-  {
-    icon: "/homepage/knowledge-infrastructure.svg",
-    title: "Knowledge Infrastructure",
-    tone: "light",
-  },
+  { icon: "/homepage/intellectual-property.png", title: "Intellectual Property", tone: "blue" },
+  { icon: "/homepage/digital-infrastructure.svg", title: "Digital Infrastructure", tone: "dark" },
+  { icon: "/homepage/community-infrastructure.svg", title: "Community Infrastructure", tone: "light" },
+  { icon: "/homepage/partnership-infrastructure.svg", title: "Partnership Infrastructure", tone: "light" },
+  { icon: "/homepage/recognition-infrastructure.svg", title: "Recognition Infrastructure", tone: "blue" },
+  { icon: "/homepage/knowledge-infrastructure.svg", title: "Knowledge Infrastructure", tone: "dark" },
 ];
 
+const tones = {
+  dark: "bg-[#171516] text-[#FAFAF9]",
+  light: "bg-[#F1F0EF] text-[#171516]",
+  blue: "bg-[#DFEAF2] text-[#171516]",
+};
+
 export default function MoreThanNetworkSection() {
-  const carouselRef = useRef<HTMLDivElement>(null);
-  const [canScrollBackward, setCanScrollBackward] = useState(false);
-  const [canScrollForward, setCanScrollForward] = useState(true);
-
-  function updateScrollControls() {
-    const carousel = carouselRef.current;
-    if (!carousel) return;
-
-    setCanScrollBackward(carousel.scrollLeft > 1);
-    setCanScrollForward(
-      carousel.scrollLeft + carousel.clientWidth < carousel.scrollWidth - 1,
-    );
-  }
-
-  function scrollCards(direction: -1 | 1) {
-    const carousel = carouselRef.current;
-    const firstCard = carousel?.querySelector<HTMLElement>("[data-carousel-card]");
-    if (!carousel || !firstCard) return;
-
-    const cards = Array.from(
-      carousel.querySelectorAll<HTMLElement>("[data-carousel-card]"),
-    );
-    const maxScrollLeft = carousel.scrollWidth - carousel.clientWidth;
-    const currentPosition = carousel.scrollLeft;
-    const carouselLeft = carousel.getBoundingClientRect().left;
-    const positions = cards.map((card) =>
-      Math.min(maxScrollLeft, card.getBoundingClientRect().left - carouselLeft + currentPosition),
-    );
-    const nextIndex =
-      direction === 1
-        ? positions.findIndex((position) => position > currentPosition + 8)
-        : positions.findLastIndex((position) => position < currentPosition - 8);
-    const targetCard = cards[nextIndex];
-    const endGutter = Number.parseFloat(getComputedStyle(carousel).paddingRight) || 0;
-    const finalCard = cards[cards.length - 1];
-    const finalCardRight = finalCard.getBoundingClientRect().right - carouselLeft + currentPosition;
-    const nextPosition = positions[nextIndex] ?? maxScrollLeft;
-    const target =
-      !targetCard || nextIndex === cards.length - 1 ||
-      (direction === 1 && finalCardRight - (nextPosition + carousel.clientWidth) <= endGutter)
-        ? direction === 1
-          ? maxScrollLeft
-          : 0
-        : positions[nextIndex];
-
-    carousel.scrollTo({
-      left: target,
-      behavior: "smooth",
-    });
-  }
-
-  useEffect(() => {
-    const carousel = carouselRef.current;
-    if (!carousel) return;
-
-    updateScrollControls();
-    const resizeObserver = new ResizeObserver(updateScrollControls);
-    resizeObserver.observe(carousel);
-
-    return () => resizeObserver.disconnect();
-  }, []);
-
   return (
-    <section className="overflow-hidden bg-[#FAFAF9] pb-16 pt-20 text-[#161415] md:pb-16 md:pt-[88px]">
-      <div className="mx-auto w-full max-w-[1400px] pl-[clamp(24px,6.7vw,100px)]">
-        <header className="mb-[60px] mr-6 text-center md:mb-[64px]">
-          <h2 className="text-[36px] font-black leading-[0.98] tracking-[0.025em] text-[#333333] md:text-[48px]">
-            <span className="relative mx-auto block w-fit pb-3">
+    <section id="network" className="overflow-hidden bg-[#FAFAF9] py-20 text-[#161415] md:py-24">
+      <Reveal
+        threshold={0.15}
+        className="mx-auto grid w-full max-w-[1200px] gap-10 px-6 md:px-12 lg:grid-cols-[36%_1fr] lg:gap-14"
+      >
+        <header className="lg:sticky lg:top-28 lg:self-start">
+          <p className="net-fade mb-5 flex items-center gap-3 text-base">
+            <span aria-hidden="true" className="h-px w-8 bg-[#B04333]" />
+            What we build on
+          </p>
+          <h2 className="net-fade text-[40px] font-black leading-[0.98] tracking-[0.02em] text-[#333333] md:text-[48px] lg:text-[44px] xl:text-[48px]">
+            <span className="relative block w-fit whitespace-nowrap pb-3">
               MORE THAN A
               <Image
                 src="/homepage/red-underline.png"
@@ -112,74 +39,43 @@ export default function MoreThanNetworkSection() {
                 aria-hidden="true"
                 width={100}
                 height={24}
-                className="absolute bottom-0 left-[3%] h-3 w-[40%] object-fill"
+                className="net-underline absolute bottom-0 left-[3%] h-3 w-[40%] object-fill"
               />
             </span>
             <span className="block">NETWORK.</span>
           </h2>
-          <p className="mt-4 text-sm font-medium text-[#777777] md:mt-3">
-            Get the one you think fits best for you and your team.
+          <p className="net-fade mt-5 max-w-[340px] text-base font-medium leading-snug text-[#777777]" style={{ "--i": 1 } as CSSProperties}>
+            Six layers of infrastructure that turn connections into lasting opportunity.
           </p>
         </header>
 
-        <div
-          ref={carouselRef}
-          aria-label="More than a network cards"
-          className="flex w-full snap-x snap-mandatory gap-7 overflow-x-auto pb-2 pr-[clamp(48px,6.7vw,100px)] [scroll-padding-right:clamp(48px,6.7vw,100px)] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-          onScroll={updateScrollControls}
-        >
+        <ul className="grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-4">
           {pillars.map((pillar, index) => (
-            <article
+            <li
               key={pillar.title}
-              data-carousel-card
-              className={`flex h-[334px] w-[248px] shrink-0 ${index === pillars.length - 1 ? "snap-end" : "snap-start"} flex-col px-[19px] pb-[18px] pt-6 ${
-                pillar.tone === "dark"
-                  ? "bg-[#171516] text-[#FAFAF9]"
-                  : pillar.tone === "light"
-                    ? "bg-[#F1F0EF] text-[#171516]"
-                    : "bg-[#DFEAF2] text-[#171516]"
-              }`}
+              style={{ "--i": index } as CSSProperties}
+              className={`net-card relative flex aspect-[4/5] flex-col overflow-hidden p-4 md:p-5 ${tones[pillar.tone as keyof typeof tones]}`}
             >
-              <div className="flex h-[218px] shrink-0 items-center justify-center">
+              <span className="net-num font-mono text-xs opacity-50">0{index + 1}</span>
+              <div className="net-icon flex flex-1 items-center justify-center py-2">
                 <Image
                   src={pillar.icon}
                   alt=""
                   aria-hidden="true"
                   width={156}
                   height={156}
-                  className="h-[148px] w-[148px] object-contain"
+                  className="h-auto w-[62%] max-w-[148px] object-contain"
                 />
               </div>
-              <h3 className="mt-auto text-[20px] leading-[1.14]">
+              <h3 className="net-title text-base leading-[1.14] md:text-xl">
                 <span className="font-bold">{pillar.title.split(" ")[0]}</span>
                 <br />
                 <span>{pillar.title.split(" ").slice(1).join(" ")}</span>
               </h3>
-            </article>
+            </li>
           ))}
-        </div>
-
-        <div className="mt-7 mr-6 flex gap-4">
-          <button
-            type="button"
-            aria-label="Show previous cards"
-            disabled={!canScrollBackward}
-            onClick={() => scrollCards(-1)}
-            className="flex h-[42px] w-[42px] items-center justify-center rounded-full border border-[#171516]/40 text-[21px] leading-none text-[#171516] transition-colors hover:bg-[#171516] hover:text-white disabled:cursor-default disabled:text-[#171516]/40 disabled:hover:bg-transparent disabled:hover:text-[#171516]/40"
-          >
-            ←
-          </button>
-          <button
-            type="button"
-            aria-label="Show next cards"
-            disabled={!canScrollForward}
-            onClick={() => scrollCards(1)}
-            className="flex h-[42px] w-[42px] items-center justify-center rounded-full border border-[#171516]/70 text-[21px] leading-none text-[#171516] transition-colors hover:bg-[#171516] hover:text-white disabled:cursor-default disabled:text-[#171516]/40 disabled:hover:bg-transparent disabled:hover:text-[#171516]/40"
-          >
-            →
-          </button>
-        </div>
-      </div>
+        </ul>
+      </Reveal>
     </section>
   );
 }
