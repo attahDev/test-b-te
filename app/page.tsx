@@ -3,7 +3,6 @@ import HeroSection from "@/app/components/HeroSection";
 import WhoWeAreSection from "@/app/components/WhoWeAreSection";
 import WhatWeDoSection from "@/app/components/WhatWeDoSection";
 import GlobeSection from "@/app/components/GlobeSection";
-import ServicesSection from "@/app/components/ServicesSection";
 import MoreThanNetworkSection from "@/app/components/MoreThanNetworkSection";
 import PrincipleSection from "@/app/components/PrincipleSection";
 import Footer from "@/app/components/Footer";
@@ -16,7 +15,6 @@ export default function Home() {
       <WhoWeAreSection />
       <WhatWeDoSection />
       <GlobeSection />
-      <ServicesSection />
       <MoreThanNetworkSection />
       <PrincipleSection />
       <Footer />

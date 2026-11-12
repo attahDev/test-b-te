@@ -3,6 +3,7 @@ import EcosystemHeroSection from "@/app/components/ecosystem/HeroSection";
 import ModelSection from "@/app/components/ecosystem/ModelSection";
 import RelationshipsSection from "@/app/components/ecosystem/RelationshipsSection";
 import TechnologyModelSection from "@/app/components/ecosystem/TechnologyModelSection";
+import ServicesSection from "@/app/components/ServicesSection";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 
@@ -14,6 +15,7 @@ export default function EcosystemPage() {
       <RelationshipsSection />
       <ModelSection />
       <TechnologyModelSection />
+      <ServicesSection />
       <BuildWithUsSection />
       <Footer />
     </main>
