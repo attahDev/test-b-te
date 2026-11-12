@@ -86,17 +86,13 @@ export default function GlobeSection() {
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_55%,transparent_30%,rgba(5,6,8,0.7)_100%)]" />
         </div>
 
-        <div className="relative mx-auto flex min-h-0 w-full max-w-[1200px] flex-1 flex-col px-6 pb-16 pt-6 md:px-12 lg:grid lg:grid-cols-[0.95fr_1.05fr] lg:items-center lg:gap-10 lg:pb-20 lg:pt-10">
-          <div className="relative mx-auto w-[min(100%,32svh)] flex-none [@media(min-height:700px)]:w-[min(100%,38svh)] lg:order-last lg:w-full lg:[@media(min-height:700px)]:w-full lg:max-w-[620px]">
-            <div
-              aria-hidden="true"
-              className="tour-glow pointer-events-none absolute inset-[4%] rounded-full blur-3xl"
-              style={{ background: `radial-gradient(circle, rgba(${stop ? stop.rgb : "70,128,250"},0.38) 0%, transparent 70%)` }}
-            />
-            <div className="tour-globe"><Globe stops={stops} mode={mode} activeId={activeId} visibleIds={visibleIds} onSelect={(id) => jump(stops.findIndex((item) => item.id === id) + 1)} /></div>
-          </div>
+        <Globe stops={stops} mode={mode} activeId={activeId} visibleIds={visibleIds} onSelect={(id) => jump(stops.findIndex((item) => item.id === id) + 1)} />
 
-          <div aria-live="polite" className="mt-3 min-h-0 flex-1 lg:mt-0 lg:flex-none">
+        <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_top,rgba(5,6,8,0.88)_0%,rgba(5,6,8,0.62)_42%,transparent_62%)] lg:bg-[linear-gradient(to_right,rgba(5,6,8,0.82)_0%,rgba(5,6,8,0.55)_34%,transparent_56%)]" />
+
+        <div className="pointer-events-none relative mx-auto flex min-h-0 w-full max-w-[1200px] flex-1 flex-col px-6 pb-16 pt-6 md:px-12 lg:grid lg:grid-cols-[0.95fr_1.05fr] lg:items-center lg:gap-10 lg:pb-20 lg:pt-10">
+          <div aria-hidden="true" className="h-[40svh] flex-none lg:hidden" />
+          <div aria-live="polite" className="pointer-events-auto min-h-0 flex-1 lg:flex-none">
             <div key={stage} className="panel-in">
               {mode === "intro" && (
                 <>
@@ -203,7 +199,7 @@ export default function GlobeSection() {
           </div>
         </div>
 
-        <ol aria-label="Tour progress" className="absolute inset-x-0 bottom-4 z-10 flex justify-center gap-2 px-4 md:bottom-6 md:gap-3">
+        <ol aria-label="Tour progress" className="pointer-events-auto absolute inset-x-0 bottom-4 z-10 flex justify-center gap-2 px-4 md:bottom-6 md:gap-3">
           {rail.map((item, index) => (
             <li key={item.label}>
               <button

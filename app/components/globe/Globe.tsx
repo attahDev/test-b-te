@@ -60,7 +60,11 @@ export default function Globe({ stops, mode, activeId, visibleIds, onSelect }: G
     const font = getComputedStyle(document.body).fontFamily;
     let land = new Float32Array(0);
     const countries: Record<string, Float32Array> = {};
-    let size = 0;
+    let W = 0;
+    let H = 0;
+    let cx = 0;
+    let cy = 0;
+    let base = 0;
     let dpr = 1;
     let raf = 0;
     let last = 0;
@@ -89,11 +93,20 @@ export default function Globe({ stops, mode, activeId, visibleIds, onSelect }: G
 
     function resize() {
       const rect = wrap!.getBoundingClientRect();
-      size = Math.max(240, Math.floor(rect.width));
+      W = Math.max(240, Math.floor(rect.width));
+      H = Math.max(240, Math.floor(rect.height));
       dpr = Math.min(window.devicePixelRatio || 1, 2);
-      canvas!.width = size * dpr;
-      canvas!.height = size * dpr;
-      canvas!.style.height = `${size}px`;
+      canvas!.width = W * dpr;
+      canvas!.height = H * dpr;
+      if (W >= 1024) {
+        base = H * 0.46;
+        cx = W * 0.72;
+        cy = H * 0.5;
+      } else {
+        base = W * 0.5;
+        cx = W / 2;
+        cy = H * 0.22;
+      }
       wake();
     }
 
@@ -120,22 +133,21 @@ export default function Globe({ stops, mode, activeId, visibleIds, onSelect }: G
       const sl = Math.sin(lon * RAD);
       const cp = Math.cos(view.lat * RAD);
       const sp = Math.sin(view.lat * RAD);
-      const R = size * 0.37 * view.zoom;
-      const c = size / 2;
+      const R = base * view.zoom;
       const { stops: list, mode: m, activeId: active, visibleIds: shown } = propsRef.current;
       const activeStop = list.find((item) => item.id === active);
       const shownStops = list.filter((item) => shown.includes(item.id));
 
       ctx!.setTransform(dpr, 0, 0, dpr, 0, 0);
-      ctx!.clearRect(0, 0, size, size);
+      ctx!.clearRect(0, 0, W, H);
 
-      const body = ctx!.createRadialGradient(c - R * 0.3, c - R * 0.35, R * 0.1, c, c, R);
-      body.addColorStop(0, "#1a1d27");
-      body.addColorStop(0.7, "#0b0c11");
-      body.addColorStop(1, "#06070a");
+      const body = ctx!.createRadialGradient(cx - R * 0.3, cy - R * 0.35, R * 0.1, cx, cy, R);
+      body.addColorStop(0, "rgba(26,29,39,0.5)");
+      body.addColorStop(0.7, "rgba(11,12,17,0.38)");
+      body.addColorStop(1, "rgba(6,7,10,0.3)");
       ctx!.fillStyle = body;
       ctx!.beginPath();
-      ctx!.arc(c, c, R, 0, Math.PI * 2);
+      ctx!.arc(cx, cy, R, 0, Math.PI * 2);
       ctx!.fill();
 
       ctx!.lineWidth = 1;
@@ -147,8 +159,8 @@ export default function Globe({ stops, mode, activeId, visibleIds, onSelect }: G
           const v = toVec(lt, lg);
           const [x, y, z] = rotate(v[0], v[1], v[2], cl, sl, cp, sp);
           if (z <= 0) { pen = false; continue; }
-          if (pen) ctx!.lineTo(c + x * R, c - y * R);
-          else { ctx!.moveTo(c + x * R, c - y * R); pen = true; }
+          if (pen) ctx!.lineTo(cx + x * R, cy - y * R);
+          else { ctx!.moveTo(cx + x * R, cy - y * R); pen = true; }
         }
       }
       for (let lt = -60; lt <= 60; lt += 30) {
@@ -157,20 +169,20 @@ export default function Globe({ stops, mode, activeId, visibleIds, onSelect }: G
           const v = toVec(lt, lg);
           const [x, y, z] = rotate(v[0], v[1], v[2], cl, sl, cp, sp);
           if (z <= 0) { pen = false; continue; }
-          if (pen) ctx!.lineTo(c + x * R, c - y * R);
-          else { ctx!.moveTo(c + x * R, c - y * R); pen = true; }
+          if (pen) ctx!.lineTo(cx + x * R, cy - y * R);
+          else { ctx!.moveTo(cx + x * R, cy - y * R); pen = true; }
         }
       }
       ctx!.stroke();
 
-      const dotR = Math.max(0.9, Math.min(2.4, (size / 640) * 1.15 * Math.pow(view.zoom, 0.45)));
+      const dotR = Math.max(0.9, Math.min(2.6, (base / 237) * 1.15 * Math.pow(view.zoom, 0.45)));
       const buckets: number[][] = [[], [], [], []];
       for (let i = 0; i < land.length; i += 3) {
         const [x, y, z] = rotate(land[i], land[i + 1], land[i + 2], cl, sl, cp, sp);
         if (z <= 0.02) continue;
-        const sx = c + x * R;
-        const sy = c - y * R;
-        if (sx < -4 || sy < -4 || sx > size + 4 || sy > size + 4) continue;
+        const sx = cx + x * R;
+        const sy = cy - y * R;
+        if (sx < -4 || sy < -4 || sx > W + 4 || sy > H + 4) continue;
         buckets[Math.min(3, Math.floor(z * 4))].push(sx, sy);
       }
       const alphas = [0.16, 0.3, 0.46, 0.62];
@@ -185,7 +197,7 @@ export default function Globe({ stops, mode, activeId, visibleIds, onSelect }: G
         ctx!.fill();
       }
 
-      const fineR = Math.max(0.7, dotR * 0.78);
+      const fineR = Math.max(0.7, Math.min(9, 0.34 * RAD * R * 0.62));
       const pulse = reduced.matches ? 1 : 0.88 + 0.12 * Math.sin(t * 2.2);
       for (const key of Object.keys(countries)) {
         const owners = shownStops.filter((item) => item.country === key);
@@ -202,8 +214,8 @@ export default function Globe({ stops, mode, activeId, visibleIds, onSelect }: G
             if (z <= 0.04) continue;
             const front = z > 0.5;
             if ((band === 0) === front) continue;
-            const sx = c + x * R;
-            const sy = c - y * R;
+            const sx = cx + x * R;
+            const sy = cy - y * R;
             ctx!.moveTo(sx + fineR, sy);
             ctx!.arc(sx, sy, fineR, 0, Math.PI * 2);
           }
@@ -240,8 +252,8 @@ export default function Globe({ stops, mode, activeId, visibleIds, onSelect }: G
               cl, sl, cp, sp,
             );
             if (z <= 0.04) { pen = false; continue; }
-            if (pen) ctx!.lineTo(c + x * R, c - y * R);
-            else { ctx!.moveTo(c + x * R, c - y * R); pen = true; }
+            if (pen) ctx!.lineTo(cx + x * R, cy - y * R);
+            else { ctx!.moveTo(cx + x * R, cy - y * R); pen = true; }
           }
           ctx!.stroke();
           ctx!.setLineDash([]);
@@ -256,8 +268,8 @@ export default function Globe({ stops, mode, activeId, visibleIds, onSelect }: G
         const v = toVec(stop.lat, stop.lon);
         const [x, y, z] = rotate(v[0], v[1], v[2], cl, sl, cp, sp);
         if (z <= 0.08) continue;
-        const sx = c + x * R;
-        const sy = c - y * R;
+        const sx = cx + x * R;
+        const sy = cy - y * R;
         const on = m === "stop" && stop.id === active;
         hits.push({ id: stop.id, x: sx, y: sy });
         if (!reduced.matches) {
@@ -286,7 +298,7 @@ export default function Globe({ stops, mode, activeId, visibleIds, onSelect }: G
         const label = stop.label.toUpperCase();
         const w = ctx!.measureText(label).width;
         const wantRight = stop.labelSide === "right";
-        const fits = wantRight ? sx + 14 + w < size - 8 : sx - 14 - w > 8;
+        const fits = wantRight ? sx + 14 + w < W - 8 : sx - 14 - w > 8;
         const right = fits ? wantRight : !wantRight;
         const lx = right ? sx + 14 : sx - 14 - w;
         const ly = sy + (stop.labelSide === "left" ? -12 : 12);
@@ -409,7 +421,7 @@ export default function Globe({ stops, mode, activeId, visibleIds, onSelect }: G
   }, []);
 
   return (
-    <div ref={wrapRef} className="relative aspect-square w-full">
+    <div ref={wrapRef} className="absolute inset-0">
       <canvas
         ref={canvasRef}
         role="img"
