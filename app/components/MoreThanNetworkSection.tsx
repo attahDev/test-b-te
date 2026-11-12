@@ -1,15 +1,15 @@
-// "More than a network": the six infrastructure pillars as a fully visible, staggered grid.
+// "More than a network": the six infrastructure pillars as an interlocking collage of tall, wide and standard tiles.
 import Image from "next/image";
 import type { CSSProperties } from "react";
 import Reveal from "./ui/Reveal";
 
 const pillars = [
-  { icon: "/homepage/intellectual-property.png", title: "Intellectual Property", tone: "blue" },
-  { icon: "/homepage/digital-infrastructure.svg", title: "Digital Infrastructure", tone: "dark" },
-  { icon: "/homepage/community-infrastructure.svg", title: "Community Infrastructure", tone: "light" },
-  { icon: "/homepage/partnership-infrastructure.svg", title: "Partnership Infrastructure", tone: "light" },
-  { icon: "/homepage/recognition-infrastructure.svg", title: "Recognition Infrastructure", tone: "blue" },
-  { icon: "/homepage/knowledge-infrastructure.svg", title: "Knowledge Infrastructure", tone: "dark" },
+  { icon: "/homepage/intellectual-property.png", title: "Intellectual Property", tone: "blue", place: "row-span-2 md:col-start-1 md:row-start-1 md:row-span-3", tilt: "-1.4deg", lift: "6px" },
+  { icon: "/homepage/digital-infrastructure.svg", title: "Digital Infrastructure", tone: "dark", place: "col-span-2 md:col-start-2 md:row-start-1 md:row-span-2", tilt: "1deg", lift: "-4px" },
+  { icon: "/homepage/community-infrastructure.svg", title: "Community Infrastructure", tone: "light", place: "row-span-2 md:col-start-2 md:row-start-3", tilt: "-0.8deg", lift: "10px" },
+  { icon: "/homepage/partnership-infrastructure.svg", title: "Partnership Infrastructure", tone: "light", place: "row-span-2 md:col-start-1 md:row-start-4 md:row-span-3", tilt: "1.3deg", lift: "-6px" },
+  { icon: "/homepage/recognition-infrastructure.svg", title: "Recognition Infrastructure", tone: "blue", place: "row-span-2 md:col-start-3 md:row-start-3", tilt: "1.6deg", lift: "0px" },
+  { icon: "/homepage/knowledge-infrastructure.svg", title: "Knowledge Infrastructure", tone: "dark", place: "col-span-2 md:col-start-2 md:row-start-5 md:row-span-2", tilt: "-1.1deg", lift: "8px" },
 ];
 
 const tones = {
@@ -49,29 +49,31 @@ export default function MoreThanNetworkSection() {
           </p>
         </header>
 
-        <ul className="grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-4">
+        <ul className="grid auto-rows-[140px] grid-flow-dense grid-cols-2 gap-3 md:auto-rows-[140px] md:grid-cols-3 md:gap-4">
           {pillars.map((pillar, index) => (
             <li
               key={pillar.title}
-              style={{ "--i": index } as CSSProperties}
-              className={`net-card relative flex aspect-[4/5] flex-col overflow-hidden p-4 md:p-5 ${tones[pillar.tone as keyof typeof tones]}`}
+              style={{ "--i": index, "--r": pillar.tilt, "--y": pillar.lift } as CSSProperties}
+              className={`net-card @container relative overflow-hidden p-4 shadow-[0_6px_18px_rgb(0_0_0/0.06)] md:p-5 ${pillar.place} ${tones[pillar.tone as keyof typeof tones]}`}
             >
-              <span className="net-num font-mono text-xs opacity-50">0{index + 1}</span>
-              <div className="net-icon flex flex-1 items-center justify-center py-2">
-                <Image
-                  src={pillar.icon}
-                  alt=""
-                  aria-hidden="true"
-                  width={156}
-                  height={156}
-                  className="h-auto w-[62%] max-w-[148px] object-contain"
-                />
+              <div className="grid h-full grid-rows-[auto_1fr_auto] @[300px]:grid-cols-2 @[300px]:grid-rows-[auto_1fr]">
+                <span className="net-num font-mono text-xs opacity-50">0{index + 1}</span>
+                <div className="net-icon flex min-h-0 items-center justify-center py-2 @[300px]:col-start-2 @[300px]:row-span-2 @[300px]:row-start-1">
+                  <Image
+                    src={pillar.icon}
+                    alt=""
+                    aria-hidden="true"
+                    width={156}
+                    height={156}
+                    className="h-full max-h-[160px] w-auto max-w-full object-contain"
+                  />
+                </div>
+                <h3 className="net-title self-end text-base leading-[1.14] @[300px]:col-start-1 @[300px]:row-start-2 md:text-xl">
+                  <span className="font-bold">{pillar.title.split(" ")[0]}</span>
+                  <br />
+                  <span>{pillar.title.split(" ").slice(1).join(" ")}</span>
+                </h3>
               </div>
-              <h3 className="net-title text-base leading-[1.14] md:text-xl">
-                <span className="font-bold">{pillar.title.split(" ")[0]}</span>
-                <br />
-                <span>{pillar.title.split(" ").slice(1).join(" ")}</span>
-              </h3>
             </li>
           ))}
         </ul>
