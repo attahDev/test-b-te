@@ -1,19 +1,22 @@
-// Canvas globe: dotted land, graticule, great-circle arcs, pulsing markers, eased focus and drag rotation.
+// Canvas globe: dotted land, lit country maps, great-circle arcs, markers, scroll-driven focus and drag rotation.
 "use client";
 
 import { useEffect, useRef } from "react";
-import { hubId, type Region } from "./locations";
+import { countryColors, type Stop } from "./locations";
+
+export type GlobeMode = "intro" | "stop" | "finale";
 
 type GlobeProps = {
-  regions: Region[];
+  stops: Stop[];
+  mode: GlobeMode;
   activeId: string;
+  visibleIds: string[];
   onSelect: (id: string) => void;
-  onInteract: () => void;
 };
 
 const RAD = Math.PI / 180;
-const CORAL = "233,120,104";
 const ICE = "180,205,235";
+const AUTO_SPIN = 7;
 
 function toVec(lat: number, lon: number): [number, number, number] {
   const p = lat * RAD;
@@ -25,16 +28,27 @@ function shortest(from: number, to: number) {
   return ((((to - from) % 360) + 540) % 360) - 180;
 }
 
-export default function Globe({ regions, activeId, onSelect, onInteract }: GlobeProps) {
+function pack(flat: number[], scale: number) {
+  const out = new Float32Array((flat.length / 2) * 3);
+  for (let i = 0; i < flat.length; i += 2) {
+    const [x, y, z] = toVec(flat[i] / scale, flat[i + 1] / scale);
+    out[(i / 2) * 3] = x;
+    out[(i / 2) * 3 + 1] = y;
+    out[(i / 2) * 3 + 2] = z;
+  }
+  return out;
+}
+
+export default function Globe({ stops, mode, activeId, visibleIds, onSelect }: GlobeProps) {
   const wrapRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const propsRef = useRef({ regions, activeId, onSelect, onInteract });
+  const propsRef = useRef({ stops, mode, activeId, visibleIds, onSelect });
   const wakeRef = useRef<() => void>(() => {});
 
   useEffect(() => {
-    propsRef.current = { regions, activeId, onSelect, onInteract };
+    propsRef.current = { stops, mode, activeId, visibleIds, onSelect };
     wakeRef.current();
-  }, [regions, activeId, onSelect, onInteract]);
+  }, [stops, mode, activeId, visibleIds, onSelect]);
 
   useEffect(() => {
     const wrap = wrapRef.current;
@@ -45,6 +59,7 @@ export default function Globe({ regions, activeId, onSelect, onInteract }: Globe
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
     const font = getComputedStyle(document.body).fontFamily;
     let land = new Float32Array(0);
+    const countries: Record<string, Float32Array> = {};
     let size = 0;
     let dpr = 1;
     let raf = 0;
@@ -56,21 +71,18 @@ export default function Globe({ regions, activeId, onSelect, onInteract }: Globe
     let lastY = 0;
     let velocity = 0;
     let freeSpin = false;
-    let lastActive = "";
-    const view = { lon: -1.8, lat: 30, zoom: 1 };
+    let lastKey = "";
+    const view = { lon: -30, lat: 24, zoom: 1 };
     let hits: { id: string; x: number; y: number }[] = [];
 
     fetch("/data/land-dots.json")
       .then((response) => response.json() as Promise<number[]>)
-      .then((flat) => {
-        const out = new Float32Array((flat.length / 2) * 3);
-        for (let i = 0; i < flat.length; i += 2) {
-          const [x, y, z] = toVec(flat[i] / 10, flat[i + 1] / 10);
-          out[(i / 2) * 3] = x;
-          out[(i / 2) * 3 + 1] = y;
-          out[(i / 2) * 3 + 2] = z;
-        }
-        land = out;
+      .then((flat) => { land = pack(flat, 10); wake(); })
+      .catch(() => {});
+    fetch("/data/country-dots.json")
+      .then((response) => response.json() as Promise<Record<string, number[]>>)
+      .then((data) => {
+        for (const key of Object.keys(data)) countries[key] = pack(data[key], 100);
         wake();
       })
       .catch(() => {});
@@ -85,10 +97,13 @@ export default function Globe({ regions, activeId, onSelect, onInteract }: Globe
       wake();
     }
 
-    function targetFor(id: string) {
-      const region = propsRef.current.regions.find((item) => item.id === id);
-      if (!region) return null;
-      return { lon: region.lon, lat: Math.min(region.lat * 0.75, 42), zoom: region.zoom };
+    function targetView() {
+      const { mode: m, stops: list, activeId: id } = propsRef.current;
+      if (m === "stop") {
+        const stop = list.find((item) => item.id === id);
+        if (stop) return { lon: stop.lon, lat: stop.zoom > 2 ? stop.lat : Math.min(stop.lat * 0.8, 44), zoom: stop.zoom };
+      }
+      return { lon: null, lat: 22, zoom: m === "finale" ? 0.96 : 1 };
     }
 
     function rotate(x: number, y: number, z: number, cl: number, sl: number, cp: number, sp: number) {
@@ -99,7 +114,7 @@ export default function Globe({ regions, activeId, onSelect, onInteract }: Globe
 
     function draw(now: number) {
       const t = now / 1000;
-      const sway = reduced.matches ? 0 : Math.sin(t * 0.35) * 1.6;
+      const sway = reduced.matches ? 0 : Math.sin(t * 0.35) * 1.2;
       const lon = view.lon + sway;
       const cl = Math.cos(lon * RAD);
       const sl = Math.sin(lon * RAD);
@@ -107,7 +122,9 @@ export default function Globe({ regions, activeId, onSelect, onInteract }: Globe
       const sp = Math.sin(view.lat * RAD);
       const R = size * 0.37 * view.zoom;
       const c = size / 2;
-      const { regions: list, activeId: active } = propsRef.current;
+      const { stops: list, mode: m, activeId: active, visibleIds: shown } = propsRef.current;
+      const activeStop = list.find((item) => item.id === active);
+      const shownStops = list.filter((item) => shown.includes(item.id));
 
       ctx!.setTransform(dpr, 0, 0, dpr, 0, 0);
       ctx!.clearRect(0, 0, size, size);
@@ -146,22 +163,14 @@ export default function Globe({ regions, activeId, onSelect, onInteract }: Globe
       }
       ctx!.stroke();
 
-      const lit = list.map((region) => ({ id: region.id, v: toVec(region.lat, region.lon), on: region.id === active }));
-      const buckets: number[][] = [[], [], [], []];
-      const glow: number[] = [];
       const dotR = Math.max(0.9, Math.min(2.4, (size / 640) * 1.15 * Math.pow(view.zoom, 0.45)));
-      const reach = Math.cos((9 + 3 * Math.sin(t * 1.4)) * RAD);
+      const buckets: number[][] = [[], [], [], []];
       for (let i = 0; i < land.length; i += 3) {
         const [x, y, z] = rotate(land[i], land[i + 1], land[i + 2], cl, sl, cp, sp);
         if (z <= 0.02) continue;
         const sx = c + x * R;
         const sy = c - y * R;
         if (sx < -4 || sy < -4 || sx > size + 4 || sy > size + 4) continue;
-        let near = false;
-        for (const item of lit) {
-          if (item.on && land[i] * item.v[0] + land[i + 1] * item.v[1] + land[i + 2] * item.v[2] > reach) { near = true; break; }
-        }
-        if (near) { glow.push(sx, sy, z); continue; }
         buckets[Math.min(3, Math.floor(z * 4))].push(sx, sy);
       }
       const alphas = [0.16, 0.3, 0.46, 0.62];
@@ -175,28 +184,46 @@ export default function Globe({ regions, activeId, onSelect, onInteract }: Globe
         }
         ctx!.fill();
       }
-      ctx!.fillStyle = `rgba(${CORAL},0.95)`;
-      ctx!.beginPath();
-      for (let i = 0; i < glow.length; i += 3) {
-        const r = dotR * (1.15 + glow[i + 2] * 0.35);
-        ctx!.moveTo(glow[i] + r, glow[i + 1]);
-        ctx!.arc(glow[i], glow[i + 1], r, 0, Math.PI * 2);
-      }
-      ctx!.fill();
 
-      const hub = list.find((region) => region.id === hubId);
-      if (hub) {
+      const fineR = Math.max(0.7, dotR * 0.78);
+      const pulse = reduced.matches ? 1 : 0.88 + 0.12 * Math.sin(t * 2.2);
+      for (const key of Object.keys(countries)) {
+        const owners = shownStops.filter((item) => item.country === key);
+        if (owners.length === 0) continue;
+        const isActive = m === "stop" && activeStop?.country === key;
+        const rgb = isActive ? activeStop!.rgb : countryColors[key as Stop["country"]];
+        const strength = isActive ? 0.95 * pulse : m === "finale" ? 0.8 : 0.45;
+        const pts = countries[key];
+        for (let band = 0; band < 2; band++) {
+          ctx!.fillStyle = `rgba(${rgb},${band === 0 ? strength * 0.55 : strength})`;
+          ctx!.beginPath();
+          for (let i = 0; i < pts.length; i += 3) {
+            const [x, y, z] = rotate(pts[i], pts[i + 1], pts[i + 2], cl, sl, cp, sp);
+            if (z <= 0.04) continue;
+            const front = z > 0.5;
+            if ((band === 0) === front) continue;
+            const sx = c + x * R;
+            const sy = c - y * R;
+            ctx!.moveTo(sx + fineR, sy);
+            ctx!.arc(sx, sy, fineR, 0, Math.PI * 2);
+          }
+          ctx!.fill();
+        }
+      }
+
+      const hub = shownStops[0];
+      if (hub && shownStops.length > 1) {
         const a = toVec(hub.lat, hub.lon);
-        for (const region of list) {
-          if (region.id === hub.id) continue;
-          const b = toVec(region.lat, region.lon);
+        for (const stop of shownStops) {
+          if (stop.id === hub.id) continue;
+          const b = toVec(stop.lat, stop.lon);
           const dotAB = Math.max(-1, Math.min(1, a[0] * b[0] + a[1] * b[1] + a[2] * b[2]));
           const omega = Math.acos(dotAB);
-          if (omega < 1e-3) continue;
+          if (omega < 0.05) continue;
           const lift = 0.1 + omega * 0.22;
-          const isActive = region.id === active || hub.id === active;
-          ctx!.lineWidth = isActive ? 1.6 : 1;
-          ctx!.strokeStyle = `rgba(${CORAL},${isActive ? 0.85 : 0.35})`;
+          const on = m === "finale" || stop.id === active;
+          ctx!.lineWidth = on ? 1.6 : 1;
+          ctx!.strokeStyle = `rgba(${stop.rgb},${on ? 0.85 : 0.3})`;
           ctx!.setLineDash([5, 7]);
           ctx!.lineDashOffset = reduced.matches ? 0 : -t * 14;
           ctx!.beginPath();
@@ -223,45 +250,51 @@ export default function Globe({ regions, activeId, onSelect, onInteract }: Globe
 
       hits = [];
       ctx!.textBaseline = "middle";
-      for (const region of list) {
-        const v = toVec(region.lat, region.lon);
+      const placed: number[][] = [];
+      const ordered = [...shownStops].sort((a, b) => Number(b.id === active) - Number(a.id === active));
+      for (const stop of ordered) {
+        const v = toVec(stop.lat, stop.lon);
         const [x, y, z] = rotate(v[0], v[1], v[2], cl, sl, cp, sp);
         if (z <= 0.08) continue;
         const sx = c + x * R;
         const sy = c - y * R;
-        const on = region.id === active;
-        hits.push({ id: region.id, x: sx, y: sy });
+        const on = m === "stop" && stop.id === active;
+        hits.push({ id: stop.id, x: sx, y: sy });
         if (!reduced.matches) {
           for (let ring = 0; ring < 2; ring++) {
             const phase = (t * 0.6 + ring * 0.5) % 1;
-            ctx!.strokeStyle = `rgba(${CORAL},${(1 - phase) * (on ? 0.7 : 0.3)})`;
+            ctx!.strokeStyle = `rgba(${stop.rgb},${(1 - phase) * (on ? 0.8 : 0.3)})`;
             ctx!.lineWidth = 1.5;
             ctx!.beginPath();
-            ctx!.arc(sx, sy, 6 + phase * (on ? 26 : 16), 0, Math.PI * 2);
+            ctx!.arc(sx, sy, 6 + phase * (on ? 30 : 14), 0, Math.PI * 2);
             ctx!.stroke();
           }
         }
         ctx!.beginPath();
-        ctx!.arc(sx, sy, on ? 6 : 4.5, 0, Math.PI * 2);
-        if (region.status === "live") {
-          ctx!.fillStyle = `rgb(${CORAL})`;
+        ctx!.arc(sx, sy, on ? 6 : 4, 0, Math.PI * 2);
+        if (stop.status === "live") {
+          ctx!.fillStyle = `rgb(${stop.rgb})`;
           ctx!.fill();
         } else {
           ctx!.fillStyle = "#0b0c11";
           ctx!.fill();
-          ctx!.strokeStyle = `rgb(${CORAL})`;
+          ctx!.strokeStyle = `rgb(${stop.rgb})`;
           ctx!.lineWidth = 1.6;
           ctx!.stroke();
         }
         ctx!.font = `${on ? 700 : 500} ${on ? 13 : 11}px ${font}`;
-        const label = region.name.toUpperCase();
+        const label = stop.label.toUpperCase();
         const w = ctx!.measureText(label).width;
-        const wantRight = region.labelSide === "right";
+        const wantRight = stop.labelSide === "right";
         const fits = wantRight ? sx + 14 + w < size - 8 : sx - 14 - w > 8;
         const right = fits ? wantRight : !wantRight;
-        ctx!.fillStyle = on ? "#FAFAF9" : "rgba(250,250,249,0.6)";
-        ctx!.textAlign = right ? "left" : "right";
-        ctx!.fillText(label, right ? sx + 14 : sx - 14, sy - (on ? 12 : 10));
+        const lx = right ? sx + 14 : sx - 14 - w;
+        const ly = sy + (stop.labelSide === "left" ? -12 : 12);
+        if (placed.some((box) => lx < box[2] && lx + w > box[0] && Math.abs(ly - box[1]) < 14)) continue;
+        placed.push([lx, ly, lx + w]);
+        ctx!.fillStyle = on ? "#FAFAF9" : "rgba(250,250,249,0.65)";
+        ctx!.textAlign = "left";
+        ctx!.fillText(label, lx, ly);
       }
     }
 
@@ -270,12 +303,15 @@ export default function Globe({ regions, activeId, onSelect, onInteract }: Globe
       if (!visible) return;
       const dt = Math.min(0.05, (now - (last || now)) / 1000);
       last = now;
-      const targetView = targetFor(propsRef.current.activeId);
+      const { mode: m, activeId: id } = propsRef.current;
+      const target = targetView();
+      const key = `${m}:${id}`;
       let settled = true;
-      if (propsRef.current.activeId !== lastActive) {
-        lastActive = propsRef.current.activeId;
+      if (key !== lastKey) {
+        lastKey = key;
         freeSpin = false;
       }
+      const k = reduced.matches ? 1 : 1 - Math.exp(-dt * 2.4);
       if (dragging) {
         settled = false;
       } else if (freeSpin) {
@@ -283,13 +319,17 @@ export default function Globe({ regions, activeId, onSelect, onInteract }: Globe
         view.lon += velocity * dt;
         if (Math.abs(velocity) > 0.5) settled = false;
         else freeSpin = false;
-      } else if (targetView) {
-        const k = reduced.matches ? 1 : 1 - Math.exp(-dt * 2.6);
-        const dLon = shortest(view.lon, targetView.lon);
+      } else if (target.lon === null) {
+        if (!reduced.matches) { view.lon += AUTO_SPIN * dt; settled = false; }
+      } else {
+        const dLon = shortest(view.lon, target.lon);
         view.lon += dLon * k;
-        view.lat += (targetView.lat - view.lat) * k;
-        view.zoom += (targetView.zoom - view.zoom) * k;
-        if (Math.abs(dLon) > 0.05 || Math.abs(targetView.lat - view.lat) > 0.05 || Math.abs(targetView.zoom - view.zoom) > 0.002) settled = false;
+        if (Math.abs(dLon) > 0.05) settled = false;
+      }
+      if (!dragging) {
+        view.lat += (target.lat - view.lat) * k;
+        view.zoom += (target.zoom - view.zoom) * k;
+        if (Math.abs(target.lat - view.lat) > 0.05 || Math.abs(target.zoom - view.zoom) > 0.002) settled = false;
       }
       draw(now);
       if (!reduced.matches || !settled) raf = requestAnimationFrame(step);
@@ -329,7 +369,6 @@ export default function Globe({ regions, activeId, onSelect, onInteract }: Globe
       lastX = event.clientX;
       lastY = event.clientY;
       moved += Math.abs(dx) + Math.abs(dy);
-      if (moved > 4) propsRef.current.onInteract();
       const perPx = 0.32 / view.zoom;
       view.lon -= dx * perPx;
       view.lat = Math.max(-60, Math.min(60, view.lat + dy * perPx));
@@ -374,7 +413,7 @@ export default function Globe({ regions, activeId, onSelect, onInteract }: Globe
       <canvas
         ref={canvasRef}
         role="img"
-        aria-label="Interactive globe showing BTE locations. Use the location buttons beside it to choose a place."
+        aria-label="Interactive globe showing BTE locations. Scroll to move between places, or drag to turn the globe."
         className="absolute inset-0 h-full w-full cursor-grab touch-pan-y select-none active:cursor-grabbing"
       />
     </div>
