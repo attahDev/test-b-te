@@ -9,7 +9,7 @@ import { useEffect, useRef, useState } from "react";
 const links = [
   { label: "Home", href: "/", match: "/" },
   { label: "Our Ecosystem", href: "/ecosystem", match: "/ecosystem" },
-  { label: "Connect", href: "/#contact", match: "" },
+  { label: "Connect", href: "/contact", match: "/contact" },
 ];
 
 export default function Navbar() {
@@ -67,7 +67,7 @@ export default function Navbar() {
 
       <div className="hidden items-center md:flex">
         <Link
-          href="/#contact"
+          href="/contact"
           className="inline-flex items-center gap-1 rounded-full bg-[#B04333] px-5 py-2 text-sm text-white transition-colors hover:bg-[#923327]"
         >
           Work with BTE ↗
@@ -109,7 +109,7 @@ export default function Navbar() {
                 );
               })}
               <Link
-                href="/#contact"
+                href="/contact"
                 onClick={() => setIsMobileMenuOpen(false)}
                 className="mt-2 inline-flex items-center justify-center gap-1 rounded-full bg-[#B04333] px-5 py-3 text-sm text-white transition-colors hover:bg-[#923327]"
               >

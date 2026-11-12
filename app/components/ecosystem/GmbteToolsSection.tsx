@@ -74,7 +74,7 @@ export default function GmbteToolsSection() {
         </div>
 
         <div className="mt-10">
-          <Button href="/#contact" variant="primary" size="large">
+          <Button href="/contact" variant="primary" size="large">
             Get access <span aria-hidden="true">↗</span>
           </Button>
         </div>
