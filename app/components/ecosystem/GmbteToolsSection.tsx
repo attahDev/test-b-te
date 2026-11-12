@@ -1,7 +1,7 @@
-// GMBTE platform tools: grouped explorer with a self-touring list, a journey rail and a tilting detail panel.
+// GMBTE platform tools: grouped explorer with a list, a journey rail and a tilting detail panel.
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import type { CSSProperties, PointerEvent } from "react";
 import Aurora from "../Aurora";
 import Button from "../ui/Button";
@@ -62,33 +62,14 @@ const groups: Group[] = [
 ];
 
 const names = groups.flatMap((group) => group.tools.map((tool) => tool.name));
-const CYCLE = 5500;
 
 export default function GmbteToolsSection() {
   const [groupId, setGroupId] = useState(groups[0].id);
   const [index, setIndex] = useState(0);
-  const [held, setHeld] = useState(false);
-  const [inView, setInView] = useState(false);
-  const rootRef = useRef<HTMLDivElement>(null);
   const group = groups.find((item) => item.id === groupId) ?? groups[0];
   const count = group.tools.length;
   const tool = group.tools[index];
   const next = group.tools[(index + 1) % count];
-  const auto = inView && !held;
-
-  useEffect(() => {
-    const el = rootRef.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(([entry]) => setInView(entry.isIntersecting), { threshold: 0.3 });
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
-
-  useEffect(() => {
-    if (!auto || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const timer = window.setTimeout(() => setIndex((i) => (i + 1) % count), CYCLE);
-    return () => window.clearTimeout(timer);
-  }, [auto, index, count, groupId]);
 
   function choose(id: string) {
     setGroupId(id);
@@ -158,11 +139,6 @@ export default function GmbteToolsSection() {
         </div>
 
         <div
-          ref={rootRef}
-          onPointerEnter={() => setHeld(true)}
-          onPointerLeave={() => setHeld(false)}
-          onFocus={() => setHeld(true)}
-          onBlur={() => setHeld(false)}
           className="mt-8 grid items-start gap-6 lg:grid-cols-[minmax(0,380px)_1fr]"
         >
           <div className="relative pl-7">
@@ -193,7 +169,7 @@ export default function GmbteToolsSection() {
                     {item.name}
                   </span>
                   <span aria-hidden="true" className={`transition-all duration-300 ${n === index ? "translate-x-0 opacity-100" : "-translate-x-2 opacity-0"}`}>→</span>
-                  {n === index && <span key={`${groupId}${index}`} aria-hidden="true" className={`gt-bar absolute bottom-[-1px] left-0 h-px w-full bg-[#E97868] ${auto ? "gt-bar-run" : ""}`} />}
+                  {n === index && <span aria-hidden="true" className="absolute bottom-[-1px] left-0 h-px w-full bg-[#E97868]" />}
                 </button>
               ))}
             </div>
