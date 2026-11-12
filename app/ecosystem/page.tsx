@@ -1,5 +1,6 @@
 import BuildWithUsSection from "@/app/components/ecosystem/BuildWithUsSection";
 import EcosystemHeroSection from "@/app/components/ecosystem/HeroSection";
+import GmbteToolsSection from "@/app/components/ecosystem/GmbteToolsSection";
 import ModelSection from "@/app/components/ecosystem/ModelSection";
 import RelationshipsSection from "@/app/components/ecosystem/RelationshipsSection";
 import TechnologyModelSection from "@/app/components/ecosystem/TechnologyModelSection";
@@ -16,6 +17,7 @@ export default function EcosystemPage() {
       <ModelSection />
       <TechnologyModelSection />
       <ServicesSection />
+      <GmbteToolsSection />
       <BuildWithUsSection />
       <Footer />
     </main>
