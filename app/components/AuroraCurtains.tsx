@@ -1,4 +1,3 @@
-// Canvas aurora curtains: layered sine-noise rays drawn at low resolution, then blurred by CSS.
 "use client";
 
 import { useEffect, useRef } from "react";

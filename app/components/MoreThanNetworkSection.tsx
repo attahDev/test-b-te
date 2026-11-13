@@ -1,4 +1,3 @@
-// "More than a network": the six infrastructure pillars as an interlocking collage of tall, wide and standard tiles.
 import Image from "next/image";
 import type { CSSProperties } from "react";
 import Reveal from "./ui/Reveal";

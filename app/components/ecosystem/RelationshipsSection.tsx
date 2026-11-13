@@ -1,4 +1,3 @@
-// Relationships: header plus two counter-scrolling strips of partner logos and names.
 import Image from "next/image";
 import SectionLabel from "../ui/SectionLabel";
 import WaveBackground from "./WaveBackground";

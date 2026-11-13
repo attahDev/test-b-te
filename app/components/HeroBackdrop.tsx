@@ -1,4 +1,3 @@
-// Hero aurora curtains with a pause control for the motion.
 "use client";
 
 import { useState, useSyncExternalStore } from "react";

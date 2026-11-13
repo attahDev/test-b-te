@@ -1,4 +1,3 @@
-// Technology model: a live, linked diagram of the BTE disc and its five layers, cycling through three groups.
 "use client";
 
 import { useEffect, useState, useSyncExternalStore, type CSSProperties, type ReactNode } from "react";

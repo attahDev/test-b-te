@@ -1,5 +1,3 @@
-// Tour stops for the globe section: each stop has a place, a colour theme, a country to light up and its details.
-// Null or empty detail fields render as visible placeholders until real content is supplied.
 
 export type Rgb = [number, number, number];
 
@@ -12,6 +10,7 @@ export type Stop = {
   lat: number;
   lon: number;
   zoom: number;
+  alt: number;
   labelSide: "left" | "right";
   rgb: string;
   hex: string;
@@ -38,6 +37,7 @@ export const stops: Stop[] = [
     lat: 53.48,
     lon: -2.24,
     zoom: 2.7,
+    alt: 0.7,
     labelSide: "left",
     rgb: "239,92,78",
     hex: "#EF5C4E",
@@ -63,6 +63,7 @@ export const stops: Stop[] = [
     lat: 53.38,
     lon: -1.47,
     zoom: 2.7,
+    alt: 0.7,
     labelSide: "right",
     rgb: "74,144,255",
     hex: "#4A90FF",
@@ -84,6 +85,7 @@ export const stops: Stop[] = [
     lat: 9.1,
     lon: 8.7,
     zoom: 1.8,
+    alt: 1.05,
     labelSide: "right",
     rgb: "52,211,120",
     hex: "#34D378",
@@ -105,6 +107,7 @@ export const stops: Stop[] = [
     lat: 53.3,
     lon: -8.0,
     zoom: 3.6,
+    alt: 0.5,
     labelSide: "left",
     rgb: "251,165,48",
     hex: "#FBA530",

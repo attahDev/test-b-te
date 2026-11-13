@@ -1,4 +1,3 @@
-// Canvas globe: dotted land, lit country maps, great-circle arcs, markers, scroll-driven focus and drag rotation.
 "use client";
 
 import { useEffect, useRef } from "react";

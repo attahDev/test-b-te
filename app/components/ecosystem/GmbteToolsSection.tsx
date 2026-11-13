@@ -1,4 +1,3 @@
-// GMBTE platform tools: grouped explorer with a list, a journey rail and a tilting detail panel.
 "use client";
 
 import { useState } from "react";

@@ -1,4 +1,3 @@
-// Marks a wrapper as revealed once it scrolls into view so CSS can stagger its children in.
 "use client";
 
 import { useEffect, useRef, useState, type ReactNode } from "react";

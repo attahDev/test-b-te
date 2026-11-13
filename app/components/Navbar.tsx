@@ -1,4 +1,3 @@
-// Top navigation: Home, Our Ecosystem and Connect, with the active page marked and a mobile menu.
 "use client";
 
 import Image from "next/image";

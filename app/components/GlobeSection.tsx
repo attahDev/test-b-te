@@ -1,10 +1,9 @@
-// Locations: a pinned, scroll-driven globe tour. Welcome, one stop per site with its own colours, then the full globe.
 "use client";
 
 import Image from "next/image";
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import AuroraCurtains from "./AuroraCurtains";
-import Globe from "./globe/Globe";
+import GlobeScene from "./globe/GlobeScene";
 import { introAurora, introBg, stops } from "./globe/locations";
 import SectionLabel from "./ui/SectionLabel";
 
@@ -86,7 +85,7 @@ export default function GlobeSection() {
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_55%,transparent_30%,rgba(5,6,8,0.7)_100%)]" />
         </div>
 
-        <Globe stops={stops} mode={mode} activeId={activeId} visibleIds={visibleIds} onSelect={(id) => jump(stops.findIndex((item) => item.id === id) + 1)} />
+        <GlobeScene stops={stops} mode={mode} activeId={activeId} visibleIds={visibleIds} onSelect={(id) => jump(stops.findIndex((item) => item.id === id) + 1)} />
 
         <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_top,rgba(5,6,8,0.88)_0%,rgba(5,6,8,0.62)_42%,transparent_62%)] lg:bg-[linear-gradient(to_right,rgba(5,6,8,0.82)_0%,rgba(5,6,8,0.55)_34%,transparent_56%)]" />
 

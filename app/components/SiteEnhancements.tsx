@@ -39,7 +39,6 @@ export default function SiteEnhancements() {
       }
     }, { threshold: 0.12 });
 
-    // Animate content, never section/sticky containers or existing scroll transforms.
     document.querySelectorAll("section").forEach((section) => {
       section.querySelectorAll<HTMLElement>("h1, h2, article, [data-carousel-card], p").forEach((element, index) => {
         if (element.closest("article") && element.tagName !== "ARTICLE") return;

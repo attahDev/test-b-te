@@ -1,4 +1,3 @@
-// Our Model: a pinned, scroll-driven seven-step staircase with a context panel for the active step.
 "use client";
 
 import Image from "next/image";

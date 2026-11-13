@@ -1,4 +1,3 @@
-// Layered blurred colour bands that drift slowly; pauses when scrolled out of view.
 "use client";
 
 import { useEffect, useRef } from "react";
