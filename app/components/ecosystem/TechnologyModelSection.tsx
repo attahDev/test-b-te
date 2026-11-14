@@ -1,11 +1,9 @@
 "use client";
 
-import { useEffect, useState, useSyncExternalStore, type CSSProperties, type ReactNode } from "react";
+import { useState, type CSSProperties, type ReactNode } from "react";
 import Reveal from "../ui/Reveal";
 import SectionLabel from "../ui/SectionLabel";
 import WaveBackground from "./WaveBackground";
-
-const REDUCED = "(prefers-reduced-motion: reduce)";
 
 const groups = [
   { num: "01", name: "Community Ownership", band: "B", color: "linear-gradient(90deg,#5d90bd,#2f6f9e)", text: "The point of the whole model. Communities hold equity, intellectual property and a real say in what gets built, and every layer below exists to serve that." },
@@ -23,22 +21,8 @@ const layers: { name: string; note?: string; group: number; icon: ReactNode }[] 
   { name: "Cloud", note: "Foundation", group: 2, icon: <g {...stroke}><path d="M9 24a6 6 0 01-.6-12A8 8 0 0124 13.5 5.3 5.3 0 0123 24z" /></g> },
 ];
 
-function subscribe(notify: () => void) {
-  const query = window.matchMedia(REDUCED);
-  query.addEventListener("change", notify);
-  return () => query.removeEventListener("change", notify);
-}
-
 export default function TechnologyModelSection() {
   const [active, setActive] = useState(0);
-  const [held, setHeld] = useState(false);
-  const reduced = useSyncExternalStore(subscribe, () => window.matchMedia(REDUCED).matches, () => true);
-
-  useEffect(() => {
-    if (reduced || held) return;
-    const timer = setInterval(() => setActive((current) => (current + 1) % groups.length), 4500);
-    return () => clearInterval(timer);
-  }, [reduced, held]);
 
   const group = groups[active];
 
@@ -63,13 +47,7 @@ export default function TechnologyModelSection() {
           </p>
         </div>
 
-        <div
-          className="mt-10 grid items-center gap-10 lg:grid-cols-[1fr_1fr] lg:gap-6"
-          onPointerEnter={() => setHeld(true)}
-          onPointerLeave={() => setHeld(false)}
-          onFocus={() => setHeld(true)}
-          onBlur={() => setHeld(false)}
-        >
+        <div className="mt-10 grid items-center gap-10 lg:grid-cols-[1fr_1fr] lg:gap-6">
           <div>
             <div className="tech-disc relative mx-auto h-[230px] w-full max-w-[520px] sm:h-[264px]">
               <span aria-hidden="true" className="tech-sphere absolute right-0 top-0 h-full aspect-square rounded-full" />

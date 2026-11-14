@@ -130,7 +130,6 @@ export default function WhyWorkWithUs() {
                 aria-controls="reason-panel"
                 tabIndex={index === selected ? 0 : -1}
                 onClick={() => setSelected(index)}
-                onPointerEnter={(event) => event.pointerType === "mouse" && setSelected(index)}
                 className="flex w-full flex-col items-center gap-3 text-center focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#B04333]"
               >
                 <span className="who-cat-icon">
