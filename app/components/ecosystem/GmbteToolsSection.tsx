@@ -36,39 +36,28 @@ export default function GmbteToolsSection() {
           </p>
         </div>
 
-        <div className="mt-14 flex flex-col gap-14">
+        <div className="mt-14 flex flex-col gap-12">
           {toolGroups.map((group, groupIndex) => (
-            <Reveal key={group.id} threshold={0.1} className="border-t border-white/20 pt-5">
-              <div className="mb-2 flex items-baseline justify-between gap-4">
+            <Reveal key={group.id} threshold={0.08}>
+              <div className="mb-5 flex items-baseline justify-between gap-4 border-b border-white/15 pb-3">
                 <h3 className="text-xl font-bold md:text-2xl">{group.title}</h3>
-                <span className="font-mono text-xs text-white/45">{pad(group.tools.length)}</span>
+                <span className="text-sm text-white/45">{group.upcoming ? `${group.tools.length} on the way` : `${group.tools.length} tools`}</span>
               </div>
 
-              <ul>
+              <ul className="grid gap-3 md:grid-cols-2 lg:grid-cols-3">
                 {group.tools.map((tool, order) => (
                   <li
                     key={tool.name}
                     style={{ "--i": order } as CSSProperties}
-                    className="tool-row grid grid-cols-[2.25rem_1fr] gap-x-3 border-b border-white/10 px-2 py-4 md:grid-cols-[3rem_minmax(0,1fr)_minmax(0,1.1fr)] md:gap-x-6"
+                    className={`tool-row flex min-h-[132px] flex-col rounded-md border bg-[#1b1819] p-5 ${group.upcoming ? "border-dashed border-white/25" : "border-white/10"}`}
                   >
-                    <span className="tool-num pt-1 font-mono text-xs text-white/35">{pad(groupOffsets[groupIndex] + order + 1)}</span>
-                    <div>
-                      <span className={`tool-name block text-lg font-semibold leading-snug md:text-xl ${group.upcoming ? "text-white/60" : ""}`}>{tool.name}</span>
-                      {group.upcoming && <span className="mt-1 block text-xs font-medium uppercase tracking-[0.14em] text-[#E97868]">Coming soon</span>}
+                    <div className="flex items-start justify-between gap-3">
+                      <span className="font-mono text-xs text-white/35">{pad(groupOffsets[groupIndex] + order + 1)}</span>
+                      {group.upcoming && <span className="text-xs text-[#E97868]">Coming soon</span>}
                     </div>
-                    <div className="col-start-2 mt-1 md:col-start-3 md:mt-0">
-                      {tool.note && <p className="text-sm leading-relaxed text-white/60">{tool.note}</p>}
-                      {tool.parts && (
-                        <p className={`text-sm text-white/80 ${tool.note ? "mt-1.5" : ""}`}>
-                          {tool.parts.map((part, index) => (
-                            <span key={part}>
-                              {index > 0 && <span className="px-2 text-[#E97868]">/</span>}
-                              {part}
-                            </span>
-                          ))}
-                        </p>
-                      )}
-                    </div>
+                    <h4 className="mt-3 text-lg font-semibold leading-snug">{tool.name}</h4>
+                    {tool.note && <p className="mt-1.5 text-sm leading-relaxed text-white/60">{tool.note}</p>}
+                    {tool.parts && <p className="mt-auto pt-4 text-[13px] text-white/75">{tool.parts.join(" / ")}</p>}
                   </li>
                 ))}
               </ul>

@@ -99,10 +99,6 @@ export default function GlobeSection() {
                   <p className="mt-4 max-w-[480px] text-sm leading-relaxed text-[#FAFAF9]/75 md:text-base">
                     We build and connect the people, technology and partnerships that help communities take part in the digital economy. Scroll to visit each place we work.
                   </p>
-                  <p className="mt-6 inline-flex items-center gap-2 font-mono text-xs text-[#FAFAF9]/55">
-                    <span aria-hidden="true" className="tour-cue">↓</span>
-                    {reduced ? "Use the steps below" : "Scroll to begin the tour"}
-                  </p>
                 </>
               )}
 
