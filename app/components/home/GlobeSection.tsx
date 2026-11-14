@@ -104,11 +104,7 @@ export default function GlobeSection() {
 
               {stop && (
                 <>
-                  <p className="flex items-center gap-3 text-xs font-medium uppercase tracking-[0.18em]" style={{ color: accent }}>
-                    <span aria-hidden="true" className="h-px w-8" style={{ background: accent }} />
-                    Stop {stage} of {stops.length} · {stop.status === "live" ? "Live" : "Opening soon"}
-                  </p>
-                  <h2 id="locations-title" className="mt-3 text-2xl font-black leading-[1.05] tracking-tight text-[#FAFAF9] md:text-4xl">
+                  <h2 id="locations-title" className="text-2xl font-black leading-[1.05] tracking-tight text-[#FAFAF9] md:text-4xl">
                     {stop.name}
                   </h2>
                   <p className="mt-2 hidden max-w-[480px] text-sm leading-snug text-[#FAFAF9]/70 md:block">{stop.line}</p>
