@@ -6,19 +6,21 @@ import Button from "../ui/Button";
 import Reveal from "../ui/Reveal";
 import SectionLabel from "../ui/SectionLabel";
 import PlatformIcon from "./PlatformIcon";
-import { agentTones, agents, controlCentre, ecosystem, platformTools, productivity } from "./platformLayers";
+import { toolGroups, toolTones } from "./platformLayers";
 
-const tileNames = [...platformTools, ...productivity].map((item) => item.name);
+const tileNames = toolGroups.flatMap((group) => group.tools.map((tool) => tool.name));
+const liveCount = toolGroups.filter((group) => !group.upcoming).reduce((total, group) => total + group.tools.length, 0);
+const upcomingCount = toolGroups.filter((group) => group.upcoming).reduce((total, group) => total + group.tools.length, 0);
 
 function tileStyle(order: number, tone = "#E97868") {
   return { "--i": order, "--tone": tone } as CSSProperties;
 }
 
-function Layer({ number, title, children }: { number: number; title: string; children: ReactNode }) {
+function Group({ title, count, children }: { title: string; count: number; children: ReactNode }) {
   return (
-    <section aria-label={`Layer ${number}: ${title}`} className="rounded-xl border border-white/10 bg-white/[0.025] p-3 md:p-4">
+    <section aria-label={title} className="rounded-xl border border-white/10 bg-white/[0.025] p-3 md:p-4">
       <h3 className="mb-3 font-mono text-[11px] font-medium uppercase tracking-[0.16em] text-[#E97868]">
-        Layer {number} – {title}
+        {title} · {count}
       </h3>
       {children}
     </section>
@@ -33,10 +35,7 @@ export default function GmbteToolsSection() {
     event.currentTarget.style.setProperty("--my", `${event.clientY - box.top}px`);
   }
 
-  const platformStart = ecosystem.length;
-  const agentStart = platformStart + platformTools.length;
-  const productivityStart = agentStart + agents.length;
-  const controlStart = productivityStart + productivity.length + 1;
+  const groupStarts = toolGroups.map((_, index) => toolGroups.slice(0, index).reduce((total, group) => total + group.tools.length, 0) + 1);
 
   return (
     <section
@@ -54,90 +53,44 @@ export default function GmbteToolsSection() {
           What members can use
         </h2>
         <p className="mt-4 max-w-[520px] text-sm leading-relaxed text-white/70 md:text-base">
-          Five layers inside one platform, from the places members gather to the controls that keep it safe.
+          Every tool inside the GMBTE platform, grouped by what you need it for.
         </p>
 
         <Reveal threshold={0.08} className="mt-10 rounded-2xl border border-white/10 bg-[#0b0d14]/85 p-3 backdrop-blur-sm md:p-5">
           <div className="board-tile mb-4 flex flex-col gap-1 px-1 md:flex-row md:items-end md:justify-between" style={tileStyle(0)}>
             <div>
-              <p className="text-lg font-bold md:text-xl">Member dashboard</p>
+              <p className="text-lg font-bold md:text-xl">GMBTE platform</p>
               <p className="text-xs text-white/55 md:text-sm">Your intelligent guide to opportunities, growth and impact.</p>
             </div>
-            <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-white/40">5 layers · {agents.length} AI agents</p>
+            <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-white/40">{liveCount} tools · {upcomingCount} coming soon</p>
           </div>
 
           <div className="flex flex-col gap-3">
-            <Layer number={1} title="Platform ecosystem">
-              <ul className="grid grid-cols-3 gap-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-11">
-                {ecosystem.map((item, order) => (
-                  <li key={item.name} style={tileStyle(order)} className="board-tile flex flex-col items-center justify-center gap-2 rounded-lg border border-white/10 bg-white/[0.035] px-2 py-3 text-center">
-                    <PlatformIcon name={item.icon} className="h-6 w-6 text-[var(--tone)]" />
-                    <span className="text-[11px] leading-tight text-white/85">{item.name}</span>
-                  </li>
-                ))}
-              </ul>
-            </Layer>
-
-            <Layer number={2} title="Platform tools">
-              <ul className="grid grid-cols-2 gap-2 md:grid-cols-4 lg:grid-cols-8">
-                {platformTools.map((item, order) => (
-                  <li key={item.name} style={tileStyle(platformStart + order, agentTones[order % agentTones.length])} className="board-tile flex flex-col items-center gap-2 rounded-lg border border-white/10 bg-white/[0.035] px-3 py-4 text-center">
-                    <PlatformIcon name={item.icon} className="h-7 w-7 text-[var(--tone)]" />
-                    <span className="text-xs font-semibold leading-tight text-white">{item.name}</span>
-                    <span className="text-[11px] leading-snug text-white/50">{item.note}</span>
-                  </li>
-                ))}
-              </ul>
-            </Layer>
-
-            <Layer number={3} title={`AI agents (${agents.length})`}>
-              <ul className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7">
-                {agents.map((item, order) => (
-                  <li key={item.name} style={tileStyle(agentStart + order, agentTones[order % agentTones.length])} className="board-tile flex flex-col items-center gap-2 rounded-lg border border-white/10 bg-white/[0.035] px-3 py-4 text-center">
-                    <PlatformIcon name={item.icon} className="h-8 w-8 text-[var(--tone)]" />
-                    <span className="text-xs font-semibold leading-tight text-white">
-                      {order + 1}. {item.name}
-                    </span>
-                    <span className="text-[11px] leading-snug text-white/50">{item.note}</span>
-                    <span className="mt-auto rounded-md bg-[var(--tone)]/20 px-5 py-1 text-[11px] font-medium text-white">Chat</span>
-                  </li>
-                ))}
-              </ul>
-            </Layer>
-
-            <Layer number={4} title="AI productivity & business tools">
-              <ul className="grid grid-cols-2 gap-2 md:grid-cols-3 lg:grid-cols-6">
-                {productivity.map((item, order) => (
-                  <li key={item.name} style={tileStyle(productivityStart + order, agentTones[(order + 2) % agentTones.length])} className="board-tile flex flex-col gap-2 rounded-lg border border-white/10 bg-white/[0.035] p-3">
-                    <div className="flex items-center gap-2">
-                      <PlatformIcon name={item.icon} className="h-6 w-6 flex-none text-[var(--tone)]" />
-                      <span className="text-xs font-semibold leading-tight text-white">{item.name}</span>
-                    </div>
-                    <span className="text-[11px] leading-snug text-white/50">{item.note}</span>
-                    <span className="mt-auto self-start rounded-md bg-white/10 px-4 py-1 text-[11px] font-medium text-white">Launch</span>
-                  </li>
-                ))}
-                <li style={tileStyle(productivityStart + productivity.length)} className="board-tile flex flex-col gap-2 rounded-lg border border-dashed border-white/20 p-3">
-                  <div className="flex items-center gap-2">
-                    <PlatformIcon name="grid" className="h-6 w-6 flex-none text-[var(--tone)]" />
-                    <span className="text-xs font-semibold leading-tight text-white">View All Tools</span>
-                  </div>
-                  <span className="text-[11px] leading-snug text-white/50">Explore all AI productivity tools in one place.</span>
-                  <span className="mt-auto self-start rounded-md bg-white/10 px-4 py-1 text-[11px] font-medium text-white">Open Hub</span>
-                </li>
-              </ul>
-            </Layer>
-
-            <Layer number={5} title="Control centre">
-              <ul className="grid grid-cols-3 gap-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-11">
-                {controlCentre.map((item, order) => (
-                  <li key={item.name} style={tileStyle(controlStart + order)} className="board-tile flex flex-col items-center gap-1.5 rounded-lg border border-white/10 bg-white/[0.035] px-2 py-3 text-center">
-                    <PlatformIcon name={item.icon} className="h-5 w-5 text-[var(--tone)]" />
-                    <span className="text-[11px] leading-tight text-white/75">{item.name}</span>
-                  </li>
-                ))}
-              </ul>
-            </Layer>
+            {toolGroups.map((group, groupIndex) => (
+              <Group key={group.id} title={group.title} count={group.tools.length}>
+                <ul className={`grid gap-2 ${group.columns}`}>
+                  {group.tools.map((tool, order) => (
+                    <li
+                      key={tool.name}
+                      style={tileStyle(groupStarts[groupIndex] + order, toolTones[(order + groupIndex) % toolTones.length])}
+                      className={`board-tile flex flex-col items-center gap-2 rounded-lg border bg-white/[0.035] px-3 py-4 text-center ${group.upcoming ? "border-dashed border-white/25" : "border-white/10"}`}
+                    >
+                      <PlatformIcon name={tool.icon} className="h-7 w-7 text-[var(--tone)]" />
+                      <span className="text-sm font-semibold leading-tight text-white">{tool.name}</span>
+                      {tool.note && <span className="text-[11px] leading-snug text-white/50">{tool.note}</span>}
+                      {tool.parts && (
+                        <span className="mt-auto flex flex-wrap justify-center gap-1.5 pt-1">
+                          {tool.parts.map((part) => (
+                            <span key={part} className="rounded-full border border-white/20 px-2.5 py-0.5 text-[10px] text-white/80">{part}</span>
+                          ))}
+                        </span>
+                      )}
+                      {group.upcoming && <span className="mt-auto rounded-full border border-[#E97868] px-3 py-0.5 text-[10px] font-medium text-[#E97868]">Coming soon</span>}
+                    </li>
+                  ))}
+                </ul>
+              </Group>
+            ))}
           </div>
         </Reveal>
 

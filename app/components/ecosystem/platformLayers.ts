@@ -1,67 +1,63 @@
-export type LayerItem = { name: string; icon: string; note?: string };
+export type Tool = { name: string; icon: string; note?: string; parts?: string[] };
+export type ToolGroup = { id: string; title: string; upcoming?: boolean; columns: string; tools: Tool[] };
 
-export const ecosystem: LayerItem[] = [
-  { name: "Community", icon: "users" },
-  { name: "Events", icon: "calendar" },
-  { name: "Academy", icon: "cap" },
-  { name: "Fellowship", icon: "medal" },
-  { name: "Hall of Fame", icon: "trophy" },
-  { name: "Partnerships", icon: "link" },
-  { name: "Business Services", icon: "briefcase" },
-  { name: "Careers & Talent", icon: "talent" },
-  { name: "Green Impact", icon: "leaf" },
-  { name: "Digital Trust", icon: "shield" },
-  { name: "Research & Insights", icon: "chart" },
+export const toolGroups: ToolGroup[] = [
+  {
+    id: "ai",
+    title: "AI and business tools",
+    columns: "grid-cols-2 md:grid-cols-3 lg:grid-cols-5",
+    tools: [
+      { name: "Market Research", icon: "search", note: "Industry and market findings for the idea, written for a founder rather than an analyst." },
+      { name: "Pitch Deck", icon: "deck", note: "Builds a themed investor deck from the idea and research, slide by slide." },
+      { name: "Proposal Builder", icon: "doc", note: "Drafts client and funding proposals from a short brief, ready to edit." },
+      { name: "Idea Generator", icon: "bulb", note: "Turns a rough direction into a business concept you can look at, question and refine.", parts: ["Idea Engine"] },
+      { name: "Brand Identity", icon: "pen", note: "Logos and brand documents, exported as multi-page PDFs." },
+      { name: "CV Builder", icon: "talent", note: "AI-written CVs with ATS scoring and tailoring for each role, linked to the member's Skills Passport and matched opportunities." },
+      { name: "Business Planner", icon: "list", note: "A structured plan with a roadmap to work through.", parts: ["Business Studio"] },
+      { name: "Mentor AI", icon: "cap" },
+      { name: "Grant Writer", icon: "pen" },
+      { name: "Green Impact", icon: "leaf", parts: ["Green AI Advisor"] },
+      { name: "Hall of Fame AI", icon: "trophy" },
+      { name: "General Chatbot", icon: "chat" },
+      { name: "Career Intelligence", icon: "compass", parts: ["Readiness", "Interview Prep", "Cover Letter"] },
+    ],
+  },
+  {
+    id: "learning",
+    title: "Learning and careers",
+    columns: "grid-cols-2 md:grid-cols-3 lg:grid-cols-5",
+    tools: [
+      { name: "Academy and Courses", icon: "cap", parts: ["Enrollment", "Azure Learn", "Certificates"] },
+      { name: "Career Paths", icon: "compass" },
+      { name: "Career Portfolio", icon: "briefcase" },
+      { name: "Career Mobility Analytics", icon: "chart" },
+      { name: "Opportunities", icon: "star", parts: ["Assistant", "Opportunity Insights"] },
+    ],
+  },
+  {
+    id: "community",
+    title: "Community and mentorship",
+    columns: "grid-cols-2 md:grid-cols-3 lg:grid-cols-6",
+    tools: [
+      { name: "Mentors", icon: "users", note: "Guidance from mentors, with sessions you can book.", parts: ["Find", "Groups", "Project Reviews", "Mentor Application"] },
+      { name: "Community", icon: "users" },
+      { name: "Network", icon: "link" },
+      { name: "Events", icon: "calendar", note: "BTE events and programmes in one place.", parts: ["My Events", "Shareable event pages"] },
+      { name: "Newsletter", icon: "mail" },
+      { name: "Video Conferencing", icon: "video" },
+    ],
+  },
+  {
+    id: "upcoming",
+    title: "Upcoming tools",
+    upcoming: true,
+    columns: "grid-cols-1 sm:grid-cols-3",
+    tools: [
+      { name: "Financial Forecast", icon: "chart" },
+      { name: "Investor Readiness", icon: "rocket" },
+      { name: "Business Model Canvas", icon: "grid" },
+    ],
+  },
 ];
 
-export const platformTools: LayerItem[] = [
-  { name: "Research Tool", icon: "search", note: "Surveys, polls and research projects" },
-  { name: "Translation Tool", icon: "translate", note: "Multi-language real-time translation" },
-  { name: "Conference & Video Rooms", icon: "video", note: "Meetings, rooms and virtual events" },
-  { name: "Marketplace & Freelance Hub", icon: "store", note: "Services, freelancers and project requests" },
-  { name: "Promo Studio", icon: "megaphone", note: "Marketing, campaigns and content tools" },
-  { name: "Tickets & Passes", icon: "ticket", note: "Ticket sales, barcodes and gift cards" },
-  { name: "Carbon & Green Impact Tool", icon: "leaf", note: "Carbon tracking, ESG and reporting" },
-  { name: "Change Maker Hub", icon: "star", note: "Recognition, impact projects and wall of fame" },
-];
-
-export const agents: LayerItem[] = [
-  { name: "Ecosystem Guide AI", icon: "compass", note: "Navigate the platform and find what you need." },
-  { name: "Career AI", icon: "briefcase", note: "Career guidance, skills, CVs and professional growth." },
-  { name: "Jobs & Talent AI", icon: "talent", note: "Jobs, internships, sponsored roles and talent matching." },
-  { name: "Founder AI", icon: "rocket", note: "Startup support, business growth and scaling." },
-  { name: "Fellowship AI", icon: "medal", note: "Fellowship guidance, track progress and benefits." },
-  { name: "Global Talent AI", icon: "globe", note: "Talent passport, achievements and evidence tracking." },
-  { name: "Hall of Fame AI", icon: "trophy", note: "Legacy, nominations and historical archives." },
-  { name: "Partnership AI", icon: "link", note: "Partnership opportunities and collaborations." },
-  { name: "Opportunity AI", icon: "star", note: "Grants, funding, accelerators and competitions." },
-  { name: "Research AI", icon: "search", note: "Research intelligence, reports and insights." },
-  { name: "Green Impact AI", icon: "leaf", note: "Sustainability, carbon tracking and ESG advice." },
-  { name: "Digital Trust AI", icon: "shield", note: "Privacy, security, compliance and responsible AI." },
-  { name: "Community AI", icon: "users", note: "Community support, engagement and networking." },
-  { name: "Mentorship AI", icon: "cap", note: "Mentor matching, mentee support and development." },
-];
-
-export const productivity: LayerItem[] = [
-  { name: "Market Research AI", icon: "chart", note: "Industry research, market analysis, trends, stocks, crypto and reports." },
-  { name: "Proposal Builder AI", icon: "doc", note: "Create winning proposals and business documents in minutes." },
-  { name: "Business Plan Builder AI", icon: "bulb", note: "AI-powered business plans tailored to your business." },
-  { name: "Grant Writer AI", icon: "pen", note: "Find grants and write strong grant applications with AI." },
-  { name: "Investor Deck Builder AI", icon: "deck", note: "Create investor-ready decks that tell your story." },
-];
-
-export const controlCentre: LayerItem[] = [
-  { name: "Governance", icon: "scale" },
-  { name: "Security", icon: "lock" },
-  { name: "GDPR", icon: "shield" },
-  { name: "Digital Trust", icon: "shield" },
-  { name: "Compliance", icon: "check" },
-  { name: "Analytics", icon: "chart" },
-  { name: "Users", icon: "user" },
-  { name: "Partnerships", icon: "link" },
-  { name: "Operations", icon: "gear" },
-  { name: "Audit Logs", icon: "list" },
-  { name: "System Health", icon: "pulse" },
-];
-
-export const agentTones = ["#7c6cf0", "#4a90ff", "#34d378", "#f08a3c", "#a86cf0", "#2cc4c4", "#e8b53c"];
+export const toolTones = ["#7c6cf0", "#4a90ff", "#34d378", "#f08a3c", "#a86cf0", "#2cc4c4", "#e8b53c"];
