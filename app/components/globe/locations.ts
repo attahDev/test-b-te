@@ -18,6 +18,7 @@ export type Stop = {
   line: string;
   stats: { number: string; label: string }[];
   office: string | null;
+  contact: { text: string; href: string }[];
   has: string[];
   done: string[];
   href: string | null;
@@ -46,10 +47,17 @@ export const stops: Stop[] = [
       { number: "15+", label: "Mentors" },
       { number: "6+", label: "Learning Areas" },
     ],
-    office: null,
-    has: ["The parent brand and intellectual property"],
+    office: "Manchester, Greater Manchester",
+    contact: [
+      { text: "info@gmblacktechexpo.co.uk", href: "mailto:info@gmblacktechexpo.co.uk" },
+      { text: "+44 7405 230017", href: "tel:+447405230017" },
+    ],
+    has: [
+      "The parent brand and intellectual property",
+      "Programmes in education, business, jobs and connection for Greater Manchester",
+    ],
     done: [],
-    href: null,
+    href: "https://gmblacktechexpo.co.uk/",
   },
   {
     id: "south-yorkshire",
@@ -66,11 +74,16 @@ export const stops: Stop[] = [
     hex: "#4A90FF",
     bg: "#08111f",
     line: "The second UK programme, built with local universities and partners.",
-    stats: [],
-    office: null,
-    has: [],
-    done: [],
-    href: null,
+    stats: [
+      { number: "101", label: "Registered candidates" },
+      { number: "46", label: "Participants trained" },
+      { number: "5", label: "Specialist programmes" },
+    ],
+    office: "South Yorkshire: Sheffield, Barnsley, Doncaster and Rotherham",
+    contact: [{ text: "southyorkshire@blacktechexpo.co.uk", href: "mailto:southyorkshire@blacktechexpo.co.uk" }],
+    has: ["Training and support in digital skills, AI, cyber security, entrepreneurship, mentoring and student opportunity"],
+    done: ["Capacity Building Programme delivered in cyber security, AI, business leadership and entrepreneurship. Figures as publicly reported, September 2026."],
+    href: "https://www.sybte.co.uk/",
   },
   {
     id: "nigeria",
@@ -89,6 +102,7 @@ export const stops: Stop[] = [
     line: "Opening next, connecting the UK network to Africa's largest tech talent pool.",
     stats: [],
     office: null,
+    contact: [],
     has: [],
     done: [],
     href: null,
@@ -110,6 +124,7 @@ export const stops: Stop[] = [
     line: "Opening next, extending the network across the Irish Sea.",
     stats: [],
     office: null,
+    contact: [],
     has: [],
     done: [],
     href: null,

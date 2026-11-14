@@ -87,7 +87,7 @@ export default function GlobeSection() {
         <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_top,rgba(5,6,8,0.88)_0%,rgba(5,6,8,0.62)_42%,transparent_62%)] lg:bg-[linear-gradient(to_right,rgba(5,6,8,0.82)_0%,rgba(5,6,8,0.55)_34%,transparent_56%)]" />
 
         <div className="pointer-events-none relative mx-auto flex min-h-0 w-full max-w-[1200px] flex-1 flex-col px-6 pb-16 pt-6 md:px-12 lg:grid lg:grid-cols-[0.95fr_1.05fr] lg:items-center lg:gap-10 lg:pb-20 lg:pt-10">
-          <div aria-hidden="true" className="h-[40svh] flex-none lg:hidden" />
+          <div aria-hidden="true" className="h-[27svh] flex-none lg:hidden" />
           <div aria-live="polite" className="pointer-events-auto min-h-0 flex-1 lg:flex-none">
             <div key={stage} className="panel-in">
               {mode === "intro" && (
@@ -127,7 +127,14 @@ export default function GlobeSection() {
                   <dl className="mt-4 grid max-w-[520px] gap-3 text-sm md:gap-4">
                     <div>
                       <dt className="mb-1 text-[11px] font-medium uppercase tracking-[0.18em]" style={{ color: accent }}>Address</dt>
-                      <dd>{stop.office ? <span className="text-[#FAFAF9]/85">{stop.office}</span> : <Pending>Address to be confirmed</Pending>}</dd>
+                      <dd className="flex flex-col items-start gap-1">
+                        {stop.office ? <span className="text-[#FAFAF9]/85">{stop.office}</span> : <Pending>Address to be confirmed</Pending>}
+                        {stop.contact.map((item) => (
+                          <a key={item.href} href={item.href} className="text-[#FAFAF9]/85 underline decoration-white/30 underline-offset-4 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">
+                            {item.text}
+                          </a>
+                        ))}
+                      </dd>
                     </div>
                     <div>
                       <dt className="mb-1 text-[11px] font-medium uppercase tracking-[0.18em]" style={{ color: accent }}>What is here</dt>
