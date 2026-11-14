@@ -68,7 +68,6 @@ export default function ModelSection() {
       <div className="sticky top-0 flex h-svh flex-col overflow-hidden bg-[#08090d] text-white motion-reduce:static motion-reduce:min-h-svh motion-reduce:py-16">
         <Image src="/homepage/architectural-background.png" alt="" aria-hidden="true" fill sizes="100vw" className="pointer-events-none object-cover object-center opacity-55" />
         <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-black/60" />
-        <Image src="/ecosystem/dots.png" alt="" aria-hidden="true" fill sizes="100vw" className="pointer-events-none object-cover opacity-35 mix-blend-screen" />
 
         <div className="relative mx-auto grid min-h-0 w-full max-w-[1280px] flex-1 grid-rows-[auto_1fr] gap-4 px-6 pb-6 pt-[10svh] sm:px-10 lg:grid-cols-[42%_1fr] lg:grid-rows-1 lg:gap-14 lg:px-12 lg:py-[12svh]">
           <div className="flex min-h-0 flex-col">
