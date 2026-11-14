@@ -101,7 +101,7 @@ export default function TechnologyModelSection() {
                     type="button"
                     onClick={() => setActive(layer.group)}
                     aria-label={`${layer.name}${layer.note ? `, ${layer.note}` : ""}`}
-                    className="flex w-full items-center gap-2 text-left sm:gap-6"
+                    className="flex min-h-11 w-full items-center gap-2 text-left sm:gap-6"
                   >
                     <span className="tech-tile-wrap relative block h-[96px] w-[190px] flex-none sm:h-[112px] sm:w-[224px]">
                       <span className="tech-tile absolute left-1/2 top-1/2 block h-[128px] w-[128px] sm:h-[150px] sm:w-[150px]" />

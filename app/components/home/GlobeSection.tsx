@@ -185,7 +185,7 @@ export default function GlobeSection() {
                         type="button"
                         onClick={() => jump(index + 1)}
                         style={{ borderColor: item.hex, color: item.hex }}
-                        className="rounded-full border px-4 py-2 text-sm transition-colors hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                        className="min-h-11 rounded-full border px-4 py-2 text-sm transition-colors hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
                       >
                         {item.label}
                       </button>
@@ -205,7 +205,7 @@ export default function GlobeSection() {
                 onClick={() => jump(index)}
                 aria-current={index === stage ? "step" : undefined}
                 aria-label={`Go to ${item.label}`}
-                className="tour-dot flex px-1 py-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                className="tour-dot flex px-1 py-5 md:py-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
               >
                 <span
                   data-on={index === stage}

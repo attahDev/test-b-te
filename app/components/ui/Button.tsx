@@ -18,9 +18,9 @@ const variants = {
 };
 
 const sizes = {
-  small: "px-4 py-2 text-xs",
-  medium: "px-5 py-2.5 text-xs",
-  large: "px-5 py-3.5 text-sm",
+  small: "min-h-11 px-4 py-2 text-xs",
+  medium: "min-h-11 px-5 py-2.5 text-xs",
+  large: "min-h-11 px-5 py-3.5 text-sm",
 };
 
 export default function Button({

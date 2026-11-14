@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import NewsletterForm from "./NewsletterForm";
 
 export default function Footer() {
   return (
@@ -33,11 +34,11 @@ export default function Footer() {
           {/* Site links */}
           <div>
             <h4 className="mb-3 text-lg font-semibold leading-6 text-[#FAFAF9]">Site</h4>
-            <ul className="max-w-[220px] space-y-3">
+            <ul className="max-w-[220px]">
               <li>
                 <Link
                   href="/#who-we-are"
-                  className="inline-block text-base font-medium leading-[1.4] text-[#a3a3a3] transition-colors duration-300 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#E97868]"
+                  className="inline-block py-2.5 text-base font-medium leading-[1.4] text-[#a3a3a3] transition-colors duration-300 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#E97868]"
                 >
                   Who We Are
                 </Link>
@@ -45,7 +46,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/ecosystem"
-                  className="inline-block text-base font-medium leading-[1.4] text-[#a3a3a3] transition-colors duration-300 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#E97868]"
+                  className="inline-block py-2.5 text-base font-medium leading-[1.4] text-[#a3a3a3] transition-colors duration-300 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#E97868]"
                 >
                   Our Ecosystem
                 </Link>
@@ -53,7 +54,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/contact"
-                  className="inline-block text-base font-medium leading-[1.4] text-[#a3a3a3] transition-colors duration-300 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#E97868]"
+                  className="inline-block py-2.5 text-base font-medium leading-[1.4] text-[#a3a3a3] transition-colors duration-300 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#E97868]"
                 >
                   Work With BTE
                 </Link>
@@ -64,11 +65,11 @@ export default function Footer() {
           {/* Programmes */}
           <div>
             <h4 className="mb-3 text-lg font-semibold leading-6 text-[#FAFAF9]">Programmes</h4>
-            <ul className="max-w-[220px] space-y-3">
+            <ul className="max-w-[220px]">
               <li>
                 <Link
                   href="#"
-                  className="inline-block text-base font-medium leading-[1.4] text-[#a3a3a3] transition-colors duration-300 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#E97868]"
+                  className="inline-block py-2.5 text-base font-medium leading-[1.4] text-[#a3a3a3] transition-colors duration-300 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#E97868]"
                 >
                   Greater Manchester Black Tech Expo
                 </Link>
@@ -76,7 +77,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="#"
-                  className="inline-block text-base font-medium leading-[1.4] text-[#a3a3a3] transition-colors duration-300 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#E97868]"
+                  className="inline-block py-2.5 text-base font-medium leading-[1.4] text-[#a3a3a3] transition-colors duration-300 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#E97868]"
                 >
                   South Yorkshire Black Tech Expo
                 </Link>
@@ -84,7 +85,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="#"
-                  className="inline-block text-base font-medium leading-[1.4] text-[#a3a3a3] transition-colors duration-300 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#E97868]"
+                  className="inline-block py-2.5 text-base font-medium leading-[1.4] text-[#a3a3a3] transition-colors duration-300 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#E97868]"
                 >
                   BTE Academy
                 </Link>
@@ -92,7 +93,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="#"
-                  className="inline-block text-base font-medium leading-[1.4] text-[#a3a3a3] transition-colors duration-300 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#E97868]"
+                  className="inline-block py-2.5 text-base font-medium leading-[1.4] text-[#a3a3a3] transition-colors duration-300 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#E97868]"
                 >
                   Black Tech Expo Hall of Fame
                 </Link>
@@ -103,11 +104,11 @@ export default function Footer() {
           {/* Legal */}
           <div>
             <h4 className="mb-3 text-lg font-semibold leading-6 text-[#FAFAF9]">Legal</h4>
-            <ul className="max-w-[220px] space-y-3">
+            <ul className="max-w-[220px]">
               <li>
                 <Link
                   href="#"
-                  className="inline-block text-base font-medium leading-[1.4] text-[#a3a3a3] transition-colors duration-300 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#E97868]"
+                  className="inline-block py-2.5 text-base font-medium leading-[1.4] text-[#a3a3a3] transition-colors duration-300 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#E97868]"
                 >
                   Privacy
                 </Link>
@@ -115,7 +116,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="#"
-                  className="inline-block text-base font-medium leading-[1.4] text-[#a3a3a3] transition-colors duration-300 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#E97868]"
+                  className="inline-block py-2.5 text-base font-medium leading-[1.4] text-[#a3a3a3] transition-colors duration-300 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#E97868]"
                 >
                   Cookies
                 </Link>
@@ -123,7 +124,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="#"
-                  className="inline-block text-base font-medium leading-[1.4] text-[#a3a3a3] transition-colors duration-300 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#E97868]"
+                  className="inline-block py-2.5 text-base font-medium leading-[1.4] text-[#a3a3a3] transition-colors duration-300 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#E97868]"
                 >
                   Accessibility Statement
                 </Link>
@@ -131,6 +132,8 @@ export default function Footer() {
             </ul>
           </div>
         </div>
+
+        <NewsletterForm />
 
         {/* Divider */}
         <div className="flex items-center justify-between gap-6 border-t border-white/45 pt-9">

@@ -48,3 +48,16 @@ export async function setRead(id: number, read: boolean) {
 export async function deleteMessage(id: number) {
   await sql()`DELETE FROM contact_messages WHERE id = ${id}`;
 }
+
+async function ensureSubscribers() {
+  await sql()`CREATE TABLE IF NOT EXISTS newsletter_subscribers (
+    id SERIAL PRIMARY KEY,
+    email TEXT NOT NULL UNIQUE,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+  )`;
+}
+
+export async function addSubscriber(email: string) {
+  await ensureSubscribers();
+  await sql()`INSERT INTO newsletter_subscribers (email) VALUES (${email}) ON CONFLICT (email) DO NOTHING`;
+}

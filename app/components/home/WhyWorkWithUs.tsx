@@ -157,7 +157,7 @@ export default function WhyWorkWithUs() {
             <p className="mt-3 max-w-[420px] text-lg leading-snug text-[#252323] md:text-xl">{reason.claim}</p>
             <Link
               href="/ecosystem"
-              className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-[#B04333] underline decoration-[#B04333]/40 underline-offset-4 transition-colors hover:text-[#8f3326] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#B04333]"
+              className="mt-6 inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-[#B04333] underline decoration-[#B04333]/40 underline-offset-4 transition-colors hover:text-[#8f3326] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#B04333]"
             >
               See the ecosystem <span aria-hidden="true">→</span>
             </Link>
