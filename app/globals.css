@@ -271,6 +271,16 @@ a, button {
   .who-cat:hover .who-cat-label {
     color: #b04333;
   }
+  .who-cat:has([aria-selected="true"]) .who-cat-ring {
+    transform: translateY(-4px) scale(1.1);
+    background-color: #fff;
+  }
+}
+.who-cat:has([aria-selected="true"]) .who-cat-ring::after {
+  opacity: 1;
+}
+.who-cat:has([aria-selected="true"]) .who-cat-label {
+  color: #b04333;
 }
 @media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
   [data-own-reveal]:not([data-in]) .who-word > span { transform: translateY(105%); }

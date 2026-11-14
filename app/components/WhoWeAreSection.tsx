@@ -3,17 +3,7 @@ import type { CSSProperties } from "react";
 import Button from "./ui/Button";
 import Reveal from "./ui/Reveal";
 import SectionLabel from "./ui/SectionLabel";
-
-const categories = [
-  { label: "Technology", icon: "/homepage/technology-icon.png" },
-  { label: "Innovation", icon: "/homepage/innovation-icon.png" },
-  { label: "Skills", icon: "/homepage/skills-icon.png" },
-  { label: "Enterprise", icon: "/homepage/enterprise-icon.png" },
-  { label: "AI", icon: "/homepage/ai-icon.png" },
-  { label: "Web3", icon: "/homepage/web3-icon.png" },
-  { label: "Research", icon: "/homepage/research-icon.png" },
-  { label: "Community", icon: "/homepage/community-icon.png" },
-];
+import WhyWorkWithUs from "./WhyWorkWithUs";
 
 function Words({ text, start }: { text: string; start: number }) {
   return text.split(" ").map((word, index) => (
@@ -75,36 +65,14 @@ export default function WhoWeAreSection() {
               Organisations Participate In The Digital Economy.
             </p>
             <div className="who-fade" style={{ "--d": 800 } as CSSProperties}>
-              <Button href="#" size="large" className="mt-6">
+              <Button href="/contact" size="large" className="mt-6">
                 Work with BTE <span aria-hidden="true">↗</span>
               </Button>
             </div>
           </div>
         </Reveal>
 
-        <Reveal className="mt-20" threshold={0.35}>
-          <p className="who-fade mb-7 flex items-center gap-3 text-base">
-            <span aria-hidden="true" className="h-px w-8 bg-[#B04333]" />
-            Why Work With Us?
-          </p>
-          <div className="relative">
-            <div aria-hidden="true" className="absolute left-[12.5%] right-[12.5%] top-7 z-0 hidden h-px bg-[#161415]/12 lg:block">
-              <span className="who-line block h-full w-full bg-[#B04333]/70" />
-            </div>
-            <ul className="relative z-10 grid grid-cols-4 gap-x-2 gap-y-7 lg:grid-cols-8">
-              {categories.map((cat, index) => (
-                <li key={cat.label} className="who-cat flex flex-col items-center gap-3 text-center" style={{ "--i": index } as CSSProperties}>
-                  <span className="who-cat-icon">
-                    <span className="who-cat-ring relative grid h-14 w-14 place-items-center rounded-full bg-[#FAFAF9]">
-                      <Image src={cat.icon} alt="" aria-hidden="true" width={64} height={64} className="h-9 w-9 object-contain" />
-                    </span>
-                  </span>
-                  <span className="who-cat-label text-[13px] font-semibold leading-tight sm:text-base md:text-lg">{cat.label}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </Reveal>
+        <WhyWorkWithUs />
       </div>
     </section>
   );
