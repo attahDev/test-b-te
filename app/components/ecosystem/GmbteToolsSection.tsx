@@ -7,7 +7,6 @@ import SectionLabel from "../ui/SectionLabel";
 import { toolGroups } from "./platformLayers";
 
 const toolNames = toolGroups.flatMap((group) => group.tools.map((tool) => tool.name));
-const liveCount = toolGroups.filter((group) => !group.upcoming).reduce((total, group) => total + group.tools.length, 0);
 
 function pad(number: number) {
   return String(number).padStart(2, "0");
@@ -31,9 +30,6 @@ export default function GmbteToolsSection() {
           <h2 id="gmbte-tools-title" className="max-w-[640px] text-3xl font-black leading-[1.02] tracking-tight md:text-5xl">
             What members can use
           </h2>
-          <p className="max-w-[360px] text-sm leading-relaxed text-white/60 md:text-right md:text-base">
-            Every tool inside the platform, grouped by what you need it for. {liveCount} live, {toolGroups[toolGroups.length - 1].tools.length} on the way.
-          </p>
         </div>
 
         <div className="mt-14 flex flex-col gap-12">

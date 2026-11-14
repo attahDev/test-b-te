@@ -44,14 +44,4 @@ export const toolGroups: ToolGroup[] = [
       { name: "Video Conferencing" },
     ],
   },
-  {
-    id: "upcoming",
-    title: "Upcoming tools",
-    upcoming: true,
-    tools: [
-      { name: "Financial Forecast" },
-      { name: "Investor Readiness" },
-      { name: "Business Model Canvas" },
-    ],
-  },
 ];

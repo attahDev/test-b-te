@@ -137,7 +137,7 @@ export default function GlobeSection() {
                       </dd>
                     </div>
                     <div>
-                      <dt className="mb-1 text-[11px] font-medium uppercase tracking-[0.18em]" style={{ color: accent }}>What is here</dt>
+                      <dt className="mb-1 text-[11px] font-medium uppercase tracking-[0.18em]" style={{ color: accent }}>What we offer</dt>
                       <dd className="flex flex-col items-start gap-1">
                         {stop.has.map((line) => <span key={line} className="text-[#FAFAF9]/85">{line}</span>)}
                         {stop.has.length === 0 && <Pending>To be confirmed</Pending>}
