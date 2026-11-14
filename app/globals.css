@@ -573,20 +573,16 @@ a, button {
   background: #555;
 }
 
-.board-tile {
-  transition: border-color 250ms, background-color 250ms, translate 300ms cubic-bezier(0.22, 1, 0.36, 1);
-}
+.tool-row { transition: background-color 250ms; }
+.tool-name, .tool-num { transition: translate 300ms cubic-bezier(0.22, 1, 0.36, 1), color 250ms; }
 @media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
-  .board-tile {
-    transition: opacity 600ms ease calc(var(--i, 0) * 18ms), scale 600ms cubic-bezier(0.22, 1, 0.36, 1) calc(var(--i, 0) * 18ms), border-color 250ms, background-color 250ms, translate 300ms cubic-bezier(0.22, 1, 0.36, 1);
+  .tool-row {
+    transition: opacity 600ms ease calc(var(--i, 0) * 45ms), translate 600ms cubic-bezier(0.22, 1, 0.36, 1) calc(var(--i, 0) * 45ms), background-color 250ms;
   }
-  [data-own-reveal]:not([data-in]) .board-tile { opacity: 0; scale: 0.94; }
+  [data-own-reveal]:not([data-in]) .tool-row { opacity: 0; translate: 0 14px; }
 }
 @media (hover: hover) {
-  .board-tile:hover {
-    translate: 0 -3px;
-    border-color: var(--tone, #e97868);
-    background-color: rgb(255 255 255 / 0.07);
-    transition-delay: 0s;
-  }
+  .tool-row:hover { background-color: rgb(255 255 255 / 0.04); }
+  .tool-row:hover .tool-num { color: #e97868; }
+  .tool-row:hover .tool-name { translate: 6px 0; }
 }
