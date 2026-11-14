@@ -153,10 +153,7 @@ export default function WhyWorkWithUs() {
       >
         <div key={reason.label} className="panel-in grid gap-8 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-14">
           <div>
-            <p className="font-mono text-xs uppercase tracking-[0.16em] text-[#B04333]">
-              {String(selected + 1).padStart(2, "0")} / {String(reasons.length).padStart(2, "0")}
-            </p>
-            <h3 className="mt-3 text-3xl font-black tracking-tight md:text-4xl">{reason.label}</h3>
+            <h3 className="text-3xl font-black tracking-tight md:text-4xl">{reason.label}</h3>
             <p className="mt-3 max-w-[420px] text-lg leading-snug text-[#252323] md:text-xl">{reason.claim}</p>
             <Link
               href="/ecosystem"
