@@ -6,21 +6,8 @@ import SectionLabel from "./ui/SectionLabel";
 export default function HeroSection() {
   return (
     <section className="relative min-h-screen flex flex-col justify-center overflow-hidden bg-[#161415]">
-      
-      <div className="absolute inset-0 z-0">
-        <Image
-          src="/homepage/architectural-background.png"
-          alt=""
-          fill
-          className="object-cover opacity-25"
-          priority
-        />
-        <div className="absolute inset-0 bg-black/40" />
-      </div>
-
       <HeroBackdrop />
 
-      
       <div className="absolute inset-0 z-[1] bg-gradient-to-b from-[#161415]/70 via-transparent to-[#161415]" />
 
       <div className="relative z-10 w-full max-w-[1400px] mx-auto px-6 md:px-16 pt-28 pb-12">
