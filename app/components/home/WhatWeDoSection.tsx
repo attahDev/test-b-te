@@ -6,28 +6,18 @@ import SectionLabel from "../ui/SectionLabel";
 const items = [
   {
     num: "01",
-    title: "BUILD",
-    desc: "We develop technology platforms, digital products, programmes and innovation infrastructure.",
+    title: "BUSINESS REGISTRATION AND COMPLIANCE",
+    desc: "Navigate UK business registration, tax requirements and legal compliance with expert guidance tailored to your needs.",
   },
   {
     num: "02",
-    title: "CONNECT",
-    desc: "We connect founders, businesses, universities, investors, governments, professionals and communities.",
+    title: "MENTORSHIP AND COMMUNITY SUPPORT",
+    desc: "Connect with experienced entrepreneurs and industry leaders who understand your journey and are committed to your success.",
   },
   {
     num: "03",
-    title: "DEVELOP",
-    desc: "We create pathways into skills, entrepreneurship, employment, investment and technology.",
-  },
-  {
-    num: "04",
-    title: "RESEARCH",
-    desc: "We develop technology platforms, digital products, programmes and innovation infrastructure.",
-  },
-  {
-    num: "05",
-    title: "CREATE OPPORTUNITY",
-    desc: "We turn relationships, technology and infrastructure into practical opportunities.",
+    title: "UK AND INTERNATIONAL BUSINESS SETUP",
+    desc: "Expand your reach locally and globally with support for multi-market business structures and international trade opportunities.",
   },
 ];
 
@@ -66,7 +56,7 @@ export default function WhatWeDoSection() {
           </div>
 
           <div className="grid gap-3 md:grid-cols-2">
-            {items.slice(0, 4).map((item, index) => (
+            {items.slice(0, 2).map((item, index) => (
               <article
                 key={item.num}
                 style={{ "--i": index } as CSSProperties}
@@ -75,7 +65,7 @@ export default function WhatWeDoSection() {
                 <span
                   aria-hidden="true"
                   className={`wwd-num absolute -bottom-5 left-5 text-7xl font-black leading-none md:text-8xl ${
-                    item.num === "02" || item.num === "03"
+                    item.num === "02"
                       ? "text-[#E97868]/35"
                       : "text-[#D85643]"
                   }`}
@@ -94,21 +84,21 @@ export default function WhatWeDoSection() {
             ))}
 
             <article
-              style={{ "--i": 4 } as CSSProperties}
+              style={{ "--i": 2 } as CSSProperties}
               className="wwd-card relative flex min-h-28 items-end overflow-hidden bg-[#F1F0EF] px-4 pb-4 pt-5 md:col-span-2 md:min-h-24 md:items-center md:px-5"
             >
               <span
                 aria-hidden="true"
                 className="wwd-num absolute -bottom-5 left-5 text-7xl font-black leading-none text-[#D85643] md:static md:mr-8 md:text-8xl"
               >
-                {items[4].num}
+                {items[2].num}
               </span>
               <div className="wwd-body relative ml-auto w-[61%] md:ml-0 md:flex-1">
                 <h3 className="text-base font-black leading-tight text-[#161415] md:text-lg">
-                  {items[4].title}
+                  {items[2].title}
                 </h3>
                 <p className="mt-2 text-xs leading-[1.35] text-[#161415]/75">
-                  {items[4].desc}
+                  {items[2].desc}
                 </p>
               </div>
             </article>
