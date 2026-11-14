@@ -73,7 +73,7 @@ export default function HeroSection() {
                 <div className="w-8 h-8 rounded-full bg-[#B04333]/60 border-2 border-[#161415]" />
               </div>
               <div>
-                <p className="text-xl font-bold text-[#FAFAF9]">357K+</p>
+                <p className="text-xl font-bold text-[#FAFAF9]">4+</p>
                 <p className="text-xs text-[#FAFAF9]/60">
                   Startup Owners And Founders
                 </p>
