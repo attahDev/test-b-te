@@ -182,9 +182,6 @@ export default function GlobeSection() {
                   <h2 id="locations-title" className="text-3xl font-black leading-[1.02] tracking-tight text-[#FAFAF9] md:text-5xl">
                     One network, growing place by place
                   </h2>
-                  <p className="mt-4 max-w-[480px] text-sm leading-relaxed text-[#FAFAF9]/75 md:text-base">
-                    Two programmes are live in the UK today, with Nigeria and Ireland opening next. Drag the globe to look around, or pick a place to revisit.
-                  </p>
                   <div className="mt-5 flex flex-wrap gap-2">
                     {stops.map((item, index) => (
                       <button
