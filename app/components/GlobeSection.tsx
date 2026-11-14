@@ -124,49 +124,55 @@ export default function GlobeSection() {
                     </dl>
                   )}
 
-                  <dl className="mt-4 grid max-w-[520px] gap-3 text-sm md:gap-4">
-                    <div>
-                      <dt className="mb-1 text-[11px] font-medium uppercase tracking-[0.18em]" style={{ color: accent }}>Address</dt>
-                      <dd className="flex flex-col items-start gap-1">
-                        {stop.office ? <span className="text-[#FAFAF9]/85">{stop.office}</span> : <Pending>Address to be confirmed</Pending>}
-                        {stop.contact.map((item) => (
-                          <a key={item.href} href={item.href} className="text-[#FAFAF9]/85 underline decoration-white/30 underline-offset-4 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">
-                            {item.text}
-                          </a>
-                        ))}
-                      </dd>
-                    </div>
-                    <div>
-                      <dt className="mb-1 text-[11px] font-medium uppercase tracking-[0.18em]" style={{ color: accent }}>What we offer</dt>
-                      <dd className="flex flex-col items-start gap-1">
-                        {stop.has.map((line) => <span key={line} className="text-[#FAFAF9]/85">{line}</span>)}
-                        {stop.has.length === 0 && <Pending>To be confirmed</Pending>}
-                      </dd>
-                    </div>
-                    <div>
-                      <dt className="mb-1 text-[11px] font-medium uppercase tracking-[0.18em]" style={{ color: accent }}>What has been done</dt>
-                      <dd className="flex flex-col items-start gap-1">
-                        {stop.done.map((line) => <span key={line} className="text-[#FAFAF9]/85">{line}</span>)}
-                        {stop.done.length === 0 && <Pending>To be confirmed</Pending>}
-                      </dd>
-                    </div>
-                  </dl>
+                  {stop.status === "soon" ? (
+                    <p className="mt-6 inline-flex rounded-full border border-dashed px-5 py-2.5 text-sm font-medium" style={{ borderColor: accent, color: accent }}>Coming soon</p>
+                  ) : (
+                    <>
+                      <dl className="mt-4 grid max-w-[520px] gap-3 text-sm md:gap-4">
+                        <div>
+                          <dt className="mb-1 text-[11px] font-medium uppercase tracking-[0.18em]" style={{ color: accent }}>Address</dt>
+                          <dd className="flex flex-col items-start gap-1">
+                            {stop.office ? <span className="text-[#FAFAF9]/85">{stop.office}</span> : <Pending>Address to be confirmed</Pending>}
+                            {stop.contact.map((item) => (
+                              <a key={item.href} href={item.href} className="text-[#FAFAF9]/85 underline decoration-white/30 underline-offset-4 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">
+                                {item.text}
+                              </a>
+                            ))}
+                          </dd>
+                        </div>
+                        <div>
+                          <dt className="mb-1 text-[11px] font-medium uppercase tracking-[0.18em]" style={{ color: accent }}>What we offer</dt>
+                          <dd className="flex flex-col items-start gap-1">
+                            {stop.has.map((line) => <span key={line} className="text-[#FAFAF9]/85">{line}</span>)}
+                            {stop.has.length === 0 && <Pending>To be confirmed</Pending>}
+                          </dd>
+                        </div>
+                        <div>
+                          <dt className="mb-1 text-[11px] font-medium uppercase tracking-[0.18em]" style={{ color: accent }}>What has been done</dt>
+                          <dd className="flex flex-col items-start gap-1">
+                            {stop.done.map((line) => <span key={line} className="text-[#FAFAF9]/85">{line}</span>)}
+                            {stop.done.length === 0 && <Pending>To be confirmed</Pending>}
+                          </dd>
+                        </div>
+                      </dl>
 
-                  <div className="mt-5">
-                    {stop.href ? (
-                      <a
-                        href={stop.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        style={{ backgroundColor: accent }}
-                        className="site-button inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-semibold text-[#0b0c0f] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-                      >
-                        Visit site <span aria-hidden="true" className="text-xs">↗</span>
-                      </a>
-                    ) : (
-                      <span className="inline-flex rounded-full border border-dashed border-white/25 px-5 py-2.5 text-sm text-white/50">Site link to follow</span>
-                    )}
-                  </div>
+                      <div className="mt-5">
+                        {stop.href ? (
+                          <a
+                            href={stop.href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            style={{ backgroundColor: accent }}
+                            className="site-button inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-semibold text-[#0b0c0f] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                          >
+                            Visit site <span aria-hidden="true" className="text-xs">↗</span>
+                          </a>
+                        ) : (
+                          <span className="inline-flex rounded-full border border-dashed border-white/25 px-5 py-2.5 text-sm text-white/50">Site link to follow</span>
+                        )}
+                      </div>
+                    </>
+                  )}
                 </>
               )}
 
