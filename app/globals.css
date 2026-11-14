@@ -439,28 +439,12 @@ a, button {
   from { box-shadow: inset 0 0 0 2px rgb(255 120 140 / .95), 0 0 40px rgb(255 71 100 / .55), 0 14px 34px rgb(0 0 0 / .45); }
   to { box-shadow: inset 0 0 0 0 transparent, 0 0 0 transparent, 0 14px 34px rgb(0 0 0 / .45); }
 }
-@keyframes eco-spot {
-  0%, 11%, 100% { translate: 0 0; border-color: rgb(255 255 255 / .07); }
-  3%, 8% { translate: 0 -8px; border-color: rgb(255 255 255 / .45); }
-}
-@keyframes eco-spot-dot {
-  0%, 11%, 100% { scale: 1; }
-  3%, 8% { scale: 2.6; }
-}
-@keyframes eco-spot-num {
-  0%, 11%, 100% { color: rgb(255 255 255 / .7); }
-  3%, 8% { color: #fff; }
-}
 @media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
   [data-own-reveal]:not([data-in]) .eco-center { opacity: 0; scale: .6; filter: blur(8px); }
   [data-own-reveal]:not([data-in]) .eco-card { opacity: 0; scale: .5; filter: blur(8px); }
   [data-in] .eco-card {
-    animation:
-      eco-flash 1100ms ease-out calc(var(--i, 0) * 420ms + 700ms) both,
-      eco-spot 19.2s ease-in-out calc(var(--i, 0) * 2.4s + 5s) infinite;
+    animation: eco-flash 1100ms ease-out calc(var(--i, 0) * 420ms + 700ms) both;
   }
-  [data-in] .eco-card .eco-dot { animation: eco-spot-dot 19.2s ease-in-out calc(var(--i, 0) * 2.4s + 5s) infinite; }
-  [data-in] .eco-card .eco-num { animation: eco-spot-num 19.2s ease-in-out calc(var(--i, 0) * 2.4s + 5s) infinite; }
 }
 
 .rel-letter {
