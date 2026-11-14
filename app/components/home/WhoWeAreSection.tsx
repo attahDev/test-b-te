@@ -1,8 +1,8 @@
 import Image from "next/image";
 import type { CSSProperties } from "react";
-import Button from "./ui/Button";
-import Reveal from "./ui/Reveal";
-import SectionLabel from "./ui/SectionLabel";
+import Button from "../ui/Button";
+import Reveal from "../ui/Reveal";
+import SectionLabel from "../ui/SectionLabel";
 import WhyWorkWithUs from "./WhyWorkWithUs";
 
 function Words({ text, start }: { text: string; start: number }) {

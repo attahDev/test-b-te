@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import Aurora from "../components/Aurora";
+import Aurora from "../components/contact/Aurora";
 import ContactForm from "../components/contact/ContactForm";
-import Footer from "../components/Footer";
-import Navbar from "../components/Navbar";
+import Footer from "../components/shared/Footer";
+import Navbar from "../components/shared/Navbar";
 import SectionLabel from "../components/ui/SectionLabel";
 
 export const metadata: Metadata = {

@@ -1,7 +1,7 @@
 import Image from "next/image";
 import type { CSSProperties } from "react";
-import Reveal from "./ui/Reveal";
-import SectionLabel from "./ui/SectionLabel";
+import Reveal from "../ui/Reveal";
+import SectionLabel from "../ui/SectionLabel";
 
 const items = [
   {

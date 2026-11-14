@@ -1,6 +1,6 @@
 import Image from "next/image";
 import type { CSSProperties } from "react";
-import Reveal from "./ui/Reveal";
+import Reveal from "../ui/Reveal";
 
 const pillars = [
   { icon: "/homepage/intellectual-property.png", title: "Intellectual Property", tone: "blue", place: "row-span-2 md:col-start-1 md:row-start-1 md:row-span-3", tilt: "-1.4deg", lift: "6px" },

@@ -4,8 +4,8 @@ import GmbteToolsSection from "@/app/components/ecosystem/GmbteToolsSection";
 import ModelSection from "@/app/components/ecosystem/ModelSection";
 import RelationshipsSection from "@/app/components/ecosystem/RelationshipsSection";
 import TechnologyModelSection from "@/app/components/ecosystem/TechnologyModelSection";
-import Footer from "../components/Footer";
-import Navbar from "../components/Navbar";
+import Footer from "../components/shared/Footer";
+import Navbar from "../components/shared/Navbar";
 
 export default function EcosystemPage() {
   return (

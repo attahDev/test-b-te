@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import GlobeScene from "./globe/GlobeScene";
 import { introBg, stops } from "./globe/locations";
-import SectionLabel from "./ui/SectionLabel";
+import SectionLabel from "../ui/SectionLabel";
 
 const REDUCED = "(prefers-reduced-motion: reduce)";
 const STAGES = stops.length + 2;

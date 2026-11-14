@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState, type CSSProperties, type KeyboardEvent } from "react";
-import Reveal from "./ui/Reveal";
+import Reveal from "../ui/Reveal";
 
 type Reason = {
   label: string;
