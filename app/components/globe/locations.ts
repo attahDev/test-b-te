@@ -15,7 +15,6 @@ export type Stop = {
   rgb: string;
   hex: string;
   bg: string;
-  aurora: [Rgb, Rgb, Rgb];
   line: string;
   stats: { number: string; label: string }[];
   office: string | null;
@@ -24,7 +23,6 @@ export type Stop = {
   href: string | null;
 };
 
-export const introAurora: [Rgb, Rgb, Rgb] = [[40, 214, 170], [70, 128, 250], [150, 92, 240]];
 export const introBg = "#08090B";
 
 export const stops: Stop[] = [
@@ -42,7 +40,6 @@ export const stops: Stop[] = [
     rgb: "239,92,78",
     hex: "#EF5C4E",
     bg: "#1b0b0c",
-    aurora: [[239, 84, 72], [210, 52, 104], [250, 150, 90]],
     line: "The home of Black Tech Expo and where the programme started.",
     stats: [
       { number: "17+", label: "AI Agents" },
@@ -68,7 +65,6 @@ export const stops: Stop[] = [
     rgb: "74,144,255",
     hex: "#4A90FF",
     bg: "#08111f",
-    aurora: [[66, 134, 252], [40, 200, 240], [124, 104, 250]],
     line: "The second UK programme, built with local universities and partners.",
     stats: [],
     office: null,
@@ -90,7 +86,6 @@ export const stops: Stop[] = [
     rgb: "52,211,120",
     hex: "#34D378",
     bg: "#07160f",
-    aurora: [[44, 204, 112], [20, 172, 146], [176, 232, 84]],
     line: "Opening next, connecting the UK network to Africa's largest tech talent pool.",
     stats: [],
     office: null,
@@ -112,7 +107,6 @@ export const stops: Stop[] = [
     rgb: "251,165,48",
     hex: "#FBA530",
     bg: "#1a1205",
-    aurora: [[252, 170, 52], [238, 112, 48], [52, 192, 112]],
     line: "Opening next, extending the network across the Irish Sea.",
     stats: [],
     office: null,

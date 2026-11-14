@@ -2,9 +2,8 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
-import AuroraCurtains from "./AuroraCurtains";
 import GlobeScene from "./globe/GlobeScene";
-import { introAurora, introBg, stops } from "./globe/locations";
+import { introBg, stops } from "./globe/locations";
 import SectionLabel from "./ui/SectionLabel";
 
 const REDUCED = "(prefers-reduced-motion: reduce)";
@@ -63,7 +62,6 @@ export default function GlobeSection() {
   const stop = mode === "stop" ? stops[stage - 1] : null;
   const activeId = stop ? stop.id : stops[0].id;
   const visibleIds = mode === "intro" ? [] : mode === "finale" ? stops.map((item) => item.id) : stops.slice(0, stage).map((item) => item.id);
-  const palette = stop ? stop.aurora : introAurora;
   const bg = stop ? stop.bg : introBg;
   const accent = stop ? stop.hex : "#E97868";
 
@@ -81,7 +79,6 @@ export default function GlobeSection() {
         <div aria-hidden="true" className="tour-bg absolute inset-0 -z-10" style={{ backgroundColor: bg }} />
         <div aria-hidden="true" className="absolute inset-0 -z-10">
           <Image src="/homepage/starfield-background.png" alt="" fill sizes="100vw" className="object-cover opacity-40 mix-blend-screen" />
-          <AuroraCurtains palette={palette} paused={reduced} className="opacity-90" />
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_55%,transparent_30%,rgba(5,6,8,0.7)_100%)]" />
         </div>
 
@@ -206,14 +203,13 @@ export default function GlobeSection() {
                 onClick={() => jump(index)}
                 aria-current={index === stage ? "step" : undefined}
                 aria-label={`Go to ${item.label}`}
-                className="tour-dot group flex flex-col items-center gap-1.5 px-1 py-1 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                className="tour-dot flex px-1 py-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
               >
                 <span
                   data-on={index === stage}
                   style={index === stage ? { backgroundColor: accent } : undefined}
                   className="block h-1.5 w-8 rounded-full bg-white/25 transition-all duration-500 data-[on=true]:w-12 md:w-12 md:data-[on=true]:w-16"
                 />
-                <span className={`hidden text-[11px] transition-colors md:block ${index === stage ? "text-white" : "text-white/45 group-hover:text-white/75"}`}>{item.label}</span>
               </button>
             </li>
           ))}

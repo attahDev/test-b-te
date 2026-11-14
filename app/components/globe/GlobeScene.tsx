@@ -14,7 +14,7 @@ type SceneProps = {
 };
 
 type GlobeApi = ReturnType<typeof import("globe.gl").default extends new (...args: never[]) => infer T ? () => T : never>;
-type Country = { properties: { key: Stop["country"] } };
+type Country = { properties: { key: Stop["country"] | null } };
 
 function hasWebGl() {
   try {
@@ -60,10 +60,9 @@ export default function GlobeScene(props: SceneProps) {
     async function start() {
       started = true;
       try {
-        const [{ default: GlobeGL }, land, countries] = await Promise.all([
+        const [{ default: GlobeGL }, countries] = await Promise.all([
           import("globe.gl"),
-          fetch("/data/land.json").then((r) => r.json()),
-          fetch("/data/countries.json").then((r) => r.json()),
+          fetch("/data/countries.json").then((response) => response.json()),
         ]);
         if (disposed) return;
 
@@ -72,19 +71,9 @@ export default function GlobeScene(props: SceneProps) {
           .backgroundColor("rgba(0,0,0,0)")
           .showAtmosphere(true)
           .atmosphereAltitude(0.2)
-          .hexPolygonsData(land.features)
-          .hexPolygonResolution(3)
-          .hexPolygonMargin(0.46)
-          .hexPolygonUseDots(true)
-          .hexPolygonAltitude(0.002)
-          .hexPolygonColor(() => "rgba(180,205,235,0.6)")
           .polygonsData(countries.features)
           .polygonsTransitionDuration(600)
-          .onPointClick((point: object) => propsRef.current.onSelect((point as Stop).id))
-          .onLabelClick((label: object) => {
-            const id = (label as { id?: string }).id;
-            if (id) propsRef.current.onSelect(id);
-          });
+          .onPointClick((point: object) => propsRef.current.onSelect((point as Stop).id));
 
         const material = globe.globeMaterial() as MeshPhongMaterial;
         material.color.set("#0b0d13");
@@ -121,20 +110,27 @@ export default function GlobeScene(props: SceneProps) {
       const active = mode === "stop" ? stops.find((item) => item.id === activeId) : undefined;
       const lit = (key: string) => shown.some((item) => item.country === key);
 
-      const colorOf = (d: object) => {
-        const key = (d as Country).properties.key;
-        const rgb = active && active.country === key ? active.rgb : countryColors[key];
-        return { key, rgb };
-      };
+      const keyOf = (country: object) => (country as Country).properties.key;
+      const colorOf = (key: Stop["country"]) => (active && active.country === key ? active.rgb : countryColors[key]);
       globe
-        .polygonCapColor((d: object) => {
-          const { key, rgb } = colorOf(d);
-          if (!lit(key)) return "rgba(0,0,0,0)";
-          return `rgba(${rgb},${active?.country === key ? 0.9 : mode === "finale" ? 0.75 : 0.5})`;
+        .polygonCapColor((country: object) => {
+          const key = keyOf(country);
+          if (!key || !lit(key)) return "rgba(30,38,56,0.95)";
+          return `rgba(${colorOf(key)},${active?.country === key ? 0.9 : mode === "finale" ? 0.75 : 0.5})`;
         })
-        .polygonSideColor((d: object) => (lit(colorOf(d).key) ? `rgba(${colorOf(d).rgb},0.35)` : "rgba(0,0,0,0)"))
-        .polygonStrokeColor((d: object) => (lit(colorOf(d).key) ? `rgba(${colorOf(d).rgb},1)` : "rgba(0,0,0,0)"))
-        .polygonAltitude((d: object) => (active?.country === colorOf(d).key ? 0.014 : 0.006));
+        .polygonSideColor((country: object) => {
+          const key = keyOf(country);
+          return key && lit(key) ? `rgba(${colorOf(key)},0.35)` : "rgba(30,38,56,0.6)";
+        })
+        .polygonStrokeColor((country: object) => {
+          const key = keyOf(country);
+          return key && lit(key) ? `rgba(${colorOf(key)},1)` : "rgba(150,170,200,0.3)";
+        })
+        .polygonAltitude((country: object) => {
+          const key = keyOf(country);
+          if (key && active?.country === key) return 0.014;
+          return key && lit(key) ? 0.006 : 0.003;
+        });
 
       globe.atmosphereColor(active ? active.hex : "#6f9bff");
 
@@ -145,25 +141,6 @@ export default function GlobeScene(props: SceneProps) {
         .pointAltitude(0.016)
         .pointRadius((d: object) => ((d as Stop).id === active?.id ? 0.42 : 0.28))
         .pointColor((d: object) => `rgb(${(d as Stop).rgb})`);
-
-      const labels =
-        mode === "finale"
-          ? [
-              { id: shown[0]?.id, label: "UNITED KINGDOM", lat: 53.4, lon: -1.9, rgb: "250,250,249", side: "right" },
-              ...shown.filter((item) => item.country !== "uk").map((item) => ({ id: item.id, label: item.label.toUpperCase(), lat: item.lat, lon: item.lon, rgb: "250,250,249", side: item.country === "ie" ? "top" : "right" })),
-            ]
-          : shown.map((item) => ({ id: item.id, label: item.label.toUpperCase(), lat: item.lat, lon: item.lon, rgb: item.id === active?.id ? "255,255,255" : "190,200,215", side: item.labelSide === "left" ? "top" : item.country === "uk" ? "bottom" : "right" }));
-      globe
-        .labelsData(labels)
-        .labelLat("lat")
-        .labelLng("lon")
-        .labelText("label")
-        .labelSize((d: object) => (mode === "finale" ? 0.9 : (d as { id: string }).id === active?.id ? 0.55 : 0.4))
-        .labelDotRadius(0)
-        .labelAltitude(0.02)
-        .labelResolution(3)
-        .labelColor((d: object) => `rgba(${(d as { rgb: string }).rgb},0.95)`)
-        .labelDotOrientation((d: object) => (d as { side: "top" | "right" | "bottom" }).side);
 
       const hub = shown[0];
       const arcs = hub ? shown.filter((item) => item.id !== hub.id && Math.hypot(item.lat - hub.lat, item.lon - hub.lon) > 3) : [];

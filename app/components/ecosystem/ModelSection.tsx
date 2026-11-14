@@ -88,9 +88,6 @@ export default function ModelSection() {
                 <p className="mt-3 max-w-[460px] text-sm leading-relaxed text-white/75 lg:mt-4 lg:text-base">{step.text}</p>
               </div>
             </div>
-            <p className="mt-auto hidden pt-6 font-mono text-xs text-white/40 lg:block">
-              {reduced ? "Select a step" : "Scroll, or select a step"}
-            </p>
           </div>
 
           <ol className="flex min-h-0 items-end gap-1.5 sm:gap-2.5 lg:gap-3">
