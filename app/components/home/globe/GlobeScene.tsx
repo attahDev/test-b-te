@@ -81,7 +81,11 @@ export default function GlobeScene(props: SceneProps) {
 
         const renderer = globe.renderer();
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, width() < 768 ? 1.5 : 2));
-        renderer.domElement.addEventListener("webglcontextlost", () => setFailed(true));
+        let lostTimer = 0;
+        renderer.domElement.addEventListener("webglcontextlost", () => {
+          lostTimer = window.setTimeout(() => setFailed(true), 5000);
+        });
+        renderer.domElement.addEventListener("webglcontextrestored", () => window.clearTimeout(lostTimer));
 
         const material = globe.globeMaterial() as MeshPhongMaterial;
         material.color.set("#0b0d13");
