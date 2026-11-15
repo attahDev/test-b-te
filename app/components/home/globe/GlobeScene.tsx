@@ -44,11 +44,15 @@ export default function GlobeScene(props: SceneProps) {
     const host = hostRef.current;
     if (!host) return;
 
-    const reducedMotion = window.matchMedia("(prefers-reducedMotion-canAnimate: reduce)");
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
     let disposed = false;
     let started = false;
     let visible = true;
     let resizeWatcher: ResizeObserver | null = null;
+
+    function width() {
+      return host!.clientWidth;
+    }
 
     function fitToHost(globe: GlobeApi) {
       const width = host!.clientWidth;
@@ -74,6 +78,10 @@ export default function GlobeScene(props: SceneProps) {
           .polygonsData(countries.features)
           .polygonsTransitionDuration(600)
           .onPointClick((point: object) => propsRef.current.onSelect((point as Stop).id));
+
+        const renderer = globe.renderer();
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, width() < 768 ? 1.5 : 2));
+        renderer.domElement.addEventListener("webglcontextlost", () => setFailed(true));
 
         const material = globe.globeMaterial() as MeshPhongMaterial;
         material.color.set("#0b0d13");

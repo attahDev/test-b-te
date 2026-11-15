@@ -16,14 +16,6 @@ function subscribe(notify: () => void) {
   return () => query.removeEventListener("change", notify);
 }
 
-function Pending({ children }: { children: string }) {
-  return (
-    <span className="inline-flex rounded border border-dashed border-white/25 px-2 py-0.5 text-xs text-white/50">
-      {children}
-    </span>
-  );
-}
-
 export default function GlobeSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const [stage, setStage] = useState(0);
@@ -128,7 +120,7 @@ export default function GlobeSection() {
                         <div>
                           <dt className="mb-1 text-[11px] font-medium uppercase tracking-[0.18em]" style={{ color: accent }}>Address</dt>
                           <dd className="flex flex-col items-start gap-1">
-                            {stop.office ? <span className="text-[#FAFAF9]/85">{stop.office}</span> : <Pending>Address to be confirmed</Pending>}
+                            {stop.office && <span className="text-[#FAFAF9]/85">{stop.office}</span>}
                             {stop.contact.map((item) => (
                               <a key={item.href} href={item.href} className="text-[#FAFAF9]/85 underline decoration-white/30 underline-offset-4 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">
                                 {item.text}
@@ -136,20 +128,22 @@ export default function GlobeSection() {
                             ))}
                           </dd>
                         </div>
-                        <div>
-                          <dt className="mb-1 text-[11px] font-medium uppercase tracking-[0.18em]" style={{ color: accent }}>What we offer</dt>
-                          <dd className="flex flex-col items-start gap-1">
-                            {stop.has.map((line) => <span key={line} className="text-[#FAFAF9]/85">{line}</span>)}
-                            {stop.has.length === 0 && <Pending>To be confirmed</Pending>}
-                          </dd>
-                        </div>
-                        <div>
-                          <dt className="mb-1 text-[11px] font-medium uppercase tracking-[0.18em]" style={{ color: accent }}>What has been done</dt>
-                          <dd className="flex flex-col items-start gap-1">
-                            {stop.done.map((line) => <span key={line} className="text-[#FAFAF9]/85">{line}</span>)}
-                            {stop.done.length === 0 && <Pending>To be confirmed</Pending>}
-                          </dd>
-                        </div>
+                        {stop.has.length > 0 && (
+                          <div>
+                            <dt className="mb-1 text-[11px] font-medium uppercase tracking-[0.18em]" style={{ color: accent }}>What we offer</dt>
+                            <dd className="flex flex-col items-start gap-1">
+                              {stop.has.map((line) => <span key={line} className="text-[#FAFAF9]/85">{line}</span>)}
+                            </dd>
+                          </div>
+                        )}
+                        {stop.done.length > 0 && (
+                          <div>
+                            <dt className="mb-1 text-[11px] font-medium uppercase tracking-[0.18em]" style={{ color: accent }}>What has been done</dt>
+                            <dd className="flex flex-col items-start gap-1">
+                              {stop.done.map((line) => <span key={line} className="text-[#FAFAF9]/85">{line}</span>)}
+                            </dd>
+                          </div>
+                        )}
                       </dl>
 
                       <div className="mt-5">
