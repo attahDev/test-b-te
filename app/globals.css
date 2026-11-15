@@ -579,5 +579,5 @@ a, button {
   [data-own-reveal]:not([data-in]) .tool-row { opacity: 0; translate: 0 12px; }
 }
 @media (hover: hover) {
-  .tool-row:hover { border-color: #b04333; background-color: #211d1e; }
+  .tool-row:hover { border-color: #b04333; background-color: #fff; }
 }

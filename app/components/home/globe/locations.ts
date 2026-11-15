@@ -82,7 +82,7 @@ export const stops: Stop[] = [
     office: "South Yorkshire: Sheffield, Barnsley, Doncaster and Rotherham",
     contact: [{ text: "southyorkshire@blacktechexpo.co.uk", href: "mailto:southyorkshire@blacktechexpo.co.uk" }],
     has: ["Training and support in digital skills, AI, cyber security, entrepreneurship, mentoring and student opportunity"],
-    done: ["Capacity Building Programme delivered in cyber security, AI, business leadership and entrepreneurship. Figures as publicly reported, September 2026."],
+    done: ["Capacity Building Programme delivered in cyber security, AI, business leadership and entrepreneurship."],
     href: "https://www.sybte.co.uk/",
   },
   {

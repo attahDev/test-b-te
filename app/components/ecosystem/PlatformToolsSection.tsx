@@ -8,10 +8,6 @@ import { toolGroups } from "./platformLayers";
 
 const toolNames = toolGroups.flatMap((group) => group.tools.map((tool) => tool.name));
 
-function pad(number: number) {
-  return String(number).padStart(2, "0");
-}
-
 export default function PlatformToolsSection() {
   function spot(event: PointerEvent<HTMLElement>) {
     if (event.pointerType !== "mouse") return;
@@ -20,10 +16,8 @@ export default function PlatformToolsSection() {
     event.currentTarget.style.setProperty("--my", `${event.clientY - box.top}px`);
   }
 
-  const groupOffsets = toolGroups.map((_, index) => toolGroups.slice(0, index).reduce((total, group) => total + group.tools.length, 0));
-
-  return (
-    <section id="platform-tools" aria-labelledby="platform-tools-title" className="relative overflow-hidden bg-[#141213] px-6 py-16 text-[#FAFAF9] sm:px-10 md:py-24 lg:px-14">
+    return (
+    <section id="platform-tools" aria-labelledby="platform-tools-title" className="relative overflow-hidden bg-white px-6 py-16 text-[#161415] sm:px-10 md:py-24 lg:px-14">
       <div className="mx-auto w-full max-w-[1100px]">
         <SectionLabel className="mb-5">BTE Platform</SectionLabel>
         <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
@@ -33,11 +27,11 @@ export default function PlatformToolsSection() {
         </div>
 
         <div className="mt-14 flex flex-col gap-12">
-          {toolGroups.map((group, groupIndex) => (
+          {toolGroups.map((group) => (
             <Reveal key={group.id} threshold={0.08}>
-              <div className="mb-5 flex items-baseline justify-between gap-4 border-b border-white/15 pb-3">
+              <div className="mb-5 flex items-baseline justify-between gap-4 border-b border-[#161415]/15 pb-3">
                 <h3 className="text-xl font-bold md:text-2xl">{group.title}</h3>
-                <span className="text-sm text-white/45">{group.upcoming ? `${group.tools.length} on the way` : `${group.tools.length} tools`}</span>
+                <span className="text-sm text-[#161415]/50">{group.upcoming ? `${group.tools.length} on the way` : `${group.tools.length} tools`}</span>
               </div>
 
               <ul className="grid grid-cols-2 gap-3 lg:grid-cols-3">
@@ -45,15 +39,12 @@ export default function PlatformToolsSection() {
                   <li
                     key={tool.name}
                     style={{ "--i": order } as CSSProperties}
-                    className={`tool-row flex min-h-[112px] flex-col rounded-md border bg-[#1b1819] p-3.5 sm:min-h-[132px] sm:p-5 ${group.upcoming ? "border-dashed border-white/25" : "border-white/10"}`}
+                    className={`tool-row flex min-h-[112px] flex-col rounded-md border bg-[#faf9f8] p-3.5 sm:min-h-[132px] sm:p-5 ${group.upcoming ? "border-dashed border-[#161415]/25" : "border-[#161415]/10"}`}
                   >
-                    <div className="flex items-start justify-between gap-3">
-                      <span className="font-mono text-xs text-white/35">{pad(groupOffsets[groupIndex] + order + 1)}</span>
-                      {group.upcoming && <span className="text-xs text-[#E97868]">Coming soon</span>}
-                    </div>
-                    <h4 className="mt-2 text-base font-semibold leading-snug sm:mt-3 sm:text-lg">{tool.name}</h4>
-                    {tool.note && <p className="mt-1 line-clamp-3 text-xs leading-relaxed text-white/60 sm:mt-1.5 sm:line-clamp-none sm:text-sm">{tool.note}</p>}
-                    {tool.parts && <p className="mt-auto pt-3 text-xs text-white/75 sm:pt-4 sm:text-[13px]">{tool.parts.join(" / ")}</p>}
+                    {group.upcoming && <span className="text-xs text-[#B04333]">Coming soon</span>}
+                    <h4 className="text-base font-semibold leading-snug sm:text-lg">{tool.name}</h4>
+                    {tool.note && <p className="mt-1 line-clamp-3 text-xs leading-relaxed text-[#161415]/60 sm:mt-1.5 sm:line-clamp-none sm:text-sm">{tool.note}</p>}
+                    {tool.parts && <p className="mt-auto pt-3 text-xs text-[#161415]/75 sm:pt-4 sm:text-[13px]">{tool.parts.join(" / ")}</p>}
                   </li>
                 ))}
               </ul>
@@ -76,7 +67,7 @@ export default function PlatformToolsSection() {
         </div>
       </div>
 
-      <div className="marquee mt-14 text-sm font-medium text-white/40" aria-hidden="true">
+      <div className="marquee mt-14 text-sm font-medium text-[#161415]/40" aria-hidden="true">
         {[0, 1].map((copy) => (
           <div key={copy} className="marquee-track">
             {toolNames.map((name) => (
