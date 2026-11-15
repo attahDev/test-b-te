@@ -70,60 +70,6 @@ a, button {
   }
 }
 
-.aurora {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-  pointer-events: none;
-  --a: 176 67 51;
-  --b: 233 120 104;
-  --c: 59 130 246;
-}
-.aurora[data-tone="cool"] {
-  --a: 38 78 145;
-  --b: 59 130 246;
-  --c: 176 67 51;
-}
-.aurora-band {
-  position: absolute;
-  left: -25%;
-  top: -10%;
-  width: 150%;
-  height: 48%;
-  border-radius: 50%;
-  filter: blur(72px);
-  mix-blend-mode: screen;
-  opacity: 0.5;
-  will-change: transform;
-  animation: aurora-drift 24s ease-in-out infinite alternate;
-}
-.aurora-band-a {
-  background: linear-gradient(90deg, transparent 5%, rgb(var(--a) / 0.9) 30%, rgb(var(--b) / 0.8) 55%, transparent 90%);
-}
-.aurora-band-b {
-  top: 18%;
-  height: 40%;
-  background: linear-gradient(90deg, transparent 10%, rgb(var(--c) / 0.75) 40%, rgb(var(--a) / 0.7) 70%, transparent 95%);
-  animation-duration: 31s;
-  animation-delay: -9s;
-  animation-direction: alternate-reverse;
-}
-.aurora-band-c {
-  top: 42%;
-  height: 36%;
-  opacity: 0.35;
-  background: linear-gradient(90deg, transparent 0%, rgb(var(--b) / 0.7) 35%, rgb(var(--c) / 0.7) 65%, transparent 100%);
-  animation-duration: 38s;
-  animation-delay: -17s;
-}
-.aurora[data-paused="true"] .aurora-band {
-  animation-play-state: paused;
-}
-@keyframes aurora-drift {
-  from { transform: translate3d(-6%, 0, 0) rotate(-3deg) scaleY(0.9); }
-  to { transform: translate3d(7%, 6%, 0) rotate(3deg) scaleY(1.2); }
-}
-
 .panel-in {
   animation: panel-in 450ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }

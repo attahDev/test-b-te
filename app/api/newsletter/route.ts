@@ -16,14 +16,34 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Please enter a valid email." }, { status: 400 });
   }
 
-  if (!dbEnabled()) return NextResponse.json({ error: "Sign up is unavailable right now." }, { status: 503 });
-
-  try {
-    await addSubscriber(email);
-  } catch (error) {
-    console.error("newsletter: could not store subscriber", error);
-    return NextResponse.json({ error: "Sign up is unavailable right now." }, { status: 503 });
+  let stored = false;
+  if (dbEnabled()) {
+    try {
+      await addSubscriber(email);
+      stored = true;
+    } catch (error) {
+      console.error("newsletter: could not store subscriber", error);
+    }
   }
 
+  let synced = false;
+  const apiKey = process.env.BREVO_API_KEY;
+  if (apiKey) {
+    const listId = Number(process.env.BREVO_NEWSLETTER_LIST_ID);
+    try {
+      const response = await fetch("https://api.brevo.com/v3/contacts", {
+        method: "POST",
+        headers: { "api-key": apiKey, "content-type": "application/json", accept: "application/json" },
+        body: JSON.stringify({ email, updateEnabled: true, ...(listId ? { listIds: [listId] } : {}) }),
+      });
+      synced = response.ok;
+    } catch (error) {
+      console.error("newsletter: could not add contact to Brevo", error);
+    }
+  }
+
+  if (!stored && !synced) {
+    return NextResponse.json({ error: "Sign up is unavailable right now." }, { status: 503 });
+  }
   return NextResponse.json({ ok: true });
 }

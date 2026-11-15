@@ -6,7 +6,6 @@ import Reveal from "../ui/Reveal";
 import SectionLabel from "../ui/SectionLabel";
 import { toolGroups } from "./platformLayers";
 
-const toolNames = toolGroups.flatMap((group) => group.tools.map((tool) => tool.name));
 
 export default function PlatformToolsSection() {
   function spot(event: PointerEvent<HTMLElement>) {
@@ -65,16 +64,6 @@ export default function PlatformToolsSection() {
             Get access <span aria-hidden="true">↗</span>
           </Button>
         </div>
-      </div>
-
-      <div className="marquee mt-14 text-sm font-medium text-[#161415]/40" aria-hidden="true">
-        {[0, 1].map((copy) => (
-          <div key={copy} className="marquee-track">
-            {toolNames.map((name) => (
-              <span key={name} className="flex-none whitespace-nowrap">{name}</span>
-            ))}
-          </div>
-        ))}
       </div>
     </section>
   );
