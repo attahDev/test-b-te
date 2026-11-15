@@ -103,10 +103,10 @@ export default function EcosystemHeroSection() {
       />
 
       {/* Stage Container */}
-      <Reveal threshold={0.1} className="relative z-10 w-full max-w-[1280px] px-4 py-12 md:px-0 md:py-0">
-        <div className="relative w-full max-md:mx-auto max-md:grid max-md:max-w-[500px] max-md:grid-cols-2 max-md:gap-3 md:aspect-[4/3]">
+      <Reveal threshold={0.1} className="relative z-10 w-full max-w-[1280px] px-4 pb-12 pt-24 md:px-0 md:py-0">
+        <div className="relative w-full max-md:mx-auto max-md:grid max-md:max-w-[420px] max-md:grid-cols-2 max-md:items-start max-md:gap-x-3 max-md:gap-y-3 md:aspect-[4/3]">
           {/* Center Hero Photo Card - Width slightly expanded to 24% & height reduced to 37.5% */}
-          <article className="eco-center relative overflow-hidden rounded-[12px] border border-white/[0.08] bg-[#0c0d12] shadow-[0_24px_70px_rgba(0,0,0,0.75)] max-md:col-span-2 max-md:mb-2 max-md:h-[340px] max-md:w-full md:absolute md:left-[38.0%] md:top-[21%] md:z-10 md:h-[37.5%] md:w-[24.0%]">
+          <article className="eco-center relative overflow-hidden rounded-[12px] border border-white/[0.08] bg-[#0c0d12] shadow-[0_24px_70px_rgba(0,0,0,0.75)] max-md:col-span-2 max-md:my-3 max-md:h-[230px] max-md:w-[84%] max-md:justify-self-center md:absolute md:left-[38.0%] md:top-[21%] md:z-10 md:h-[37.5%] md:w-[24.0%]">
             <Image
               src="/homepage/community-panel.png"
               alt="Three Black technology community members on a panel"
@@ -131,7 +131,7 @@ export default function EcosystemHeroSection() {
 
             {/* Pill Button anchored near the bottom with slightly larger text */}
             <div className="absolute inset-x-0 bottom-[8%] flex justify-center px-3">
-             <Button variant="secondarySubtle" href="#" size="large">
+             <Button variant="secondarySubtle" href="/contact" size="large">
                   Work with BTE <span className="text-xs">↗</span>
                 </Button>
             </div>
@@ -142,7 +142,7 @@ export default function EcosystemHeroSection() {
             <article
               key={audience.number}
               style={{ "--i": index } as CSSProperties}
-              className={`eco-card relative flex flex-col justify-between overflow-hidden rounded-[10px] border border-white/[0.07] p-4 shadow-[0_14px_34px_rgba(0,0,0,0.45)] backdrop-blur-xl ${audience.tone} max-md:min-h-[120px] max-md:w-full md:absolute ${audience.position} md:z-20 md:h-[16.5%] md:w-[16.2%] md:p-[1.35%]`}
+              className={`eco-card relative flex flex-col justify-between overflow-hidden rounded-[10px] border border-white/[0.07] p-4 shadow-[0_14px_34px_rgba(0,0,0,0.45)] backdrop-blur-xl ${audience.tone} max-md:min-h-[92px] max-md:w-full ${index === 0 || index === 1 ? "max-md:-order-1" : ""} ${index % 2 === 1 ? "max-md:mt-9" : ""} md:absolute ${audience.position} md:z-20 md:h-[16.5%] md:w-[16.2%] md:p-[1.35%]`}
             >
               {/* Subtle top-left inner highlight */}
               <div

@@ -40,20 +40,20 @@ export default function GmbteToolsSection() {
                 <span className="text-sm text-white/45">{group.upcoming ? `${group.tools.length} on the way` : `${group.tools.length} tools`}</span>
               </div>
 
-              <ul className="grid gap-3 md:grid-cols-2 lg:grid-cols-3">
+              <ul className="grid grid-cols-2 gap-3 lg:grid-cols-3">
                 {group.tools.map((tool, order) => (
                   <li
                     key={tool.name}
                     style={{ "--i": order } as CSSProperties}
-                    className={`tool-row flex min-h-[132px] flex-col rounded-md border bg-[#1b1819] p-5 ${group.upcoming ? "border-dashed border-white/25" : "border-white/10"}`}
+                    className={`tool-row flex min-h-[112px] flex-col rounded-md border bg-[#1b1819] p-3.5 sm:min-h-[132px] sm:p-5 ${group.upcoming ? "border-dashed border-white/25" : "border-white/10"}`}
                   >
                     <div className="flex items-start justify-between gap-3">
                       <span className="font-mono text-xs text-white/35">{pad(groupOffsets[groupIndex] + order + 1)}</span>
                       {group.upcoming && <span className="text-xs text-[#E97868]">Coming soon</span>}
                     </div>
-                    <h4 className="mt-3 text-lg font-semibold leading-snug">{tool.name}</h4>
-                    {tool.note && <p className="mt-1.5 text-sm leading-relaxed text-white/60">{tool.note}</p>}
-                    {tool.parts && <p className="mt-auto pt-4 text-[13px] text-white/75">{tool.parts.join(" / ")}</p>}
+                    <h4 className="mt-2 text-base font-semibold leading-snug sm:mt-3 sm:text-lg">{tool.name}</h4>
+                    {tool.note && <p className="mt-1 line-clamp-3 text-xs leading-relaxed text-white/60 sm:mt-1.5 sm:line-clamp-none sm:text-sm">{tool.note}</p>}
+                    {tool.parts && <p className="mt-auto pt-3 text-xs text-white/75 sm:pt-4 sm:text-[13px]">{tool.parts.join(" / ")}</p>}
                   </li>
                 ))}
               </ul>

@@ -581,3 +581,14 @@ a, button {
 @media (hover: hover) {
   .tool-row:hover { border-color: #b04333; background-color: #211d1e; }
 }
+
+@keyframes tech-band-in { from { translate: 70px 0; } to { translate: 0 0; } }
+@keyframes tech-line-in { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes tech-sphere-in { from { scale: 0.55; opacity: 0.2; } to { scale: 1; opacity: 1; } }
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .tech-band { animation: tech-band-in linear both; animation-timeline: view(); animation-range: entry 5% cover 38%; }
+    .tech-line { transform-origin: left center; animation: tech-line-in linear both; animation-timeline: view(); animation-range: entry 5% cover 32%; }
+    .tech-sphere { animation: tech-sphere-in linear both; animation-timeline: view(); animation-range: entry 0% cover 40%; }
+  }
+}
