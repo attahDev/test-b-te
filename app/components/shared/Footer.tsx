@@ -4,6 +4,8 @@ import NewsletterForm from "./NewsletterForm";
 
 export default function Footer() {
   return (
+    <>
+    <NewsletterForm />
     <footer id="contact" className="relative isolate overflow-hidden bg-[#121212] pb-12 pt-16 text-[#FAFAF9] md:min-h-[633px] md:pb-[120px] md:pt-[109px]">
       {/* Background wave at bottom */}
       <div aria-hidden="true" className="pointer-events-none absolute -right-12 bottom-0 z-0 h-[240px] w-[926px] max-w-none select-none">
@@ -133,8 +135,6 @@ export default function Footer() {
           </div>
         </div>
 
-        <NewsletterForm />
-
         {/* Divider */}
         <div className="flex items-center justify-between gap-6 border-t border-white/45 pt-9">
           <p className="text-sm text-[#FAFAF9]">© BTE 2026</p>
@@ -152,5 +152,6 @@ export default function Footer() {
         </div>
       </div>
     </footer>
+    </>
   );
 }

@@ -1,9 +1,18 @@
 "use client";
 
-import { useState, type CSSProperties, type ReactNode } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore, type CSSProperties, type ReactNode } from "react";
 import Reveal from "../ui/Reveal";
 import SectionLabel from "../ui/SectionLabel";
 import WaveBackground from "./WaveBackground";
+
+const REDUCED = "(prefers-reduced-motion: reduce)";
+const VH_PER_STEP = 80;
+
+function subscribe(notify: () => void) {
+  const query = window.matchMedia(REDUCED);
+  query.addEventListener("change", notify);
+  return () => query.removeEventListener("change", notify);
+}
 
 const groups = [
   { num: "01", name: "Community Ownership", band: "B", color: "linear-gradient(90deg,#5d90bd,#2f6f9e)", text: "The point of the whole model. Communities hold equity, intellectual property and a real say in what gets built, and every layer below exists to serve that." },
@@ -22,15 +31,88 @@ const layers: { name: string; note?: string; group: number; icon: ReactNode }[] 
 ];
 
 export default function TechnologyModelSection() {
+  const sectionRef = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
+  const reduced = useSyncExternalStore(subscribe, () => window.matchMedia(REDUCED).matches, () => true);
+
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section || reduced) return;
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      const distance = section.offsetHeight - window.innerHeight;
+      const progress = distance > 0 ? Math.min(1, Math.max(0, -section.getBoundingClientRect().top / distance)) : 0;
+      setActive(Math.min(groups.length - 1, Math.floor(progress * groups.length)));
+    };
+    const onScroll = () => { if (!frame) frame = requestAnimationFrame(update); };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    update();
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      if (frame) cancelAnimationFrame(frame);
+    };
+  }, [reduced]);
+
+  function pick(index: number) {
+    const section = sectionRef.current;
+    if (!section || reduced) { setActive(index); return; }
+    const distance = section.offsetHeight - window.innerHeight;
+    const top = section.getBoundingClientRect().top + window.scrollY;
+    window.scrollTo({ top: top + ((index + 0.5) / groups.length) * distance, behavior: "smooth" });
+  }
 
   const group = groups[active];
 
+  const intro = (
+    <p className="mt-3 max-w-[480px] text-sm leading-[1.25] text-[#292929] sm:text-base">
+      We build on cloud foundations, bring ideas to life through code and
+      apply AI to create intelligent solutions. We underpin it all with
+      structured, protected and governed data—keeping community ownership
+      at the heart of what we build.
+    </p>
+  );
+
+  const stack = (
+    <ol className="tech-stack relative mx-auto flex w-full max-w-[520px] flex-col">
+      {layers.map((layer, index) => {
+        const on = layer.group === active;
+        return (
+          <li
+            key={layer.name}
+            style={{ "--i": layers.length - 1 - index, zIndex: layers.length - index } as CSSProperties}
+            className="tech-layer -mt-6 flex items-center first:mt-0"
+            data-on={on}
+          >
+            <button
+              type="button"
+              onClick={() => pick(layer.group)}
+              aria-label={`${layer.name}${layer.note ? `, ${layer.note}` : ""}`}
+              className="flex min-h-11 w-full items-center gap-2 text-left sm:gap-6"
+            >
+              <span className="tech-tile-wrap relative block h-[96px] w-[190px] flex-none sm:h-[112px] sm:w-[224px]">
+                <span className="tech-tile absolute left-1/2 top-1/2 block h-[128px] w-[128px] sm:h-[150px] sm:w-[150px]" />
+                <svg viewBox="0 0 32 32" aria-hidden="true" className="tech-icon absolute left-1/2 top-1/2 h-9 w-9 -translate-x-1/2 -translate-y-[60%] sm:h-11 sm:w-11">
+                  {layer.icon}
+                </svg>
+              </span>
+              <span className="tech-label">
+                <span className="block text-xs font-extrabold uppercase tracking-tight sm:text-sm">{layer.name}</span>
+                {layer.note && <span className="block text-xs italic text-[#161415]/55 sm:text-[13px]">{layer.note}</span>}
+              </span>
+            </button>
+          </li>
+        );
+      })}
+    </ol>
+  );
+
   return (
-    <section
-      aria-labelledby="technology-model-title"
-      className="relative isolate overflow-hidden bg-[#fafafa] px-6 pb-16 pt-14 text-[#161415] sm:px-10 md:px-14 md:pt-16 lg:px-16"
-    >
+    <section aria-labelledby="technology-model-title" className="relative bg-[#fafafa] text-[#161415]">
+      <div ref={sectionRef} style={reduced ? undefined : { height: `${groups.length * VH_PER_STEP + 100}svh` }} className="relative">
+      <div className="sticky top-0 isolate flex h-svh flex-col justify-center overflow-hidden px-6 pb-8 pt-16 sm:px-10 md:px-14 lg:px-16 motion-reduce:static motion-reduce:h-auto motion-reduce:py-16">
       <WaveBackground />
 
       <Reveal threshold={0.15} className="relative z-10 mx-auto max-w-[1200px]">
@@ -39,15 +121,10 @@ export default function TechnologyModelSection() {
           <h2 id="technology-model-title" className="text-3xl font-extrabold leading-[1.05] tracking-[-0.055em] sm:text-4xl">
             The Technology Model
           </h2>
-          <p className="mt-3 max-w-[480px] text-sm leading-[1.25] text-[#292929] sm:text-base">
-            We build on cloud foundations, bring ideas to life through code and
-            apply AI to create intelligent solutions. We underpin it all with
-            structured, protected and governed data—keeping community ownership
-            at the heart of what we build.
-          </p>
+          <div className="max-sm:hidden">{intro}</div>
         </div>
 
-        <div className="mt-10 grid items-center gap-10 lg:grid-cols-[1fr_1fr] lg:gap-6">
+        <div className="mt-6 grid items-center gap-10 sm:mt-10 lg:grid-cols-[1fr_1fr] lg:gap-6">
           <div>
             <div className="tech-disc relative mx-auto h-[230px] w-full max-w-[520px] sm:h-[264px]">
               <span aria-hidden="true" className="tech-sphere absolute right-0 top-0 h-full aspect-square rounded-full" />
@@ -55,7 +132,7 @@ export default function TechnologyModelSection() {
                 <div key={item.name} className="tech-row relative z-10 flex h-1/3 items-center" style={{ "--i": index } as CSSProperties}>
                   <button
                     type="button"
-                    onClick={() => setActive(index)}
+                    onClick={() => pick(index)}
                     aria-pressed={index === active}
                     data-on={index === active}
                     className="tech-pill flex flex-none items-center gap-2 rounded-full border border-[#161415]/30 bg-white py-1.5 pl-1.5 pr-3 text-left text-[11px] font-extrabold uppercase leading-tight tracking-tight sm:gap-3 sm:pr-5 sm:text-sm"
@@ -76,7 +153,7 @@ export default function TechnologyModelSection() {
               ))}
             </div>
 
-            <div aria-live="polite" className="mx-auto mt-8 max-w-[520px]">
+            <div aria-live="polite" className="mx-auto mt-6 max-w-[520px] sm:mt-8">
               <div key={active} className="model-panel border-l-2 border-[#d85643] pl-4">
                 <p className="text-lg font-bold tracking-[-0.02em]">
                   <span className="mr-2 text-[#d85643]">{group.num}</span>
@@ -87,39 +164,16 @@ export default function TechnologyModelSection() {
             </div>
           </div>
 
-          <ol className="tech-stack relative mx-auto flex w-full max-w-[520px] flex-col">
-            {layers.map((layer, index) => {
-              const on = layer.group === active;
-              return (
-                <li
-                  key={layer.name}
-                  style={{ "--i": layers.length - 1 - index, zIndex: layers.length - index } as CSSProperties}
-                  className="tech-layer -mt-6 flex items-center first:mt-0"
-                  data-on={on}
-                >
-                  <button
-                    type="button"
-                    onClick={() => setActive(layer.group)}
-                    aria-label={`${layer.name}${layer.note ? `, ${layer.note}` : ""}`}
-                    className="flex min-h-11 w-full items-center gap-2 text-left sm:gap-6"
-                  >
-                    <span className="tech-tile-wrap relative block h-[96px] w-[190px] flex-none sm:h-[112px] sm:w-[224px]">
-                      <span className="tech-tile absolute left-1/2 top-1/2 block h-[128px] w-[128px] sm:h-[150px] sm:w-[150px]" />
-                      <svg viewBox="0 0 32 32" aria-hidden="true" className="tech-icon absolute left-1/2 top-1/2 h-9 w-9 -translate-x-1/2 -translate-y-[60%] sm:h-11 sm:w-11">
-                        {layer.icon}
-                      </svg>
-                    </span>
-                    <span className="tech-label">
-                      <span className="block text-xs font-extrabold uppercase tracking-tight sm:text-sm">{layer.name}</span>
-                      {layer.note && <span className="block text-xs italic text-[#161415]/55 sm:text-[13px]">{layer.note}</span>}
-                    </span>
-                  </button>
-                </li>
-              );
-            })}
-          </ol>
+          <div className="hidden lg:block">{stack}</div>
         </div>
       </Reveal>
+      </div>
+      </div>
+
+      <div className="relative z-10 px-6 pb-16 sm:px-10 lg:hidden">
+        <div className="mx-auto max-w-[520px] sm:hidden">{intro}</div>
+        <div className="mt-8">{stack}</div>
+      </div>
     </section>
   );
 }
