@@ -18,7 +18,7 @@ const reasons: Reason[] = [
     icon: "/homepage/technology-icon.png",
     claim: "Platforms built for the community, not borrowed from it.",
     points: [
-      "GMBTE brings members, mentors and partners onto one platform",
+      "Black Tech Expo brings members, mentors and partners onto one platform",
       "AI agents and business tools sit in the same place as the community",
       "Digital products and programmes are designed and run by our own team",
     ],

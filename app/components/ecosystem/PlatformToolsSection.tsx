@@ -12,7 +12,7 @@ function pad(number: number) {
   return String(number).padStart(2, "0");
 }
 
-export default function GmbteToolsSection() {
+export default function PlatformToolsSection() {
   function spot(event: PointerEvent<HTMLElement>) {
     if (event.pointerType !== "mouse") return;
     const box = event.currentTarget.getBoundingClientRect();
@@ -23,11 +23,11 @@ export default function GmbteToolsSection() {
   const groupOffsets = toolGroups.map((_, index) => toolGroups.slice(0, index).reduce((total, group) => total + group.tools.length, 0));
 
   return (
-    <section id="gmbte-tools" aria-labelledby="gmbte-tools-title" className="relative overflow-hidden bg-[#141213] px-6 py-16 text-[#FAFAF9] sm:px-10 md:py-24 lg:px-14">
+    <section id="platform-tools" aria-labelledby="platform-tools-title" className="relative overflow-hidden bg-[#141213] px-6 py-16 text-[#FAFAF9] sm:px-10 md:py-24 lg:px-14">
       <div className="mx-auto w-full max-w-[1100px]">
-        <SectionLabel className="mb-5">GMBTE Platform</SectionLabel>
+        <SectionLabel className="mb-5">BTE Platform</SectionLabel>
         <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-          <h2 id="gmbte-tools-title" className="max-w-[640px] text-3xl font-black leading-[1.02] tracking-tight md:text-5xl">
+          <h2 id="platform-tools-title" className="max-w-[640px] text-3xl font-black leading-[1.02] tracking-tight md:text-5xl">
             What members can use
           </h2>
         </div>
