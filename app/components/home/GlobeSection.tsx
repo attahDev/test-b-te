@@ -80,7 +80,7 @@ export default function GlobeSection() {
 
         <div className="pointer-events-none relative mx-auto flex min-h-0 w-full max-w-[1200px] flex-1 flex-col px-6 pb-16 pt-6 md:px-12 lg:grid lg:grid-cols-[0.95fr_1.05fr] lg:items-center lg:gap-10 lg:pb-20 lg:pt-10">
           <div aria-hidden="true" className="h-[27svh] flex-none lg:hidden" />
-          <div aria-live="polite" className="pointer-events-auto min-h-0 flex-1 lg:flex-none">
+          <div aria-live="polite" className="pointer-events-auto min-h-0 flex-1 max-lg:flex max-lg:flex-col max-lg:justify-end lg:flex-none">
             <div key={stage} className="panel-in">
               {mode === "intro" && (
                 <>

@@ -16,6 +16,8 @@ type SceneProps = {
 type GlobeApi = ReturnType<typeof import("globe.gl").default extends new (...args: never[]) => infer T ? () => T : never>;
 type Country = { properties: { key: Stop["country"] | null } };
 
+const otherCountryColors = ["47,110,140", "74,84,156", "110,78,150", "60,110,130", "150,110,60", "70,100,160", "130,70,110"];
+
 function hasWebGl() {
   try {
     const canvas = document.createElement("canvas");
@@ -49,6 +51,7 @@ export default function GlobeScene(props: SceneProps) {
     let started = false;
     let visible = true;
     let resizeWatcher: ResizeObserver | null = null;
+    const shadeOf = new WeakMap<object, string>();
 
     function width() {
       return host!.clientWidth;
@@ -69,6 +72,7 @@ export default function GlobeScene(props: SceneProps) {
           fetch("/data/countries.json").then((response) => response.json()),
         ]);
         if (disposed) return;
+        countries.features.forEach((country: object, index: number) => shadeOf.set(country, otherCountryColors[index % otherCountryColors.length]));
 
         const globe = new GlobeGL(host!, { rendererConfig: { antialias: true, alpha: true, powerPreference: "high-performance" } }) as unknown as GlobeApi;
         globe
@@ -88,8 +92,8 @@ export default function GlobeScene(props: SceneProps) {
         renderer.domElement.addEventListener("webglcontextrestored", () => window.clearTimeout(lostTimer));
 
         const material = globe.globeMaterial() as MeshPhongMaterial;
-        material.color.set("#0b0d13");
-        material.emissive.set("#04050a");
+        material.color.set("#0b1a33");
+        material.emissive.set("#050b18");
         material.shininess = 6;
         material.transparent = true;
         material.opacity = 0.85;
@@ -127,16 +131,16 @@ export default function GlobeScene(props: SceneProps) {
       globe
         .polygonCapColor((country: object) => {
           const key = keyOf(country);
-          if (!key || !lit(key)) return "rgba(30,38,56,0.95)";
+          if (!key || !lit(key)) return `rgba(${shadeOf.get(country)},0.85)`;
           return `rgba(${colorOf(key)},${active?.country === key ? 0.9 : mode === "finale" ? 0.75 : 0.5})`;
         })
         .polygonSideColor((country: object) => {
           const key = keyOf(country);
-          return key && lit(key) ? `rgba(${colorOf(key)},0.35)` : "rgba(30,38,56,0.6)";
+          return key && lit(key) ? `rgba(${colorOf(key)},0.35)` : `rgba(${shadeOf.get(country)},0.55)`;
         })
         .polygonStrokeColor((country: object) => {
           const key = keyOf(country);
-          return key && lit(key) ? `rgba(${colorOf(key)},1)` : "rgba(150,170,200,0.3)";
+          return key && lit(key) ? `rgba(${colorOf(key)},1)` : "rgba(255,255,255,0.22)";
         })
         .polygonAltitude((country: object) => {
           const key = keyOf(country);
