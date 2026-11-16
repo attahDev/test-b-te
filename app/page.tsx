@@ -1,6 +1,7 @@
 import Navbar from "@/app/components/shared/Navbar";
 import HeroSection from "@/app/components/home/HeroSection";
 import WhoWeAreSection from "@/app/components/home/WhoWeAreSection";
+import InkDivider from "@/app/components/ui/InkDivider";
 import ScrollBand from "@/app/components/home/ScrollBand";
 import WhatWeDoSection from "@/app/components/home/WhatWeDoSection";
 import GlobeSection from "@/app/components/home/GlobeSection";
@@ -16,8 +17,10 @@ export default function Home() {
       <WhoWeAreSection />
       <ScrollBand />
       <WhatWeDoSection />
+      <InkDivider variant="a" />
       <GlobeSection />
       <MoreThanNetworkSection />
+      <InkDivider variant="b" />
       <PrincipleSection />
       <Footer />
     </div>

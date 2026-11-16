@@ -8,13 +8,14 @@ export default function HeroSection() {
     <section className="relative min-h-svh overflow-hidden">
       <ScrollVar mode="leave" className="hero relative flex min-h-svh flex-col justify-center">
       <Image
-        src="/homepage/architectural-background.png"
+        src="/art/night.jpg"
         alt=""
         fill
         priority
-        className="hero-image object-cover opacity-[0.12] mix-blend-screen"
+        className="hero-image object-cover opacity-80 brightness-[1.9] contrast-[1.1]"
       />
-      <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-[#070b16]" />
+      <div aria-hidden="true" className="absolute inset-0 bg-[radial-gradient(ellipse_at_70%_45%,transparent_20%,#070b16_85%)]" />
+      <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-56 bg-gradient-to-b from-transparent to-[#070b16]" />
 
       <div className="hero-copy relative z-10 mx-auto w-full max-w-[1300px] px-6 pb-16 pt-32 md:px-16">
         <SectionLabel className="mb-10">Welcome to BTE</SectionLabel>

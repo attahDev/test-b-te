@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import ScrollVar from "../ui/ScrollVar";
 import Button from "../ui/Button";
 import SectionLabel from "../ui/SectionLabel";
 import WakeList from "../ui/WakeList";
@@ -36,8 +37,11 @@ function ToolGroupScene({ group }: { group: ToolGroup }) {
 
 export default function PlatformToolsSection() {
   return (
-    <section id="platform-tools" aria-labelledby="platform-tools-title" className="px-6 py-24 md:px-16 md:py-32">
-      <div className="mx-auto w-full max-w-[1300px]">
+    <section id="platform-tools" aria-labelledby="platform-tools-title" className="relative px-6 py-24 md:px-16 md:py-32">
+      <ScrollVar mode="pass" className="contours pointer-events-none absolute inset-0 overflow-hidden">
+        <div aria-hidden="true" className="contours-layer absolute inset-x-0 -inset-y-[10%] bg-cover bg-center" style={{ backgroundImage: "url(/art/contours.svg)" }} />
+      </ScrollVar>
+      <div className="relative mx-auto w-full max-w-[1300px]">
         <SectionLabel className="mb-8">BTE Platform</SectionLabel>
         <h2 id="platform-tools-title" className="max-w-[16ch] text-4xl font-extralight uppercase leading-[1.1] tracking-[0.1em] md:text-6xl">
           What members can use
