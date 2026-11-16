@@ -9,7 +9,7 @@ import Navbar from "../components/shared/Navbar";
 
 export default function EcosystemPage() {
   return (
-    <main className="flex min-h-screen flex-col bg-[#08090d] text-white">
+    <main className="flex min-h-screen flex-col text-white">
       <Navbar />
       <EcosystemHeroSection />
       <ModelSection />

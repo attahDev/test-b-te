@@ -11,7 +11,7 @@ type ButtonProps = {
 };
 
 const variants = {
-  primary: "bg-[#B04333] text-white hover:bg-[#923327]",
+  primary: "border border-[#E97868]/70 text-[#FAFAF9] hover:bg-[#B04333] hover:border-[#B04333]",
   secondary: "border border-[#FAFAF9]/50 text-[#FAFAF9] hover:bg-[#FAFAF9]/10",
   secondarySubtle:
     "border border-[#FAFAF9]/30 text-[#FAFAF9] hover:bg-[#FAFAF9]/10",
@@ -33,7 +33,7 @@ export default function Button({
   return (
     <Link
       href={href}
-      className={`site-button inline-flex items-center gap-2 rounded-full font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#E97868] ${variants[variant]} ${sizes[size]} ${className}`}
+      className={`site-button inline-flex items-center gap-2 rounded-full font-light uppercase tracking-[0.2em] transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#E97868] ${variants[variant]} ${sizes[size]} ${className}`}
     >
       {children}
     </Link>

@@ -14,7 +14,17 @@ const links = [
 export default function Navbar() {
   const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const mobileMenuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function onScroll() {
+      setScrolled(window.scrollY > 40);
+    }
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   useEffect(() => {
     if (!isMobileMenuOpen) return;
@@ -37,18 +47,25 @@ export default function Navbar() {
   }, [isMobileMenuOpen]);
 
   return (
-    <nav aria-label="Main" className="absolute top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-5 md:px-16">
+    <nav
+      aria-label="Main"
+      className={`fixed left-1/2 z-50 flex -translate-x-1/2 items-center justify-between transition-all duration-500 ${
+        scrolled
+          ? "top-3 w-[calc(100%-1.5rem)] max-w-[1100px] rounded-full border border-white/10 bg-[#070b16]/70 px-5 py-2 backdrop-blur-md md:px-8"
+          : "top-0 w-full px-6 py-5 md:px-16"
+      }`}
+    >
       <Link href="/" aria-label="Black Tech Expo home" className="flex items-center gap-2">
         <Image
           src="/homepage/bte-logo.png"
           alt="Black Tech Expo Logo"
           width={40}
           height={40}
-          className="h-10 w-auto"
+          className={`w-auto transition-all duration-500 ${scrolled ? "h-8" : "h-10"}`}
         />
       </Link>
 
-      <div className="hidden items-center gap-10 text-sm text-[#FAFAF9]/80 md:flex">
+      <div className="hidden items-center gap-10 text-xs uppercase tracking-[0.2em] text-[#FAFAF9]/70 md:flex">
         {links.map((link) => {
           const current = link.match !== "" && pathname === link.match;
           return (
@@ -67,7 +84,7 @@ export default function Navbar() {
       <div className="hidden items-center md:flex">
         <Link
           href="/contact"
-          className="inline-flex items-center gap-1 rounded-full bg-[#B04333] px-5 py-2 text-sm text-white transition-colors hover:bg-[#923327]"
+          className="inline-flex items-center gap-1 rounded-full border border-[#E97868]/70 px-5 py-2 text-xs uppercase tracking-[0.2em] text-[#FAFAF9] transition-colors hover:bg-[#B04333] hover:border-[#B04333]"
         >
           Work with BTE ↗
         </Link>
@@ -90,7 +107,7 @@ export default function Navbar() {
         {isMobileMenuOpen && (
           <div
             id="mobile-navigation-menu"
-            className="absolute right-0 top-full mt-3 w-[min(20rem,calc(100vw-3rem))] rounded-2xl border border-white/10 bg-[#161415] p-4 shadow-xl"
+            className="absolute right-0 top-full mt-3 w-[min(20rem,calc(100vw-3rem))] rounded-2xl border border-white/10 bg-[#0b1020]/95 p-4 backdrop-blur-md"
           >
             <div className="flex flex-col items-stretch gap-1 text-sm text-[#FAFAF9]/85">
               {links.map((link) => {
@@ -110,7 +127,7 @@ export default function Navbar() {
               <Link
                 href="/contact"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="mt-2 inline-flex items-center justify-center gap-1 rounded-full bg-[#B04333] px-5 py-3 text-sm text-white transition-colors hover:bg-[#923327]"
+                className="mt-2 inline-flex items-center justify-center gap-1 rounded-full border border-[#E97868]/70 px-5 py-3 text-xs uppercase tracking-[0.2em] text-white transition-colors hover:bg-[#B04333]"
               >
                 Work with BTE ↗
               </Link>

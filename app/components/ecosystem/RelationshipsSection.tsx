@@ -1,6 +1,5 @@
 import Image from "next/image";
 import SectionLabel from "../ui/SectionLabel";
-import WaveBackground from "./WaveBackground";
 
 type Partner = { name: string; role?: string; logo?: string; mark?: string };
 
@@ -31,10 +30,10 @@ function initials(name: string) {
 
 function PartnerCard({ partner, index }: { partner: Partner; index: number }) {
   return (
-    <div className="partner-card flex flex-none items-center gap-4 border border-[#161415]/15 bg-white px-5 py-4">
+    <div className="partner-card flex flex-none items-center gap-4 border-l border-white/20 px-5 py-2">
       <span
-        className={`grid h-14 w-14 flex-none place-items-center overflow-hidden rounded-full text-base font-black ${
-          index % 3 === 0 ? "bg-[#171516] text-white" : index % 3 === 1 ? "bg-[#DFEAF2] text-[#171516]" : "bg-[#F1F0EF] text-[#171516]"
+        className={`grid h-14 w-14 flex-none place-items-center overflow-hidden rounded-full text-base font-light ${
+          "border border-white/20 text-[#FAFAF9]/80"
         }`}
       >
         {partner.logo ? (
@@ -44,8 +43,8 @@ function PartnerCard({ partner, index }: { partner: Partner; index: number }) {
         )}
       </span>
       <span className="whitespace-nowrap">
-        <span className="block text-lg font-semibold leading-tight tracking-[-0.02em]">{partner.name}</span>
-        {partner.role && <span className="block text-sm text-[#161415]/60">{partner.role}</span>}
+        <span className="block text-lg font-light leading-tight tracking-[0.04em]">{partner.name}</span>
+        {partner.role && <span className="block text-sm text-[#FAFAF9]/50">{partner.role}</span>}
       </span>
     </div>
   );
@@ -55,17 +54,15 @@ export default function RelationshipsSection() {
   return (
     <section
       aria-labelledby="relationships-title"
-      className="relative isolate overflow-hidden bg-[#fafafa] py-16 text-[#161415] md:py-20"
+      className="relative isolate overflow-hidden border-t border-white/10 py-24 md:py-32"
     >
-      <WaveBackground />
-
       <div className="relative mx-auto max-w-[1200px] px-6 sm:px-10 lg:px-14">
         <div className="relative min-h-[190px] pr-32 sm:min-h-[185px] sm:pr-44 md:min-h-[205px]">
           <SectionLabel className="mb-4">Our Relationships</SectionLabel>
-          <h2 id="relationships-title" className="text-4xl font-extrabold leading-none tracking-[-0.055em] sm:text-5xl">
+          <h2 id="relationships-title" className="text-4xl font-extralight uppercase leading-none tracking-[0.1em] sm:text-5xl">
             Relationships
           </h2>
-          <p className="mt-3 max-w-[470px] text-sm leading-[1.4] text-[#292929] sm:text-base">
+          <p className="mt-3 max-w-[470px] text-sm leading-[1.4] text-[#FAFAF9]/65 sm:text-base">
             We connect communities, industry and institutions to turn shared
             ambition into skills, enterprise and greater ownership in the
             digital economy.

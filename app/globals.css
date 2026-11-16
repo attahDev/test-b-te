@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 :root {
-  --background: #161415;
+  --background: #070b16;
   --foreground: #FAFAF9;
   --brand-red: #B04333;
   --brand-light: #F2F1F0;
@@ -36,6 +36,40 @@ body {
 h1, h2, h3, h4 {
   font-family: var(--font-manrope), var(--font-sans), sans-serif;
   text-wrap: balance;
+}
+
+.canvas {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(60% 50% at 80% 12%, rgb(46 74 140 / 0.38), transparent 70%),
+    radial-gradient(50% 45% at 8% 70%, rgb(176 67 51 / 0.16), transparent 70%),
+    radial-gradient(70% 60% at 50% 110%, rgb(30 52 110 / 0.35), transparent 70%),
+    #070b16;
+}
+.canvas::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgb(255 255 255 / 0.07) 1px, transparent 1px);
+  background-size: 34px 34px;
+  mask-image: radial-gradient(ellipse at 60% 30%, #000, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse at 60% 30%, #000, transparent 75%);
+}
+
+.wake-row { border-top: 1px solid rgb(255 255 255 / 0.1); }
+.wake-title { color: rgb(250 250 249 / 0.28); transition: color 500ms ease, letter-spacing 700ms cubic-bezier(.22,1,.36,1); }
+.wake-row[data-lit="true"] .wake-title { color: #fafaf9; letter-spacing: 0.1em; }
+.wake-body { display: grid; grid-template-rows: 0fr; opacity: 0; transition: grid-template-rows 600ms cubic-bezier(.22,1,.36,1), opacity 500ms ease; }
+.wake-body > div { overflow: hidden; }
+.wake-row[data-lit="true"] .wake-body { grid-template-rows: 1fr; opacity: 1; }
+
+.fade-up { opacity: 0; transform: translateY(18px); transition: opacity 900ms ease, transform 900ms cubic-bezier(.22,1,.36,1); transition-delay: calc(var(--i, 0) * 120ms); }
+[data-in] .fade-up { opacity: 1; transform: none; }
+@media (scripting: none), (prefers-reduced-motion: reduce) {
+  .fade-up { opacity: 1; transform: none; }
 }
 
 img {

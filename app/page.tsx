@@ -9,7 +9,7 @@ import Footer from "@/app/components/shared/Footer";
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 bg-[#161415] text-[#FAFAF9]">
+    <div className="flex flex-col flex-1 text-[#FAFAF9]">
       <Navbar />
       <HeroSection />
       <WhoWeAreSection />

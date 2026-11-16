@@ -3,7 +3,6 @@
 import { useEffect, useRef, useState, useSyncExternalStore, type CSSProperties, type ReactNode } from "react";
 import Reveal from "../ui/Reveal";
 import SectionLabel from "../ui/SectionLabel";
-import WaveBackground from "./WaveBackground";
 
 const REDUCED = "(prefers-reduced-motion: reduce)";
 const VH_PER_STEP = 80;
@@ -67,7 +66,7 @@ export default function TechnologyModelSection() {
   const group = groups[active];
 
   const intro = (
-    <p className="mt-3 max-w-[480px] text-sm leading-[1.25] text-[#292929] sm:text-base">
+    <p className="mt-3 max-w-[480px] text-sm leading-[1.25] text-[#FAFAF9]/75 sm:text-base">
       We build on cloud foundations, bring ideas to life through code and
       apply AI to create intelligent solutions. We underpin it all with
       structured, protected and governed data—keeping community ownership
@@ -100,7 +99,7 @@ export default function TechnologyModelSection() {
               </span>
               <span className="tech-label">
                 <span className="block text-xs font-extrabold uppercase tracking-tight sm:text-sm">{layer.name}</span>
-                {layer.note && <span className="block text-xs italic text-[#161415]/55 sm:text-[13px]">{layer.note}</span>}
+                {layer.note && <span className="block text-xs italic text-[#FAFAF9]/55 sm:text-[13px]">{layer.note}</span>}
               </span>
             </button>
           </li>
@@ -110,15 +109,13 @@ export default function TechnologyModelSection() {
   );
 
   return (
-    <section aria-labelledby="technology-model-title" className="relative bg-[#fafafa] text-[#161415]">
+    <section aria-labelledby="technology-model-title" className="relative text-[#FAFAF9]">
       <div ref={sectionRef} style={reduced ? undefined : { height: `${groups.length * VH_PER_STEP + 100}svh` }} className="relative">
       <div className="sticky top-0 isolate flex h-svh flex-col justify-center overflow-hidden px-6 pb-8 pt-16 sm:px-10 md:px-14 lg:px-16 motion-reduce:static motion-reduce:h-auto motion-reduce:py-16">
-      <WaveBackground />
-
       <Reveal threshold={0.15} className="relative z-10 mx-auto max-w-[1200px]">
         <div className="max-w-[530px]">
           <SectionLabel className="mb-5">Our Technology Model</SectionLabel>
-          <h2 id="technology-model-title" className="text-3xl font-extrabold leading-[1.05] tracking-[-0.055em] sm:text-4xl">
+          <h2 id="technology-model-title" className="text-3xl font-extralight uppercase leading-[1.1] tracking-[0.1em] sm:text-4xl">
             The Technology Model
           </h2>
           <div className="max-sm:hidden">{intro}</div>
@@ -135,12 +132,12 @@ export default function TechnologyModelSection() {
                     onClick={() => pick(index)}
                     aria-pressed={index === active}
                     data-on={index === active}
-                    className="tech-pill flex flex-none items-center gap-2 rounded-full border border-[#161415]/30 bg-white py-1.5 pl-1.5 pr-3 text-left text-[11px] font-extrabold uppercase leading-tight tracking-tight sm:gap-3 sm:pr-5 sm:text-sm"
+                    className="tech-pill flex flex-none items-center gap-2 rounded-full border border-white/30 bg-white/5 py-1.5 pl-1.5 pr-3 text-left text-[11px] font-extrabold uppercase leading-tight tracking-tight sm:gap-3 sm:pr-5 sm:text-sm"
                   >
-                    <span className="grid h-6 w-6 flex-none place-items-center rounded-full bg-[#161415] text-[10px] text-white sm:h-7 sm:w-7 sm:text-xs">{item.num}</span>
+                    <span className="grid h-6 w-6 flex-none place-items-center rounded-full bg-[#E97868] text-[10px] text-[#070b16] sm:h-7 sm:w-7 sm:text-xs">{item.num}</span>
                     {item.name}
                   </button>
-                  <span aria-hidden="true" className="tech-line relative mx-1 h-px flex-1 bg-[#161415]/30" />
+                  <span aria-hidden="true" className="tech-line relative mx-1 h-px flex-1 bg-white/25" />
                   <span
                     aria-hidden="true"
                     data-on={index === active}
@@ -159,7 +156,7 @@ export default function TechnologyModelSection() {
                   <span className="mr-2 text-[#d85643]">{group.num}</span>
                   {group.name}
                 </p>
-                <p className="mt-1 text-sm leading-relaxed text-[#292929] sm:text-base">{group.text}</p>
+                <p className="mt-1 text-sm leading-relaxed text-[#FAFAF9]/75 sm:text-base">{group.text}</p>
               </div>
             </div>
           </div>

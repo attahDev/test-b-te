@@ -65,18 +65,18 @@ export default function GlobeSection() {
       ref={sectionRef}
       aria-labelledby="locations-title"
       style={reduced ? undefined : { height: `${STAGES * VH_PER_STAGE + 100}svh` }}
-      className="relative bg-[#08090B]"
+      className="relative"
     >
       <div className="sticky top-0 isolate flex h-svh flex-col overflow-hidden motion-reduce:static motion-reduce:min-h-svh motion-reduce:py-14">
         <div aria-hidden="true" className="tour-bg absolute inset-0 -z-10" style={{ backgroundColor: bg }} />
         <div aria-hidden="true" className="absolute inset-0 -z-10">
           <Image src="/homepage/starfield-background.png" alt="" fill sizes="100vw" className="object-cover opacity-40 mix-blend-screen" />
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_55%,transparent_30%,rgba(5,6,8,0.7)_100%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_55%,transparent_30%,rgba(7,11,22,0.7)_100%)]" />
         </div>
 
         <GlobeScene stops={stops} mode={mode} activeId={activeId} visibleIds={visibleIds} onSelect={(id) => jump(stops.findIndex((item) => item.id === id) + 1)} />
 
-        <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_top,rgba(5,6,8,0.88)_0%,rgba(5,6,8,0.62)_42%,transparent_62%)] lg:bg-[linear-gradient(to_right,rgba(5,6,8,0.82)_0%,rgba(5,6,8,0.55)_34%,transparent_56%)]" />
+        <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_top,rgba(7,11,22,0.88)_0%,rgba(7,11,22,0.62)_42%,transparent_62%)] lg:bg-[linear-gradient(to_right,rgba(7,11,22,0.82)_0%,rgba(7,11,22,0.55)_34%,transparent_56%)]" />
 
         <div className="pointer-events-none relative mx-auto flex min-h-0 w-full max-w-[1200px] flex-1 flex-col px-6 pb-16 pt-6 md:px-12 lg:grid lg:grid-cols-[0.95fr_1.05fr] lg:items-center lg:gap-10 lg:pb-20 lg:pt-10">
           <div aria-hidden="true" className="h-[27svh] flex-none lg:hidden" />
@@ -85,7 +85,7 @@ export default function GlobeSection() {
               {mode === "intro" && (
                 <>
                   <SectionLabel className="mb-4">Locations</SectionLabel>
-                  <h2 id="locations-title" className="text-3xl font-black leading-[1.02] tracking-tight text-[#FAFAF9] md:text-5xl">
+                  <h2 id="locations-title" className="text-3xl font-extralight uppercase leading-[1.1] tracking-[0.1em] text-[#FAFAF9] md:text-5xl">
                     Welcome to Black Tech Expo
                   </h2>
                   <p className="mt-4 max-w-[480px] text-sm leading-relaxed text-[#FAFAF9]/75 md:text-base">
@@ -96,7 +96,7 @@ export default function GlobeSection() {
 
               {stop && (
                 <>
-                  <h2 id="locations-title" className="text-2xl font-black leading-[1.05] tracking-tight text-[#FAFAF9] md:text-4xl">
+                  <h2 id="locations-title" className="text-2xl font-extralight uppercase leading-[1.1] tracking-[0.1em] text-[#FAFAF9] md:text-4xl">
                     {stop.name}
                   </h2>
                   <p className="mt-2 hidden max-w-[480px] text-sm leading-snug text-[#FAFAF9]/70 md:block">{stop.line}</p>
@@ -169,7 +169,7 @@ export default function GlobeSection() {
               {mode === "finale" && (
                 <>
                   <SectionLabel className="mb-4">The network</SectionLabel>
-                  <h2 id="locations-title" className="text-3xl font-black leading-[1.02] tracking-tight text-[#FAFAF9] md:text-5xl">
+                  <h2 id="locations-title" className="text-3xl font-extralight uppercase leading-[1.1] tracking-[0.1em] text-[#FAFAF9] md:text-5xl">
                     One network, growing place by place
                   </h2>
                   <div className="mt-5 flex flex-wrap gap-2">

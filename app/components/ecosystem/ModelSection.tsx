@@ -63,16 +63,16 @@ export default function ModelSection() {
     <section
       ref={sectionRef}
       aria-labelledby="ecosystem-model-title"
-      className="relative h-[340svh] bg-[#08090d] motion-reduce:h-auto"
+      className="relative h-[340svh] motion-reduce:h-auto"
     >
-      <div className="sticky top-0 flex h-svh flex-col overflow-hidden bg-[#08090d] text-white motion-reduce:static motion-reduce:min-h-svh motion-reduce:py-16">
+      <div className="sticky top-0 flex h-svh flex-col overflow-hidden text-white motion-reduce:static motion-reduce:min-h-svh motion-reduce:py-16">
         <Image src="/homepage/architectural-background.png" alt="" aria-hidden="true" fill sizes="100vw" className="pointer-events-none object-cover object-center opacity-55" />
         <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-black/60" />
 
         <div className="relative mx-auto grid min-h-0 w-full max-w-[1280px] flex-1 grid-rows-[auto_1fr] gap-4 px-6 pb-6 pt-[10svh] sm:px-10 lg:grid-cols-[42%_1fr] lg:grid-rows-1 lg:gap-14 lg:px-12 lg:py-[12svh]">
           <div className="flex min-h-0 flex-col">
             <SectionLabel className="mb-4">Our Model</SectionLabel>
-            <h2 id="ecosystem-model-title" className="text-4xl font-extrabold leading-[1.02] tracking-[-0.055em] sm:text-5xl lg:text-6xl">
+            <h2 id="ecosystem-model-title" className="text-3xl font-extralight uppercase leading-[1.1] tracking-[0.1em] sm:text-5xl lg:text-6xl">
               From Community
               <br />
               to Capacity

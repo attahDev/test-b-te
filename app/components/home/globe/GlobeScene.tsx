@@ -73,6 +73,8 @@ export default function GlobeScene(props: SceneProps) {
         const globe = new GlobeGL(host!, { rendererConfig: { antialias: true, alpha: true, powerPreference: "high-performance" } }) as unknown as GlobeApi;
         globe
           .backgroundColor("rgba(0,0,0,0)")
+          .globeImageUrl("/earth/blue-marble.jpg")
+          .bumpImageUrl("/earth/topology.png")
           .showAtmosphere(true)
           .atmosphereAltitude(0.2)
           .polygonsData(countries.features)
@@ -88,11 +90,10 @@ export default function GlobeScene(props: SceneProps) {
         renderer.domElement.addEventListener("webglcontextrestored", () => window.clearTimeout(lostTimer));
 
         const material = globe.globeMaterial() as MeshPhongMaterial;
-        material.color.set("#0b0d13");
-        material.emissive.set("#04050a");
-        material.shininess = 6;
-        material.transparent = true;
-        material.opacity = 0.85;
+        material.color.set("#d6dbe6");
+        material.bumpScale = 6;
+        material.shininess = 14;
+        material.specular.set("#1c2a44");
 
         const controls = globe.controls();
         controls.enableZoom = false;
@@ -127,16 +128,16 @@ export default function GlobeScene(props: SceneProps) {
       globe
         .polygonCapColor((country: object) => {
           const key = keyOf(country);
-          if (!key || !lit(key)) return "rgba(30,38,56,0.95)";
-          return `rgba(${colorOf(key)},${active?.country === key ? 0.9 : mode === "finale" ? 0.75 : 0.5})`;
+          if (!key || !lit(key)) return "rgba(0,0,0,0)";
+          return `rgba(${colorOf(key)},${active?.country === key ? 0.5 : mode === "finale" ? 0.4 : 0.28})`;
         })
         .polygonSideColor((country: object) => {
           const key = keyOf(country);
-          return key && lit(key) ? `rgba(${colorOf(key)},0.35)` : "rgba(30,38,56,0.6)";
+          return key && lit(key) ? `rgba(${colorOf(key)},0.35)` : "rgba(0,0,0,0)";
         })
         .polygonStrokeColor((country: object) => {
           const key = keyOf(country);
-          return key && lit(key) ? `rgba(${colorOf(key)},1)` : "rgba(150,170,200,0.3)";
+          return key && lit(key) ? `rgba(${colorOf(key)},1)` : "rgba(255,255,255,0.1)";
         })
         .polygonAltitude((country: object) => {
           const key = keyOf(country);
