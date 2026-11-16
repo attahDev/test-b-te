@@ -1,20 +1,22 @@
 import Image from "next/image";
 import Button from "../ui/Button";
+import ScrollVar from "../ui/ScrollVar";
 import SectionLabel from "../ui/SectionLabel";
 
 export default function HeroSection() {
   return (
-    <section className="relative flex min-h-svh flex-col justify-center overflow-hidden">
+    <section className="relative min-h-svh overflow-hidden">
+      <ScrollVar mode="leave" className="hero relative flex min-h-svh flex-col justify-center">
       <Image
         src="/homepage/architectural-background.png"
         alt=""
         fill
         priority
-        className="object-cover opacity-[0.12] mix-blend-screen"
+        className="hero-image object-cover opacity-[0.12] mix-blend-screen"
       />
       <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-[#070b16]" />
 
-      <div className="relative z-10 mx-auto w-full max-w-[1300px] px-6 pb-16 pt-32 md:px-16">
+      <div className="hero-copy relative z-10 mx-auto w-full max-w-[1300px] px-6 pb-16 pt-32 md:px-16">
         <SectionLabel className="mb-10">Welcome to BTE</SectionLabel>
         <h1 className="max-w-[16ch] text-[2.6rem] font-extralight uppercase leading-[1.05] tracking-[0.12em] text-[#FAFAF9] sm:text-6xl lg:text-7xl xl:text-[5.5rem]">
           More than a network
@@ -36,6 +38,7 @@ export default function HeroSection() {
         Scroll
         <span className="h-10 w-px bg-gradient-to-b from-white/50 to-transparent" />
       </div>
+      </ScrollVar>
     </section>
   );
 }

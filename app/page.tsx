@@ -1,6 +1,7 @@
 import Navbar from "@/app/components/shared/Navbar";
 import HeroSection from "@/app/components/home/HeroSection";
 import WhoWeAreSection from "@/app/components/home/WhoWeAreSection";
+import ScrollBand from "@/app/components/home/ScrollBand";
 import WhatWeDoSection from "@/app/components/home/WhatWeDoSection";
 import GlobeSection from "@/app/components/home/GlobeSection";
 import MoreThanNetworkSection from "@/app/components/home/MoreThanNetworkSection";
@@ -13,6 +14,7 @@ export default function Home() {
       <Navbar />
       <HeroSection />
       <WhoWeAreSection />
+      <ScrollBand />
       <WhatWeDoSection />
       <GlobeSection />
       <MoreThanNetworkSection />
