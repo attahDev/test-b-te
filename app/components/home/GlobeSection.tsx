@@ -76,7 +76,7 @@ export default function GlobeSection() {
 
         <GlobeScene stops={stops} mode={mode} activeId={activeId} visibleIds={visibleIds} onSelect={(id) => jump(stops.findIndex((item) => item.id === id) + 1)} />
 
-        <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_top,rgba(7,11,22,0.62)_0%,rgba(7,11,22,0.4)_42%,transparent_62%)] lg:bg-[linear-gradient(to_right,rgba(7,11,22,0.5)_0%,rgba(7,11,22,0.28)_34%,transparent_56%)]" />
+        <div aria-hidden="true" className="pointer-events-none absolute inset-0 [mask-image:linear-gradient(to_bottom,transparent,#000_26%)] bg-[linear-gradient(to_top,rgba(7,11,22,0.62)_0%,rgba(7,11,22,0.4)_42%,transparent_62%)] lg:bg-[linear-gradient(to_right,rgba(7,11,22,0.5)_0%,rgba(7,11,22,0.28)_34%,transparent_56%)]" />
 
         <div className="pointer-events-none relative mx-auto flex min-h-0 w-full max-w-[1200px] flex-1 flex-col px-6 pb-16 pt-6 md:px-12 lg:grid lg:grid-cols-[0.95fr_1.05fr] lg:items-center lg:gap-10 lg:pb-20 lg:pt-10">
           <div aria-hidden="true" className="h-[27svh] flex-none lg:hidden" />

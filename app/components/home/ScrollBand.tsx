@@ -8,8 +8,8 @@ export default function ScrollBand() {
     <ScrollVar mode="pin" className="band relative h-[240svh]">
       <div className="sticky top-0 flex h-svh items-center justify-center overflow-hidden">
         <div className="band-frame absolute inset-0">
-          <Image src="/homepage/architectural-background.png" alt="" fill sizes="100vw" className="band-image object-cover" />
-          <div className="absolute inset-0 bg-[#070b16]/45" />
+          <Image src="/art/stars.webp" alt="" fill sizes="100vw" className="band-image object-cover" />
+          
         </div>
         <div className="relative z-10 px-6 text-center">
           <p className="band-kicker text-[11px] uppercase tracking-[0.32em] text-[#E97868]">From community to ownership</p>

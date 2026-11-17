@@ -1,43 +1,82 @@
-"use client";
+import Image from "next/image";
+import type { CSSProperties } from "react";
+import Reveal from "../ui/Reveal";
 
-import { useState } from "react";
-import LayerStack from "./LayerStack";
-import SectionLabel from "../ui/SectionLabel";
-import WakeList from "../ui/WakeList";
-
-const layers = [
-  "Intellectual Property",
-  "Digital Infrastructure",
-  "Community Infrastructure",
-  "Partnership Infrastructure",
-  "Recognition Infrastructure",
-  "Knowledge Infrastructure",
+const pillars = [
+  { icon: "/homepage/intellectual-property.png", title: "Intellectual Property", tone: "blue", place: "row-span-2 md:col-start-1 md:row-start-1 md:row-span-3", tilt: "-1.4deg", lift: "6px" },
+  { icon: "/homepage/digital-infrastructure.svg", title: "Digital Infrastructure", tone: "dark", place: "col-span-2 md:col-start-2 md:row-start-1 md:row-span-2", tilt: "1deg", lift: "-4px" },
+  { icon: "/homepage/community-infrastructure.svg", title: "Community Infrastructure", tone: "light", place: "row-span-2 md:col-start-2 md:row-start-3", tilt: "-0.8deg", lift: "10px" },
+  { icon: "/homepage/partnership-infrastructure.svg", title: "Partnership Infrastructure", tone: "light", place: "row-span-2 md:col-start-1 md:row-start-4 md:row-span-3", tilt: "1.3deg", lift: "-6px" },
+  { icon: "/homepage/recognition-infrastructure.svg", title: "Recognition Infrastructure", tone: "blue", place: "row-span-2 md:col-start-3 md:row-start-3", tilt: "1.6deg", lift: "0px" },
+  { icon: "/homepage/knowledge-infrastructure.svg", title: "Knowledge Infrastructure", tone: "dark", place: "col-span-2 md:col-start-2 md:row-start-5 md:row-span-2", tilt: "-1.1deg", lift: "8px" },
 ];
 
-const items = layers.map((name, index) => ({
-  key: name,
-  title: name,
-  meta: `Layer ${String(index + 1).padStart(2, "0")}`,
-}));
+const tones = {
+  dark: "bg-[#171516] text-[#FAFAF9]",
+  light: "bg-[#F1F0EF] text-[#171516]",
+  blue: "bg-[#DFEAF2] text-[#171516]",
+};
 
 export default function MoreThanNetworkSection() {
-  const [active, setActive] = useState(0);
-
   return (
-    <section id="network" className="px-6 py-20 md:px-16 md:py-28">
-      <div className="mx-auto grid w-full max-w-[1300px] gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
-        <header className="lg:sticky lg:top-32 lg:self-start">
-          <SectionLabel>What we build on</SectionLabel>
-          <h2 className="mt-8 text-3xl font-extralight uppercase leading-[1.15] tracking-[0.1em] md:text-4xl">More than a network</h2>
-          <p className="mt-6 max-w-[34ch] text-base font-light leading-relaxed text-[#FAFAF9]/65 md:text-lg">
+    <section id="network" className="overflow-hidden px-0 py-20 text-[#FAFAF9] md:py-28">
+      <Reveal
+        threshold={0.15}
+        className="mx-auto grid w-full max-w-[1200px] gap-10 px-6 md:px-12 lg:grid-cols-[36%_1fr] lg:gap-14"
+      >
+        <header className="lg:sticky lg:top-28 lg:self-start">
+          <p className="net-fade mb-5 flex items-center gap-3 text-base">
+            <span aria-hidden="true" className="h-px w-8 bg-[#B04333]" />
+            What we build on
+          </p>
+          <h2 className="net-fade text-[32px] font-extralight uppercase leading-[1.1] tracking-[0.08em] text-[#FAFAF9] md:text-[38px] lg:text-[36px] xl:text-[38px]">
+            <span className="relative block w-fit whitespace-nowrap pb-3">
+              MORE THAN A
+              <Image
+                src="/homepage/red-underline.png"
+                alt=""
+                aria-hidden="true"
+                width={100}
+                height={24}
+                className="net-underline absolute bottom-0 left-[3%] h-3 w-[40%] object-fill"
+              />
+            </span>
+            <span className="block">NETWORK.</span>
+          </h2>
+          <p className="net-fade mt-5 max-w-[340px] text-base font-medium leading-snug text-[#FAFAF9]/60" style={{ "--i": 1 } as CSSProperties}>
             Six layers of infrastructure that turn connections into lasting opportunity.
           </p>
-          <div className="mt-12 hidden lg:block">
-            <LayerStack count={items.length} active={active} />
-          </div>
         </header>
-        <WakeList items={items} onActive={setActive} />
-      </div>
+
+        <ul className="grid auto-rows-[140px] grid-flow-dense grid-cols-2 gap-3 md:auto-rows-[140px] md:grid-cols-3 md:gap-4">
+          {pillars.map((pillar, index) => (
+            <li
+              key={pillar.title}
+              style={{ "--i": index, "--r": pillar.tilt, "--y": pillar.lift } as CSSProperties}
+              className={`net-card @container relative overflow-hidden p-4 shadow-[0_6px_18px_rgb(0_0_0/0.06)] md:p-5 ${pillar.place} ${tones[pillar.tone as keyof typeof tones]}`}
+            >
+              <div className="grid h-full grid-rows-[auto_1fr_auto] @[300px]:grid-cols-2 @[300px]:grid-rows-[auto_1fr]">
+                <span className="net-num font-mono text-xs opacity-50">0{index + 1}</span>
+                <div className="net-icon flex min-h-0 items-center justify-center py-2 @[300px]:col-start-2 @[300px]:row-span-2 @[300px]:row-start-1">
+                  <Image
+                    src={pillar.icon}
+                    alt=""
+                    aria-hidden="true"
+                    width={156}
+                    height={156}
+                    className="h-full max-h-[160px] w-auto max-w-full object-contain"
+                  />
+                </div>
+                <h3 className="net-title self-end text-base leading-[1.14] @[300px]:col-start-1 @[300px]:row-start-2 md:text-xl">
+                  <span className="font-bold">{pillar.title.split(" ")[0]}</span>
+                  <br />
+                  <span>{pillar.title.split(" ").slice(1).join(" ")}</span>
+                </h3>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </Reveal>
     </section>
   );
 }

@@ -1,9 +1,18 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 import { useEffect, useRef } from "react";
+
+const layersByPage: Record<string, string[]> = {
+  "/": ["smoke-a", "smoke-b"],
+  "/ecosystem": ["smoke-aurora", "smoke-b"],
+  "/contact": ["smoke-waves", "smoke-a"],
+};
 
 export default function PageSmoke() {
   const ref = useRef<HTMLDivElement>(null);
+  const path = usePathname();
+  const layers = layersByPage[path] ?? layersByPage["/"];
 
   useEffect(() => {
     const node = ref.current;
@@ -25,12 +34,13 @@ export default function PageSmoke() {
       window.removeEventListener("resize", onScroll);
       if (frame) cancelAnimationFrame(frame);
     };
-  }, []);
+  }, [path]);
 
   return (
     <div ref={ref} aria-hidden="true" className="canvas">
-      <div className="smoke smoke-a" />
-      <div className="smoke smoke-b" />
+      {layers.map((name) => (
+        <div key={name} className={`smoke ${name}`} />
+      ))}
     </div>
   );
 }

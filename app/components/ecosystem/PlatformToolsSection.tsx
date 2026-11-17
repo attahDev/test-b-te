@@ -1,39 +1,10 @@
 "use client";
 
-import { useState } from "react";
 import ScrollVar from "../ui/ScrollVar";
 import Button from "../ui/Button";
 import SectionLabel from "../ui/SectionLabel";
-import WakeList from "../ui/WakeList";
-import ToolNetwork from "./ToolNetwork";
-import { toolGroups, type ToolGroup } from "./platformLayers";
-
-function ToolGroupScene({ group }: { group: ToolGroup }) {
-  const [active, setActive] = useState(0);
-
-  const items = group.tools.map((tool) => ({
-    key: tool.name,
-    title: tool.name,
-    meta: group.upcoming ? "Coming soon" : undefined,
-    text: tool.note,
-    extra: tool.parts ? <p className="mt-3 text-sm text-[#FAFAF9]/50">{tool.parts.join(" / ")}</p> : undefined,
-  }));
-
-  return (
-    <div className="grid gap-10 border-t border-white/10 py-16 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20 lg:py-20">
-      <div className="lg:sticky lg:top-28 lg:self-start">
-        <h3 className="text-3xl font-extralight uppercase leading-[1.1] tracking-[0.1em] md:text-3xl">{group.title}</h3>
-        <p className="mt-4 text-xs uppercase tracking-[0.28em] text-[#E97868]">
-          {group.upcoming ? `${group.tools.length} on the way` : `${group.tools.length} tools`}
-        </p>
-        <div className="mt-10 hidden max-w-[340px] lg:block">
-          <ToolNetwork count={group.tools.length} active={active} />
-        </div>
-      </div>
-      <WakeList items={items} size="small" onActive={setActive} />
-    </div>
-  );
-}
+import ToolHelix from "./ToolHelix";
+import { toolGroups } from "./platformLayers";
 
 export default function PlatformToolsSection() {
   return (
@@ -49,7 +20,7 @@ export default function PlatformToolsSection() {
 
         <div className="mt-16">
           {toolGroups.map((group) => (
-            <ToolGroupScene key={group.id} group={group} />
+            <ToolHelix key={group.id} group={group} />
           ))}
         </div>
 

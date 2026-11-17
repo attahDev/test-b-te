@@ -12,11 +12,10 @@ export default function HeroSection() {
         alt=""
         fill
         priority
-        className="hero-image object-cover opacity-80 brightness-[1.9] contrast-[1.1]"
+        className="hero-image object-cover opacity-80 brightness-[1.9] contrast-[1.1] [mask-image:linear-gradient(to_bottom,#000_50%,transparent_96%)]"
       />
-      <div aria-hidden="true" className="absolute inset-0 bg-[radial-gradient(ellipse_at_70%_45%,transparent_20%,#070b16_85%)]" />
-      <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-56 bg-gradient-to-b from-transparent to-[#070b16]" />
-
+      <div aria-hidden="true" className="absolute inset-0 bg-[radial-gradient(ellipse_at_70%_45%,transparent_20%,rgba(7,11,22,0.55)_85%)]" />
+      
       <div className="hero-copy relative z-10 mx-auto w-full max-w-[1300px] px-6 pb-16 pt-32 md:px-16">
         <SectionLabel className="mb-10">Welcome to BTE</SectionLabel>
         <h1 className="max-w-[16ch] text-4xl font-extralight uppercase leading-[1.05] tracking-[0.12em] text-[#FAFAF9] sm:text-5xl lg:text-6xl">
