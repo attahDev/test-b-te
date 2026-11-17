@@ -35,7 +35,7 @@ export default function Footer() {
         <div className="grid gap-16 lg:grid-cols-[1fr_1.4fr] lg:gap-24">
           <div>
             <Image src="/homepage/bte-logo.png" alt="Black Tech Expo" width={92} height={53} className="h-auto w-[84px]" />
-            <p className="mt-10 max-w-[14ch] text-3xl font-extralight uppercase leading-[1.15] tracking-[0.1em] md:text-4xl">
+            <p className="mt-10 max-w-[14ch] text-3xl font-extralight uppercase leading-[1.15] tracking-[0.1em] md:text-3xl">
               Leave no one behind
             </p>
             <NewsletterForm />

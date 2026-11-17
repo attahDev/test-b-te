@@ -37,7 +37,7 @@ export default function WakeList({ items, size = "large", onActive, className = 
     return () => observer.disconnect();
   }, [onActive, items.length]);
 
-  const titleSize = size === "large" ? "text-3xl sm:text-5xl lg:text-6xl" : "text-xl sm:text-2xl lg:text-3xl";
+  const titleSize = size === "large" ? "text-2xl sm:text-3xl lg:text-4xl" : "text-lg sm:text-xl lg:text-2xl";
 
   return (
     <ol className={className}>
@@ -50,14 +50,14 @@ export default function WakeList({ items, size = "large", onActive, className = 
               rows.current[index] = node;
             }}
             data-lit={lit ? "true" : "false"}
-            className="wake-row py-5 sm:py-7"
+            className="wake-row py-4 sm:py-5"
           >
-            <h3 className={`wake-title font-light uppercase leading-[1.05] tracking-[0.08em] ${titleSize}`}>{item.title}</h3>
+            <h3 className={`wake-title font-light uppercase leading-[1.05] tracking-[0.1em] ${titleSize}`}>{item.title}</h3>
             {(item.text || item.meta || item.extra) && (
               <div className="wake-body">
                 <div>
                   {item.meta && <p className="mt-3 text-xs uppercase tracking-[0.22em] text-[#E97868]">{item.meta}</p>}
-                  {item.text && <p className="mt-3 max-w-[52ch] text-base leading-relaxed text-[#FAFAF9]/75 sm:text-lg">{item.text}</p>}
+                  {item.text && <p className="mt-3 max-w-[52ch] text-sm leading-relaxed text-[#FAFAF9]/75 sm:text-base">{item.text}</p>}
                   {item.extra}
                 </div>
               </div>

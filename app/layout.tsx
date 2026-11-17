@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Manrope } from "next/font/google";
+import PageSmoke from "./components/shared/PageSmoke";
 import SiteEnhancements from "./components/shared/SiteEnhancements";
 import "./globals.css";
 
@@ -27,7 +28,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} ${manrope.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col"><div aria-hidden="true" className="canvas" /><div aria-hidden="true" className="scroll-progress" /><SiteEnhancements />{children}</body>
+      <body className="min-h-full flex flex-col"><PageSmoke /><div aria-hidden="true" className="scroll-progress" /><SiteEnhancements />{children}</body>
     </html>
   );
 }

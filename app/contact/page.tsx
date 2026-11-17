@@ -21,7 +21,7 @@ export default function ContactPage() {
         <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-t from-[#070b16] via-transparent to-transparent" />
         <div className="mx-auto w-full max-w-[1200px]">
           <SectionLabel className="mb-5">Connect</SectionLabel>
-          <h1 id="connect-title" className="max-w-[760px] text-4xl font-extralight uppercase leading-[1.1] tracking-[0.1em] md:text-7xl">Work with BTE</h1>
+          <h1 id="connect-title" className="max-w-[760px] text-3xl font-extralight uppercase leading-[1.15] tracking-[0.1em] md:text-5xl">Work with BTE</h1>
           <p className="mt-6 max-w-[520px] text-base leading-relaxed text-white/75 md:text-lg">
             Partner with us, fund the work, build alongside us or join the network.
           </p>

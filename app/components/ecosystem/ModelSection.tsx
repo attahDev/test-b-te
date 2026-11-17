@@ -72,7 +72,7 @@ export default function ModelSection() {
         <div className="relative mx-auto grid min-h-0 w-full max-w-[1280px] flex-1 grid-rows-[auto_1fr] gap-4 px-6 pb-6 pt-[10svh] sm:px-10 lg:grid-cols-[42%_1fr] lg:grid-rows-1 lg:gap-14 lg:px-12 lg:py-[12svh]">
           <div className="flex min-h-0 flex-col">
             <SectionLabel className="mb-4">Our Model</SectionLabel>
-            <h2 id="ecosystem-model-title" className="text-3xl font-extralight uppercase leading-[1.1] tracking-[0.1em] sm:text-5xl lg:text-6xl">
+            <h2 id="ecosystem-model-title" className="text-3xl font-extralight uppercase leading-[1.1] tracking-[0.1em] sm:text-4xl lg:text-5xl">
               From Community
               <br />
               to Capacity
@@ -81,7 +81,7 @@ export default function ModelSection() {
             <div className="mt-5 lg:mt-10" aria-live="polite">
               <div key={active} className="model-panel">
                 <p className="flex items-baseline gap-3">
-                  <span className="text-5xl font-black leading-none text-[#e8776a] lg:text-7xl">0{active + 1}</span>
+                  <span className="text-4xl font-light leading-none text-[#e8776a] lg:text-6xl">0{active + 1}</span>
                   <span className="text-2xl font-bold tracking-[-0.03em] lg:text-3xl">{step.title}</span>
                 </p>
                 <p className="mt-3 max-w-[460px] text-sm leading-relaxed text-white/75 lg:mt-4 lg:text-base">{step.text}</p>

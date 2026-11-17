@@ -19,10 +19,10 @@ export default function HeroSection() {
 
       <div className="hero-copy relative z-10 mx-auto w-full max-w-[1300px] px-6 pb-16 pt-32 md:px-16">
         <SectionLabel className="mb-10">Welcome to BTE</SectionLabel>
-        <h1 className="max-w-[16ch] text-[2.6rem] font-extralight uppercase leading-[1.05] tracking-[0.12em] text-[#FAFAF9] sm:text-6xl lg:text-7xl xl:text-[5.5rem]">
+        <h1 className="max-w-[16ch] text-4xl font-extralight uppercase leading-[1.05] tracking-[0.12em] text-[#FAFAF9] sm:text-5xl lg:text-6xl">
           More than a network
         </h1>
-        <p className="mt-10 max-w-[46ch] text-base font-light leading-relaxed text-[#FAFAF9]/70 md:text-xl">
+        <p className="mt-10 max-w-[46ch] text-base font-light leading-relaxed text-[#FAFAF9]/70 md:text-lg">
           BTE connects Black talent to the networks, skills, technology and capital that compound into community ownership.
         </p>
         <div className="mt-10 flex flex-wrap items-center gap-4">

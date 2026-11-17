@@ -20,9 +20,9 @@ function ToolGroupScene({ group }: { group: ToolGroup }) {
   }));
 
   return (
-    <div className="grid gap-10 border-t border-white/10 py-20 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20 lg:py-28">
+    <div className="grid gap-10 border-t border-white/10 py-16 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20 lg:py-20">
       <div className="lg:sticky lg:top-28 lg:self-start">
-        <h3 className="text-3xl font-extralight uppercase leading-[1.1] tracking-[0.1em] md:text-5xl">{group.title}</h3>
+        <h3 className="text-3xl font-extralight uppercase leading-[1.1] tracking-[0.1em] md:text-3xl">{group.title}</h3>
         <p className="mt-4 text-xs uppercase tracking-[0.28em] text-[#E97868]">
           {group.upcoming ? `${group.tools.length} on the way` : `${group.tools.length} tools`}
         </p>
@@ -37,13 +37,13 @@ function ToolGroupScene({ group }: { group: ToolGroup }) {
 
 export default function PlatformToolsSection() {
   return (
-    <section id="platform-tools" aria-labelledby="platform-tools-title" className="relative px-6 py-24 md:px-16 md:py-32">
+    <section id="platform-tools" aria-labelledby="platform-tools-title" className="relative px-6 py-20 md:px-16 md:py-24">
       <ScrollVar mode="pass" className="contours pointer-events-none absolute inset-0 overflow-hidden">
         <div aria-hidden="true" className="contours-layer absolute inset-x-0 -inset-y-[10%] bg-cover bg-center" style={{ backgroundImage: "url(/art/contours.svg)" }} />
       </ScrollVar>
       <div className="relative mx-auto w-full max-w-[1300px]">
         <SectionLabel className="mb-8">BTE Platform</SectionLabel>
-        <h2 id="platform-tools-title" className="max-w-[16ch] text-4xl font-extralight uppercase leading-[1.1] tracking-[0.1em] md:text-6xl">
+        <h2 id="platform-tools-title" className="max-w-[16ch] text-3xl font-extralight uppercase leading-[1.15] tracking-[0.1em] md:text-5xl">
           What members can use
         </h2>
 
@@ -55,7 +55,7 @@ export default function PlatformToolsSection() {
 
         <div className="border-t border-white/10 py-20">
           <p className="text-[11px] uppercase tracking-[0.3em] text-[#E97868]">Insight</p>
-          <h3 className="mt-5 max-w-[20ch] text-2xl font-extralight uppercase leading-[1.15] tracking-[0.1em] md:text-4xl">
+          <h3 className="mt-5 max-w-[20ch] text-2xl font-extralight uppercase leading-[1.15] tracking-[0.1em] md:text-3xl">
             Black Business Intelligence Index
           </h3>
           <p className="mt-4 max-w-[48ch] text-base text-[#FAFAF9]/65">Index reports on Black-owned businesses, starting with Greater Manchester.</p>

@@ -24,11 +24,11 @@ export default function MoreThanNetworkSection() {
   const [active, setActive] = useState(0);
 
   return (
-    <section id="network" className="px-6 py-28 md:px-16 md:py-40">
+    <section id="network" className="px-6 py-20 md:px-16 md:py-28">
       <div className="mx-auto grid w-full max-w-[1300px] gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
         <header className="lg:sticky lg:top-32 lg:self-start">
           <SectionLabel>What we build on</SectionLabel>
-          <h2 className="mt-8 text-4xl font-extralight uppercase leading-[1.1] tracking-[0.1em] md:text-5xl">More than a network</h2>
+          <h2 className="mt-8 text-3xl font-extralight uppercase leading-[1.15] tracking-[0.1em] md:text-4xl">More than a network</h2>
           <p className="mt-6 max-w-[34ch] text-base font-light leading-relaxed text-[#FAFAF9]/65 md:text-lg">
             Six layers of infrastructure that turn connections into lasting opportunity.
           </p>

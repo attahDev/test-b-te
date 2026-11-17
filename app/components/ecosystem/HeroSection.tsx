@@ -24,7 +24,7 @@ export default function EcosystemHeroSection() {
       <div className="mx-auto grid w-full max-w-[1300px] gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20">
         <div className="lg:sticky lg:top-32 lg:self-start">
           <SectionLabel className="mb-8">Our ecosystem</SectionLabel>
-          <h1 id="ecosystem-hero-title" className="text-4xl font-extralight uppercase leading-[1.1] tracking-[0.1em] sm:text-5xl lg:text-6xl">
+          <h1 id="ecosystem-hero-title" className="text-4xl font-extralight uppercase leading-[1.1] tracking-[0.1em] sm:text-4xl lg:text-5xl">
             Who we work with
           </h1>
           <p className="mt-8 max-w-[36ch] text-base font-light leading-relaxed text-[#FAFAF9]/65 md:text-lg">

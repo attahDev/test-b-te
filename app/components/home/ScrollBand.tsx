@@ -5,7 +5,7 @@ const words = ["Technology", "Skills", "Enterprise", "Ownership"];
 
 export default function ScrollBand() {
   return (
-    <ScrollVar mode="pin" className="band relative h-[320svh]">
+    <ScrollVar mode="pin" className="band relative h-[240svh]">
       <div className="sticky top-0 flex h-svh items-center justify-center overflow-hidden">
         <div className="band-frame absolute inset-0">
           <Image src="/homepage/architectural-background.png" alt="" fill sizes="100vw" className="band-image object-cover" />
@@ -18,7 +18,7 @@ export default function ScrollBand() {
               <li
                 key={word}
                 style={{ "--s": index } as React.CSSProperties}
-                className="band-word text-4xl font-extralight uppercase leading-none tracking-[0.14em] md:text-7xl lg:text-8xl"
+                className="band-word text-3xl font-extralight uppercase leading-none tracking-[0.14em] md:text-5xl lg:text-6xl"
               >
                 {word}
               </li>
