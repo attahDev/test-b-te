@@ -1,3 +1,4 @@
+import Backdrop from "@/app/components/ui/Backdrop";
 import Image from "next/image";
 import SectionLabel from "../ui/SectionLabel";
 
@@ -56,6 +57,7 @@ export default function RelationshipsSection() {
       aria-labelledby="relationships-title"
       className="relative isolate overflow-hidden border-t border-white/10 py-24 md:py-32"
     >
+      <Backdrop name="mudcloth" strength={0.5} />
       <div className="relative mx-auto max-w-[1200px] px-6 sm:px-10 lg:px-14">
         <div className="relative min-h-[190px] pr-32 sm:min-h-[185px] sm:pr-44 md:min-h-[205px]">
           <SectionLabel className="mb-4">Our Relationships</SectionLabel>

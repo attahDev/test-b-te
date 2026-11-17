@@ -695,3 +695,11 @@ a, button {
   transform: translate3d(calc(var(--pp, 0) * -6vw), 0, 0) scale(calc(1.2 + var(--pp, 0) * 0.3));
 }
 .band-frame { opacity: min(1, calc(var(--p, 1) * 5)); clip-path: none; mask-image: linear-gradient(to bottom, transparent, #000 24%, #000 76%, transparent); -webkit-mask-image: linear-gradient(to bottom, transparent, #000 24%, #000 76%, transparent); }
+
+.backdrop-image {
+  transform: translate3d(0, calc((0.5 - var(--p, 0.5)) * 11%), 0) scale(calc(1.04 + var(--p, 0.5) * 0.05));
+  will-change: transform;
+}
+@media (prefers-reduced-motion: reduce) {
+  .backdrop-image { transform: none; }
+}

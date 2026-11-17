@@ -1,5 +1,6 @@
 "use client";
 
+import Backdrop from "@/app/components/ui/Backdrop";
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import WakeList from "../ui/WakeList";
 import type { ToolGroup } from "./platformLayers";
@@ -67,9 +68,10 @@ export default function ToolHelix({ group }: { group: ToolGroup }) {
     <div ref={wrapper} className="relative border-t border-white/10" style={{ height: `${count * SCREENS_PER_TOOL * 100 + 100}svh` }}>
       <div
         ref={stage}
-        className="helix-stage sticky top-0 grid h-svh grid-rows-[auto_1fr] items-center gap-4 overflow-hidden pt-24 lg:grid-cols-[0.9fr_1.1fr] lg:grid-rows-1 lg:gap-12 lg:pt-0"
+        className="helix-stage sticky top-0 isolate grid h-svh grid-rows-[auto_1fr] items-center gap-4 overflow-hidden pt-24 lg:grid-cols-[0.9fr_1.1fr] lg:grid-rows-1 lg:gap-12 lg:pt-0"
         style={{ "--span": span, "--p": 0 } as CSSProperties}
       >
+        <Backdrop name="orbital-rings" strength={0.75} fade="both" />
         <div className="relative z-10 max-lg:text-center">
           <h3 className="text-2xl font-extralight uppercase leading-[1.1] tracking-[0.1em] md:text-3xl">{group.title}</h3>
           <p className="mt-3 text-xs uppercase tracking-[0.28em] text-[#E97868]">

@@ -1,3 +1,4 @@
+import Backdrop from "@/app/components/ui/Backdrop";
 import SectionLabel from "../ui/SectionLabel";
 import WakeList from "../ui/WakeList";
 
@@ -20,7 +21,8 @@ const items = audiences.map((name, index) => ({
 
 export default function EcosystemHeroSection() {
   return (
-    <section aria-labelledby="ecosystem-hero-title" className="px-6 pb-24 pt-40 md:px-16 md:pb-32 md:pt-48">
+    <section aria-labelledby="ecosystem-hero-title" className="relative isolate px-6 pb-24 pt-40 md:px-16 md:pb-32 md:pt-48">
+      <Backdrop name="moonlit-sea" strength={0.7} fade="bottom" />
       <div className="mx-auto grid w-full max-w-[1300px] gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20">
         <div className="lg:sticky lg:top-32 lg:self-start">
           <SectionLabel className="mb-8">Our ecosystem</SectionLabel>

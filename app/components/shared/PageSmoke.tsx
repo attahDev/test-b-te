@@ -4,9 +4,9 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef } from "react";
 
 const layersByPage: Record<string, string[]> = {
-  "/": ["smoke-a", "smoke-b"],
-  "/ecosystem": ["smoke-aurora", "smoke-b"],
-  "/contact": ["smoke-waves", "smoke-a"],
+  "/": [],
+  "/ecosystem": [],
+  "/contact": [],
 };
 
 export default function PageSmoke() {

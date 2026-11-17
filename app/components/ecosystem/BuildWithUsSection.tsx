@@ -1,8 +1,10 @@
+import Backdrop from "@/app/components/ui/Backdrop";
 import Button from "../ui/Button";
 
 export default function BuildWithUsSection() {
   return (
-    <section aria-labelledby="build-with-us-title" className="border-t border-white/10 px-6 py-24 text-center md:py-32">
+    <section aria-labelledby="build-with-us-title" className="relative isolate border-t border-white/10 px-6 py-24 text-center md:py-32">
+      <Backdrop name="wireframe-terrain" strength={0.55} />
       <h2 id="build-with-us-title" className="text-3xl font-extralight uppercase leading-[1.15] tracking-[0.1em] md:text-5xl">
         Build with us
       </h2>

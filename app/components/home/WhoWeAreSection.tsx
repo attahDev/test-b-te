@@ -1,3 +1,4 @@
+import Backdrop from "@/app/components/ui/Backdrop";
 import Button from "../ui/Button";
 import Reveal from "../ui/Reveal";
 import SectionLabel from "../ui/SectionLabel";
@@ -5,7 +6,8 @@ import WhyWorkWithUs from "./WhyWorkWithUs";
 
 export default function WhoWeAreSection() {
   return (
-    <section id="who-we-are" className="px-6 py-20 md:px-16 md:py-28">
+    <section id="who-we-are" className="relative isolate px-6 py-20 md:px-16 md:py-28">
+      <Backdrop name="dusk-clouds" strength={0.45} />
       <div className="mx-auto w-full max-w-[1300px]">
         <Reveal>
           <SectionLabel className="fade-up mb-10">Who we are</SectionLabel>

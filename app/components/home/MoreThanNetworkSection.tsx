@@ -1,3 +1,4 @@
+import Backdrop from "@/app/components/ui/Backdrop";
 import Image from "next/image";
 import type { CSSProperties } from "react";
 import Reveal from "../ui/Reveal";
@@ -19,7 +20,8 @@ const tones = {
 
 export default function MoreThanNetworkSection() {
   return (
-    <section id="network" className="overflow-hidden px-0 py-20 text-[#FAFAF9] md:py-28">
+    <section id="network" className="relative isolate overflow-hidden px-0 py-20 text-[#FAFAF9] md:py-28">
+      <Backdrop name="misty-mountains" strength={0.6} />
       <Reveal
         threshold={0.15}
         className="mx-auto grid w-full max-w-[1200px] gap-10 px-6 md:px-12 lg:grid-cols-[36%_1fr] lg:gap-14"

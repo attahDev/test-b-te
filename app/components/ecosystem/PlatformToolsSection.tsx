@@ -8,8 +8,8 @@ import { toolGroups } from "./platformLayers";
 
 export default function PlatformToolsSection() {
   return (
-    <section id="platform-tools" aria-labelledby="platform-tools-title" className="relative px-6 py-20 md:px-16 md:py-24">
-      <ScrollVar mode="pass" className="contours pointer-events-none absolute inset-0 overflow-hidden">
+    <section id="platform-tools" aria-labelledby="platform-tools-title" className="relative isolate px-6 py-20 md:px-16 md:py-24">
+      <ScrollVar mode="pass" className="contours pointer-events-none absolute inset-0 hidden overflow-hidden">
         <div aria-hidden="true" className="contours-layer absolute inset-x-0 -inset-y-[10%] bg-cover bg-center" style={{ backgroundImage: "url(/art/contours.svg)" }} />
       </ScrollVar>
       <div className="relative mx-auto w-full max-w-[1300px]">
