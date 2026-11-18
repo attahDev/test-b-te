@@ -1,6 +1,6 @@
 "use client";
 
-import Backdrop from "@/app/components/ui/Backdrop";
+import WireScene from "./WireScene";
 import { useState } from "react";
 import SectionLabel from "../ui/SectionLabel";
 import WakeList from "../ui/WakeList";
@@ -28,7 +28,11 @@ export default function WhatWeDoSection() {
 
   return (
     <section id="what-we-do" className="relative isolate px-6 py-20 md:px-16 md:py-28">
-      <Backdrop name="fireflies" strength={0.75} />
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 [mask-image:linear-gradient(to_bottom,transparent,#000_10%,#000_90%,transparent)]">
+        <div className="sticky top-0 h-svh">
+          <WireScene active={active} />
+        </div>
+      </div>
       <div className="mx-auto grid w-full max-w-[1300px] gap-12 lg:grid-cols-[0.7fr_1.3fr] lg:gap-20">
         <div className="lg:sticky lg:top-32 lg:self-start">
           <SectionLabel>What we do</SectionLabel>
