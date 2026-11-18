@@ -1,3 +1,4 @@
+import Backdrop from "@/app/components/ui/Backdrop";
 import Image from "next/image";
 import type { CSSProperties } from "react";
 import Button from "../ui/Button";
@@ -68,6 +69,7 @@ export default function EcosystemHeroSection() {
       aria-labelledby="ecosystem-hero-title"
       className="relative isolate flex min-h-svh w-full items-center justify-center overflow-hidden bg-[#07080a] text-white"
     >
+      <Backdrop name="moonlit-sea" strength={0.8} />
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0"
