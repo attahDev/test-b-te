@@ -703,3 +703,13 @@ a, button {
 @media (prefers-reduced-motion: reduce) {
   .backdrop-image { transform: none; }
 }
+
+.why-card {
+  opacity: calc(0.35 + var(--k, 0.2) * 0.65);
+  transform: scale(calc(0.93 + var(--k, 0.2) * 0.07));
+  border-color: rgb(255 255 255 / calc(0.08 + var(--k, 0.2) * 0.22));
+  box-shadow: 0 0 calc(var(--k, 0.2) * 40px) rgb(233 120 104 / calc(var(--k, 0.2) * 0.18));
+}
+@media (prefers-reduced-motion: reduce) {
+  .why-card { opacity: 1; transform: none; }
+}

@@ -6,8 +6,9 @@ import WhyWorkWithUs from "./WhyWorkWithUs";
 
 export default function WhoWeAreSection() {
   return (
-    <section id="who-we-are" className="relative isolate px-6 py-20 md:px-16 md:py-28">
-      <Backdrop name="dusk-clouds" strength={0.45} />
+    <section id="who-we-are">
+      <div className="relative isolate px-6 pb-16 pt-20 md:px-16 md:pb-24 md:pt-28">
+      <Backdrop name="dusk-clouds" strength={0.5} />
       <div className="mx-auto w-full max-w-[1300px]">
         <Reveal>
           <SectionLabel className="fade-up mb-10">Who we are</SectionLabel>
@@ -23,9 +24,9 @@ export default function WhoWeAreSection() {
             </Button>
           </div>
         </Reveal>
-
-        <WhyWorkWithUs />
       </div>
+      </div>
+      <WhyWorkWithUs />
     </section>
   );
 }
