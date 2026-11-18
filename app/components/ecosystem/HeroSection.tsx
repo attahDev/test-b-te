@@ -69,30 +69,17 @@ export default function EcosystemHeroSection() {
       aria-labelledby="ecosystem-hero-title"
       className="relative isolate flex min-h-svh w-full items-center justify-center overflow-hidden bg-[#07080a] text-white"
     >
-      <Backdrop name="moonlit-sea" strength={0.8} />
+      <Backdrop name="moonlit-sea" strength={1} />
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0"
         style={{
           backgroundImage: `
-            radial-gradient(ellipse 34% 48% at 34% 26%, rgba(180, 72, 68, 0.42) 0%, rgba(120, 42, 42, 0.18) 45%, transparent 75%),
-            radial-gradient(ellipse 28% 45% at 22% 58%, rgba(145, 58, 54, 0.22) 0%, transparent 70%),
-            radial-gradient(ellipse 32% 48% at 63% 38%, rgba(38, 78, 145, 0.36) 0%, rgba(22, 45, 88, 0.15) 50%, transparent 75%),
-            linear-gradient(180deg, #07080a 0%, #090a0f 50%, #07080a 100%)
+            radial-gradient(ellipse 34% 48% at 34% 26%, rgba(180, 72, 68, 0.2) 0%, rgba(120, 42, 42, 0.18) 45%, transparent 75%),
+            radial-gradient(ellipse 28% 45% at 22% 58%, rgba(145, 58, 54, 0.12) 0%, transparent 70%),
+            radial-gradient(ellipse 32% 48% at 63% 38%, rgba(38, 78, 145, 0.18) 0%, rgba(22, 45, 88, 0.15) 50%, transparent 75%),
+            linear-gradient(180deg, transparent, transparent)
           `,
-        }}
-      />
-
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 opacity-90"
-        style={{
-          backgroundImage:
-            "repeating-linear-gradient(90deg, rgba(255,255,255,0.01) 0px, rgba(255,255,255,0.06) 18px, rgba(0,0,0,0.55) 34px, rgba(0,0,0,0.85) 44px)",
-          maskImage:
-            "radial-gradient(ellipse 52% 65% at 48% 44%, black 20%, rgba(0,0,0,0.4) 65%, transparent 90%)",
-          WebkitMaskImage:
-            "radial-gradient(ellipse 52% 65% at 48% 44%, black 20%, rgba(0,0,0,0.4) 65%, transparent 90%)",
         }}
       />
 
