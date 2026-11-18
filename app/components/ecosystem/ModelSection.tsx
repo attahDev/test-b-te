@@ -67,7 +67,7 @@ export default function ModelSection() {
     >
       <div className="sticky top-0 flex h-svh flex-col overflow-hidden text-white motion-reduce:static motion-reduce:min-h-svh motion-reduce:py-16">
         <div aria-hidden="true" className="pointer-events-none absolute inset-0 [mask-image:linear-gradient(to_bottom,transparent,#000_26%,#000_74%,transparent)]">
-          <Image src="/art/stars.webp" alt="" fill sizes="100vw" className="object-cover object-center opacity-80" />
+          <Image src="/art/data-rain.webp" alt="" fill sizes="100vw" className="object-cover object-center opacity-90" />
         </div>
 
         <div className="relative mx-auto grid min-h-0 w-full max-w-[1280px] flex-1 grid-rows-[auto_1fr] gap-4 px-6 pb-6 pt-[10svh] sm:px-10 lg:grid-cols-[42%_1fr] lg:grid-rows-1 lg:gap-14 lg:px-12 lg:py-[12svh]">
