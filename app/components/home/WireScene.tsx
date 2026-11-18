@@ -135,7 +135,7 @@ export default function WireScene({ active }: { active: number }) {
         }
       }
 
-      const center = [wide ? width * 0.23 : width * 0.5, wide ? height * 0.5 : height * 0.3];
+      const center = [wide ? width * 0.4 : width * 0.5, wide ? height * 0.5 : height * 0.42];
       const bob = Math.sin(now / 1800) * 10 * unit;
       shapes.forEach((lines, index) => {
         fades[index] += ((index === activeRef.current ? 1 : 0) - fades[index]) * Math.min(1, step * 4);
@@ -150,7 +150,7 @@ export default function WireScene({ active }: { active: number }) {
           const rz = -px * sinT + pz * cosT;
           const ry = py * cosX - rz * sinX;
           const rz2 = py * sinX + rz * cosX;
-          const scale = (focal * (wide ? 0.72 : 0.9)) / (rz2 + 6);
+          const scale = (focal * (wide ? 0.85 : 0.9)) / (rz2 + 6);
           return [center[0] + rx * scale, center[1] + ry * scale + bob + lift] as const;
         };
         context.strokeStyle = `rgba(110, 165, 255, ${0.8 * strength * (wide ? 1 : 0.6)})`;
