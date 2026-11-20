@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import SectionLabel from "../ui/SectionLabel";
 
@@ -66,10 +65,6 @@ export default function ModelSection() {
       className="relative h-[340svh] motion-reduce:h-auto"
     >
       <div className="sticky top-0 flex h-svh flex-col overflow-hidden text-white motion-reduce:static motion-reduce:min-h-svh motion-reduce:py-16">
-        <div aria-hidden="true" className="pointer-events-none absolute inset-0 [mask-image:linear-gradient(to_bottom,transparent,#000_26%,#000_74%,transparent)]">
-          <Image src="/art/bokeh-lights.webp" alt="" fill sizes="100vw" className="object-cover object-center opacity-90" />
-        </div>
-
         <div className="relative mx-auto grid min-h-0 w-full max-w-[1280px] flex-1 grid-rows-[1fr_auto] gap-5 px-6 pb-8 pt-[12svh] sm:px-10 lg:grid-cols-[42%_1fr] lg:grid-rows-1 lg:gap-14 lg:px-12 lg:py-[12svh]">
           <div className="flex min-h-0 flex-col">
             <SectionLabel className="mb-4">Our Model</SectionLabel>
