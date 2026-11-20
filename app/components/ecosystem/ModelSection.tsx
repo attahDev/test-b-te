@@ -67,13 +67,13 @@ export default function ModelSection() {
     >
       <div className="sticky top-0 flex h-svh flex-col overflow-hidden text-white motion-reduce:static motion-reduce:min-h-svh motion-reduce:py-16">
         <div aria-hidden="true" className="pointer-events-none absolute inset-0 [mask-image:linear-gradient(to_bottom,transparent,#000_26%,#000_74%,transparent)]">
-          <Image src="/art/data-rain.webp" alt="" fill sizes="100vw" className="object-cover object-center opacity-90" />
+          <Image src="/art/bokeh-lights.webp" alt="" fill sizes="100vw" className="object-cover object-center opacity-90" />
         </div>
 
-        <div className="relative mx-auto grid min-h-0 w-full max-w-[1280px] flex-1 grid-rows-[auto_1fr] gap-4 px-6 pb-6 pt-[10svh] sm:px-10 lg:grid-cols-[42%_1fr] lg:grid-rows-1 lg:gap-14 lg:px-12 lg:py-[12svh]">
+        <div className="relative mx-auto grid min-h-0 w-full max-w-[1280px] flex-1 grid-rows-[1fr_auto] gap-5 px-6 pb-8 pt-[12svh] sm:px-10 lg:grid-cols-[42%_1fr] lg:grid-rows-1 lg:gap-14 lg:px-12 lg:py-[12svh]">
           <div className="flex min-h-0 flex-col">
             <SectionLabel className="mb-4">Our Model</SectionLabel>
-            <h2 id="ecosystem-model-title" className="text-3xl font-extralight uppercase leading-[1.1] tracking-[0.1em] sm:text-4xl lg:text-5xl">
+            <h2 id="ecosystem-model-title" className="text-2xl font-extralight uppercase leading-[1.1] tracking-[0.1em] sm:text-4xl lg:text-5xl">
               From Community
               <br />
               to Capacity
@@ -85,12 +85,12 @@ export default function ModelSection() {
                   <span className="text-4xl font-light leading-none text-[#e8776a] lg:text-6xl">0{active + 1}</span>
                   <span className="text-2xl font-bold tracking-[-0.03em] lg:text-3xl">{step.title}</span>
                 </p>
-                <p className="mt-3 max-w-[460px] text-sm leading-relaxed text-white/75 lg:mt-4 lg:text-base">{step.text}</p>
+                <p className="mt-3 max-w-[460px] text-[13px] leading-relaxed text-white/75 sm:text-sm lg:mt-4 lg:text-base">{step.text}</p>
               </div>
             </div>
           </div>
 
-          <ol className="flex min-h-0 items-end gap-1.5 sm:gap-2.5 lg:gap-3">
+          <ol className="flex h-[30svh] min-h-0 items-end gap-1.5 sm:gap-2.5 lg:h-auto lg:gap-3">
             {steps.map((item, index) => {
               const risen = reduced || index <= active;
               const isActive = index === active;

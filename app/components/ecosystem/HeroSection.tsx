@@ -67,7 +67,7 @@ export default function EcosystemHeroSection() {
   return (
     <section
       aria-labelledby="ecosystem-hero-title"
-      className="relative isolate flex min-h-svh w-full items-center justify-center overflow-hidden bg-[#07080a] text-white"
+      className="relative isolate flex min-h-svh w-full items-center justify-center overflow-hidden text-white"
     >
       <Backdrop name="moonlit-sea" strength={1} />
       <div
@@ -85,7 +85,7 @@ export default function EcosystemHeroSection() {
 
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_38%,#050608_92%)]"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_38%,#050608_92%)] [mask-image:linear-gradient(to_bottom,#000_55%,transparent)]"
       />
 
       <Reveal threshold={0.1} className="relative z-10 w-full max-w-[1280px] px-4 pb-12 pt-24 md:px-0 md:py-0">
