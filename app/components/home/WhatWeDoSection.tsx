@@ -62,7 +62,7 @@ export default function WhatWeDoSection() {
   return (
     <section id="what-we-do" className="relative">
       <div ref={track} className="relative h-[330svh] motion-reduce:h-auto">
-        <div className="sticky top-0 isolate flex h-svh flex-col overflow-hidden px-6 pb-14 pt-28 md:px-16 motion-reduce:static motion-reduce:min-h-svh">
+        <div className="sticky top-0 isolate flex h-svh flex-col overflow-hidden px-6 pb-10 pt-28 md:px-16 motion-reduce:static motion-reduce:min-h-svh">
           <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 [mask-image:linear-gradient(to_bottom,transparent,#000_14%,#000_86%,transparent)]">
             <WireScene active={active} />
           </div>
@@ -92,7 +92,7 @@ export default function WhatWeDoSection() {
 
             <div className="hidden lg:block" />
 
-            <div className="relative min-h-[300px] lg:min-h-[300px]" aria-live="polite">
+            <div className="relative min-h-[250px] lg:min-h-[300px]" aria-live="polite">
               {items.map((item, index) => (
                 <div
                   key={item.key}
