@@ -444,13 +444,15 @@ a, button {
 }
 
 .model-step {
-  background: #f1f0ef;
-  opacity: .14;
+  background: #0d0b10;
+  opacity: .35;
   transform: translateY(24px);
-  transition: opacity 600ms ease, transform 700ms cubic-bezier(0.22, 1, 0.36, 1), background-color 300ms ease, box-shadow 400ms ease;
+  transition: opacity 600ms ease, transform 700ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 400ms ease, border-color 400ms ease;
 }
-.model-step[data-risen="true"] { opacity: .78; transform: none; }
-.model-step[data-active="true"] { opacity: 1; background: #fff; box-shadow: 0 0 0 2px #e8776a, 0 0 40px rgb(232 119 106 / .35); }
+.model-step[data-risen="true"] { opacity: .85; transform: none; }
+.model-step[data-active="true"] { opacity: 1; transform: translateY(-10px); border-color: #e8776a; box-shadow: 0 0 40px rgb(232 119 106 / .3); }
+.model-art { filter: saturate(.7) brightness(.55); transform: scale(1.08); transition: filter 700ms ease, transform 1200ms cubic-bezier(0.22, 1, 0.36, 1); }
+.model-step[data-active="true"] .model-art { filter: none; transform: scale(1); }
 .model-cap { transform-origin: 0 50%; transition: transform 700ms cubic-bezier(0.22, 1, 0.36, 1) 150ms; }
 .model-step[data-risen="false"] .model-cap { transform: scaleX(0); }
 .model-panel { animation: model-panel-in 600ms cubic-bezier(0.22, 1, 0.36, 1) both; }
@@ -462,7 +464,7 @@ a, button {
 }
 @media (prefers-reduced-motion: reduce) {
   .model-step, .model-cap { transition: none; transform: none; }
-  .model-step { opacity: .8; }
+  .model-step { opacity: .85; }
   .model-step[data-active="true"] { opacity: 1; }
 }
 
