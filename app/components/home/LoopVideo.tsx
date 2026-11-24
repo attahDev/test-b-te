@@ -2,9 +2,9 @@
 
 import { useEffect, useRef } from "react";
 
-type Props = { className?: string };
+type Props = { className?: string; src?: string; poster?: string };
 
-export default function LoopVideo({ className = "" }: Props) {
+export default function LoopVideo({ className = "", src = "/video/night-sky.mp4", poster = "/video/night-sky.jpg" }: Props) {
   const video = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
@@ -28,8 +28,8 @@ export default function LoopVideo({ className = "" }: Props) {
       ref={video}
       aria-hidden="true"
       className={`absolute inset-0 h-full w-full object-cover ${className}`}
-      src="/video/night-sky.mp4"
-      poster="/video/night-sky.jpg"
+      src={src}
+      poster={poster}
       autoPlay
       muted
       loop
