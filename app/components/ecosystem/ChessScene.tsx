@@ -130,9 +130,12 @@ export default function ChessScene({ active, className = "" }: { active: number;
     if (!canvas || !context) return;
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const count = pieces.length;
-    const goalFor = (i: number) => (i === activeRef.current ? 2.1 : 1.05);
+    const goalFor = (i: number) => (activeRef.current < 0 ? 1.3 : i === activeRef.current ? 2.1 : 1.05);
+    const pitchFor = () => (activeRef.current < 0 ? 1.1 : 0.62);
+    const targetYaw = () => (activeRef.current < 0 ? 0 : (-activeRef.current / count) * TAU);
     const scales: number[] = pieces.map((_, i) => goalFor(i));
-    let yaw = (-activeRef.current / count) * TAU;
+    let yaw = targetYaw();
+    let pitch = pitchFor();
     let width = 0;
     let height = 0;
     let frame = 0;
@@ -147,13 +150,12 @@ export default function ChessScene({ active, className = "" }: { active: number;
       context.setTransform(ratio, 0, 0, ratio, 0, 0);
     };
 
-    const pitch = 0.62;
     const distance = 13;
     const project = (x: number, y: number, z: number): [number, number, number] => {
       const depth = distance - y * Math.sin(pitch) - z * Math.cos(pitch);
-      const focal = Math.min(width * 1.05, height * 1.5);
+      const focal = Math.min(width * 1.05, height * 1.5) * (1 + (1.1 - pitch) * 0.12);
       const viewY = y * Math.cos(pitch) - z * Math.sin(pitch);
-      return [width / 2 + (focal * x) / depth, height * 0.58 - (focal * viewY) / depth, depth];
+      return [width / 2 + (focal * x) / depth, height * (0.5 + 0.08 * Math.min(1, Math.max(0, (1.1 - pitch) / 0.48) * -1 + 1)) - (focal * viewY) / depth, depth];
     };
     const turn = (x: number, z: number): [number, number] => [x * Math.cos(yaw) + z * Math.sin(yaw), -x * Math.sin(yaw) + z * Math.cos(yaw)];
     const path = (points: [number, number, number][]) => {
@@ -165,9 +167,10 @@ export default function ChessScene({ active, className = "" }: { active: number;
     const draw = () => {
       frame = requestAnimationFrame(draw);
       if (!visible || !width) return;
-      const target = (-activeRef.current / count) * TAU;
+      const target = targetYaw();
       const delta = ((((target - yaw + Math.PI) % TAU) + TAU) % TAU) - Math.PI;
       yaw += reduced ? delta : delta * 0.07;
+      pitch += reduced ? pitchFor() - pitch : (pitchFor() - pitch) * 0.07;
       scales.forEach((value, i) => {
         scales[i] = reduced ? goalFor(i) : value + (goalFor(i) - value) * 0.08;
       });

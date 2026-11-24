@@ -24,7 +24,7 @@ function subscribe(notify: () => void) {
 
 export default function ModelSection() {
   const sectionRef = useRef<HTMLElement>(null);
-  const [active, setActive] = useState(0);
+  const [stage, setStage] = useState(0);
   const reduced = useSyncExternalStore(subscribe, () => window.matchMedia(REDUCED).matches, () => true);
 
   useEffect(() => {
@@ -35,7 +35,7 @@ export default function ModelSection() {
       frame = 0;
       const distance = section.offsetHeight - window.innerHeight;
       const p = distance > 0 ? Math.min(1, Math.max(0, -section.getBoundingClientRect().top / distance)) : 1;
-      setActive(Math.min(steps.length - 1, Math.floor(p * steps.length)));
+      setStage(Math.min(steps.length, Math.floor(p * (steps.length + 1))));
     };
     const onScroll = () => { if (!frame) frame = requestAnimationFrame(update); };
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -50,19 +50,20 @@ export default function ModelSection() {
 
   function jump(index: number) {
     const section = sectionRef.current;
-    if (!section || reduced) { setActive(index); return; }
+    if (!section || reduced) { setStage(index + 1); return; }
     const distance = section.offsetHeight - window.innerHeight;
     const top = section.getBoundingClientRect().top + window.scrollY;
-    window.scrollTo({ top: top + ((index + 0.5) / steps.length) * distance, behavior: "smooth" });
+    window.scrollTo({ top: top + ((index + 1.5) / (steps.length + 1)) * distance, behavior: "smooth" });
   }
 
-  const step = steps[active];
+  const active = reduced && stage === 0 ? 0 : stage - 1;
+  const step = active >= 0 ? steps[active] : null;
 
   return (
     <section
       ref={sectionRef}
       aria-labelledby="ecosystem-model-title"
-      className="relative h-[340svh] motion-reduce:h-auto"
+      className="relative h-[400svh] motion-reduce:h-auto"
     >
       <div className="sticky top-0 flex h-svh flex-col overflow-hidden text-white motion-reduce:static motion-reduce:min-h-svh motion-reduce:py-16">
         <div className="relative mx-auto grid min-h-0 w-full max-w-[1280px] flex-1 grid-rows-[1fr_auto] gap-5 px-6 pb-8 pt-[12svh] sm:px-10 lg:grid-cols-[42%_1fr] lg:grid-rows-1 lg:gap-14 lg:px-12 lg:py-[12svh]">
@@ -82,11 +83,22 @@ export default function ModelSection() {
 
             <div className="mt-5 lg:mt-8" aria-live="polite">
               <div key={active} className="model-panel">
-                <p className="flex items-baseline gap-3">
-                  <span className="text-4xl font-light leading-none text-[#e8776a] lg:text-6xl">0{active + 1}</span>
-                  <span className="text-2xl font-bold tracking-[-0.03em] lg:text-3xl">{step.title}</span>
-                </p>
-                <p className="mt-3 max-w-[460px] text-[13px] leading-relaxed text-white/75 sm:text-sm lg:mt-4 lg:text-base">{step.text}</p>
+                {step ? (
+                  <>
+                    <p className="flex items-baseline gap-3">
+                      <span className="text-4xl font-light leading-none text-[#e8776a] lg:text-6xl">0{active + 1}</span>
+                      <span className="text-2xl font-bold tracking-[-0.03em] lg:text-3xl">{step.title}</span>
+                    </p>
+                    <p className="mt-3 max-w-[460px] text-[13px] leading-relaxed text-white/75 sm:text-sm lg:mt-4 lg:text-base">{step.text}</p>
+                  </>
+                ) : (
+                  <>
+                    <p className="text-2xl font-bold tracking-[-0.03em] lg:text-3xl">Seven steps, one board</p>
+                    <p className="mt-3 max-w-[460px] text-[13px] leading-relaxed text-white/75 sm:text-sm lg:mt-4 lg:text-base">
+                      Every step of the model is a piece on the board, from the pawn that starts it to the king at the end. Scroll to move in on each one.
+                    </p>
+                  </>
+                )}
               </div>
             </div>
           </div>
