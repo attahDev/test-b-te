@@ -1,139 +1,36 @@
-"use client";
-
-// Pinned "Who we work with" stage: audience list on the left, image that swaps as you scroll on the right
-import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+// First screen of the ecosystem page: moonlit backdrop, headline and a scroll cue.
+import Backdrop from "@/app/components/ui/Backdrop";
 import Button from "../ui/Button";
-
-const audiences = [
-  { number: "01", image: "/art/savanna-sunset.webp", label: "Government & Public Sector", text: "We help public bodies and agencies connect with Black-led technology talent, run programmes with local communities, and turn policy goals into projects people can see." },
-  { number: "02", image: "/art/misty-mountains.webp", label: "University & Education", text: "Universities and colleges partner with us on learning areas, mentoring and placements that carry students from the classroom into real technology careers." },
-  { number: "03", image: "/art/wireframe-terrain.webp", label: "Technology Companies", text: "Technology companies find early talent, test products with real communities and build partnerships that open up new markets and new hires." },
-  { number: "04", image: "/art/dusk-clouds.webp", label: "Investor & Funders", text: "Investors and funders get a clear route to founders and community projects with real traction, backed by the support structures that help them grow." },
-  { number: "05", image: "/art/orbital-rings.webp", label: "Corporate", text: "Corporate partners work with us on supplier diversity, skills pipelines and sponsorship that reaches communities they have struggled to reach alone." },
-  { number: "06", image: "/art/fireflies.webp", label: "Startups & Founders", text: "Startups and founders get mentoring, tools and introductions, from first idea to first customer, alongside people who have done it before." },
-  { number: "07", image: "/art/mudcloth.webp", label: "Community Organisations", text: "Community organisations bring local reach and trust; we bring programmes, tools and a wider network, so good work travels further." },
-  { number: "08", image: "/art/desert-dunes.webp", label: "Ecosystems & International Partners", text: "International partners and ecosystems link with us to share knowledge, exchange talent and build bridges between Black tech communities across regions." },
-];
+import ScrollVar from "../ui/ScrollVar";
+import SectionLabel from "../ui/SectionLabel";
 
 export default function EcosystemHeroSection() {
-  const [active, setActive] = useState(0);
-  const track = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const node = track.current;
-    if (!node || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    let frame = 0;
-    const update = () => {
-      frame = 0;
-      if (window.innerWidth < 1024) return;
-      const box = node.getBoundingClientRect();
-      const progress = -box.top / Math.max(1, box.height - window.innerHeight);
-      setActive(Math.min(audiences.length - 1, Math.max(0, Math.floor(progress * audiences.length))));
-    };
-    const onScroll = () => {
-      if (!frame) frame = requestAnimationFrame(update);
-    };
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
-    update();
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
-      if (frame) cancelAnimationFrame(frame);
-    };
-  }, []);
-
-  const jump = (index: number) => {
-    const node = track.current;
-    if (!node || window.innerWidth < 1024) return;
-    const room = node.offsetHeight - window.innerHeight;
-    window.scrollTo({ top: node.offsetTop + (room * (index + 0.5)) / audiences.length, behavior: "smooth" });
-  };
-
   return (
-    <section aria-labelledby="ecosystem-hero-title" className="relative text-white">
-      <div ref={track} className="relative lg:h-[560svh] motion-reduce:lg:h-auto">
-        <div className="relative isolate overflow-hidden px-6 pb-16 pt-28 md:px-16 lg:sticky lg:top-0 lg:flex lg:h-svh lg:items-center lg:py-0 motion-reduce:lg:static motion-reduce:lg:h-auto motion-reduce:lg:py-28">
-          <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 bg-[#0b090d]">
-            {audiences.map((audience, index) => (
-              <Image
-                key={audience.number}
-                src={audience.image}
-                alt=""
-                fill
-                sizes="100vw"
-                priority={index === 0}
-                className={`object-cover object-[75%_center] transition-all duration-[1100ms] ease-out ${index === active ? "scale-100 opacity-70" : "scale-110 opacity-0"}`}
-              />
-            ))}
-            <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(11,9,13,0.92),rgba(11,9,13,0.55)_45%,rgba(11,9,13,0.15))] max-lg:bg-[#0b090d]/70" />
-            <div className="absolute inset-0 [background:linear-gradient(to_bottom,#0b090d,transparent_14%,transparent_86%,#0b090d)]" />
-          </div>
+    <section className="relative min-h-svh overflow-hidden">
+      <ScrollVar mode="leave" className="hero relative isolate flex min-h-svh flex-col justify-center">
+        <Backdrop name="moonlit-sea" strength={1} fade="bottom" />
+        <div aria-hidden="true" className="absolute inset-0 bg-[linear-gradient(to_top,rgba(11,9,13,0.7),rgba(11,9,13,0.25)_55%,rgba(11,9,13,0.1))] md:bg-[linear-gradient(to_right,rgba(11,9,13,0.8),rgba(11,9,13,0.25)_55%,transparent)]" />
 
-          <div className="mx-auto grid w-full max-w-[1300px] gap-12 lg:grid-cols-[0.95fr_1.05fr] lg:items-center lg:gap-16">
-            <div>
-              <p className="text-[11px] uppercase tracking-[0.3em] text-[#E97868]">Our ecosystem</p>
-              <h1 id="ecosystem-hero-title" className="mt-5 text-[clamp(2.4rem,5.2vw,4.6rem)] font-extralight uppercase leading-[1.05] tracking-[0.12em]">
-                Who we work with
-              </h1>
-
-              <ul className="mt-10 hidden flex-col gap-1 lg:flex">
-                {audiences.map((audience, index) => (
-                  <li key={audience.number}>
-                    <button
-                      type="button"
-                      onClick={() => jump(index)}
-                      aria-current={index === active}
-                      className={`group flex w-full items-center gap-5 py-2 text-left text-[13px] uppercase tracking-[0.22em] transition-colors duration-500 ${index === active ? "text-[#FAFAF9]" : "text-white/35 hover:text-white/65"}`}
-                    >
-                      <span className={`block h-px transition-all duration-500 ${index === active ? "w-14 bg-[#E97868]" : "w-6 bg-white/25"}`} />
-                      <span className="w-6 text-[11px] tabular-nums">{audience.number}</span>
-                      {audience.label}
-                    </button>
-                  </li>
-                ))}
-              </ul>
-
-              <div className="mt-10">
-                <Button variant="secondarySubtle" href="/contact" size="large">
-                  Work with BTE <span className="text-xs">↗</span>
-                </Button>
-              </div>
-            </div>
-
-            <div className="relative hidden min-h-[320px] lg:block">
-              {audiences.map((audience, index) => (
-                <div
-                  key={audience.number}
-                  aria-hidden={index !== active}
-                  className={`absolute inset-0 flex flex-col justify-center transition-all duration-700 ${index === active ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-6 opacity-0"}`}
-                >
-                  <p className="text-[11px] uppercase tracking-[0.3em] text-[#E97868]">{audience.number} / 0{audiences.length}</p>
-                  <h2 className="mt-5 max-w-[14ch] text-[clamp(1.8rem,3.2vw,3rem)] font-extralight uppercase leading-[1.1] tracking-[0.12em]">{audience.label}</h2>
-                  <p className="mt-6 max-w-[44ch] text-lg font-extralight leading-relaxed tracking-wide text-[#FAFAF9]/80">{audience.text}</p>
-                </div>
-              ))}
-            </div>
-
-            <ul className="flex flex-col gap-4 lg:hidden">
-              {audiences.map((audience) => (
-                <li key={audience.number} className="relative flex min-h-[170px] items-end overflow-hidden rounded-[12px] border border-white/[0.08] p-5">
-                  <Image src={audience.image} alt="" fill sizes="100vw" className="object-cover opacity-50" />
-                  <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-[#0b090d]/85 to-transparent" />
-                  <div className="relative">
-                    <p className="text-[13px] uppercase tracking-[0.2em]">
-                      <span className="mr-4 text-[11px] text-[#E97868]">{audience.number}</span>
-                      {audience.label}
-                    </p>
-                    <p className="mt-3 text-sm font-extralight leading-relaxed text-[#FAFAF9]/75">{audience.text}</p>
-                  </div>
-                </li>
-              ))}
-            </ul>
+        <div className="hero-copy relative z-10 mx-auto w-full max-w-[1300px] px-6 pb-16 pt-32 md:px-16">
+          <SectionLabel className="mb-10">Our ecosystem</SectionLabel>
+          <h1 className="max-w-[20ch] text-3xl font-extralight uppercase leading-[1.1] tracking-[0.14em] text-[#FAFAF9] sm:text-4xl lg:text-5xl">
+            A network built to share ownership
+          </h1>
+          <p className="mt-8 max-w-[48ch] text-[15px] font-light leading-relaxed text-[#FAFAF9]/70 md:mt-10 md:text-lg">
+            Governments, universities, companies, investors and communities working in one system, so skills, technology and capital reach the people who build with them.
+          </p>
+          <div className="mt-8 flex flex-wrap items-center gap-3 md:mt-10 md:gap-4">
+            <Button href="/contact" size="large" className="max-sm:min-h-10 max-sm:px-3.5 max-sm:py-2.5 max-sm:text-[10.5px] max-sm:tracking-[0.1em]">
+              Work with BTE <span className="text-xs">↗</span>
+            </Button>
           </div>
         </div>
-      </div>
+
+        <div aria-hidden="true" className="absolute bottom-8 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 text-[10px] uppercase tracking-[0.3em] text-white/40 md:flex">
+          Scroll
+          <span className="h-10 w-px bg-gradient-to-b from-white/50 to-transparent" />
+        </div>
+      </ScrollVar>
     </section>
   );
 }
