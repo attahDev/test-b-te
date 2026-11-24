@@ -13,7 +13,7 @@ export default function HeroVideo() {
     <video
       ref={video}
       aria-hidden="true"
-      className="hero-image absolute inset-0 h-full w-full object-cover opacity-90 [mask-image:linear-gradient(to_bottom,#000_55%,transparent_97%)]"
+      className="hero-image absolute inset-0 h-full w-full object-cover object-[68%_bottom] opacity-90 md:object-center [mask-image:linear-gradient(to_bottom,#000_55%,transparent_97%)]"
       src="/video/night-sky.mp4"
       poster="/video/night-sky.jpg"
       autoPlay
