@@ -1,171 +1,129 @@
-import Backdrop from "@/app/components/ui/Backdrop";
+"use client";
+
+// Pinned "Who we work with" stage: audience list on the left, image that swaps as you scroll on the right
 import Image from "next/image";
-import type { CSSProperties } from "react";
+import { useEffect, useRef, useState } from "react";
+import Backdrop from "@/app/components/ui/Backdrop";
 import Button from "../ui/Button";
-import Reveal from "../ui/Reveal";
 
 const audiences = [
-  {
-    number: "01.",
-    image: "/art/savanna-sunset.webp",
-    label: "Government &\nPublic Sector",
-    position: "md:left-[21.1%] md:top-[21%]",
-    tone: "bg-[#5a3434]/45",
-    accent: "bg-[#ff4764]",
-  },
-  {
-    number: "02.",
-    image: "/art/misty-mountains.webp",
-    label: "University &\nEducation",
-    position: "md:left-[4.2%] md:top-[31.2%]",
-    tone: "bg-[#3d282a]/55",
-    accent: "bg-[#3b82f6]",
-  },
-  {
-    number: "03.",
-    image: "/art/wireframe-terrain.webp",
-    label: "Technology\nCompanies",
-    position: "md:left-[21.1%] md:top-[39.3%]",
-    tone: "bg-[#2a2325]/70",
-    accent: "bg-[#3b82f6]",
-  },
-  {
-    number: "04.",
-    image: "/art/dusk-clouds.webp",
-    label: "Investor &\nFunders",
-    position: "md:left-[33.4%] md:top-[60.3%]",
-    tone: "bg-[#1e2736]/75",
-    accent: "bg-[#ff4764]",
-  },
-  {
-    number: "05.",
-    image: "/art/orbital-rings.webp",
-    label: "Corporate",
-    position: "md:left-[50.4%] md:top-[60.3%]",
-    tone: "bg-[#1a1c22]/80",
-    accent: "bg-[#ff4764]",
-  },
-  {
-    number: "06.",
-    image: "/art/fireflies.webp",
-    label: "Startups &\nFounders",
-    position: "md:left-[62.7%] md:top-[21%]",
-    tone: "bg-[#1f293a]/70",
-    accent: "bg-[#ff4764]",
-  },
-  {
-    number: "07.",
-    image: "/art/mudcloth.webp",
-    label: "Community\nOrganisations",
-    position: "md:left-[62.7%] md:top-[39.3%]",
-    tone: "bg-[#1d222b]/75",
-    accent: "bg-[#3b82f6]",
-  },
-  {
-    number: "08.",
-    image: "/art/desert-dunes.webp",
-    label: "Ecosystems &\nInternational\nPartners",
-    position: "md:left-[79.6%] md:top-[32.4%]",
-    tone: "bg-[#181a20]/80",
-    accent: "bg-[#3b82f6]",
-  },
+  { number: "01", image: "/art/savanna-sunset.webp", label: "Government & Public Sector" },
+  { number: "02", image: "/art/misty-mountains.webp", label: "University & Education" },
+  { number: "03", image: "/art/wireframe-terrain.webp", label: "Technology Companies" },
+  { number: "04", image: "/art/dusk-clouds.webp", label: "Investor & Funders" },
+  { number: "05", image: "/art/orbital-rings.webp", label: "Corporate" },
+  { number: "06", image: "/art/fireflies.webp", label: "Startups & Founders" },
+  { number: "07", image: "/art/mudcloth.webp", label: "Community Organisations" },
+  { number: "08", image: "/art/desert-dunes.webp", label: "Ecosystems & International Partners" },
 ];
 
 export default function EcosystemHeroSection() {
+  const [active, setActive] = useState(0);
+  const track = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const node = track.current;
+    if (!node || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      if (window.innerWidth < 1024) return;
+      const box = node.getBoundingClientRect();
+      const progress = -box.top / Math.max(1, box.height - window.innerHeight);
+      setActive(Math.min(audiences.length - 1, Math.max(0, Math.floor(progress * audiences.length))));
+    };
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(update);
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    update();
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      if (frame) cancelAnimationFrame(frame);
+    };
+  }, []);
+
+  const jump = (index: number) => {
+    const node = track.current;
+    if (!node || window.innerWidth < 1024) return;
+    const room = node.offsetHeight - window.innerHeight;
+    window.scrollTo({ top: node.offsetTop + (room * (index + 0.5)) / audiences.length, behavior: "smooth" });
+  };
+
   return (
-    <section
-      aria-labelledby="ecosystem-hero-title"
-      className="relative isolate flex min-h-svh w-full items-center justify-center overflow-hidden text-white"
-    >
-      <Backdrop name="moonlit-sea" strength={1} />
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0"
-        style={{
-          backgroundImage: `
-            radial-gradient(ellipse 34% 48% at 34% 26%, rgba(180, 72, 68, 0.2) 0%, rgba(120, 42, 42, 0.18) 45%, transparent 75%),
-            radial-gradient(ellipse 28% 45% at 22% 58%, rgba(145, 58, 54, 0.12) 0%, transparent 70%),
-            radial-gradient(ellipse 32% 48% at 63% 38%, rgba(38, 78, 145, 0.18) 0%, rgba(22, 45, 88, 0.15) 50%, transparent 75%),
-            linear-gradient(180deg, transparent, transparent)
-          `,
-        }}
-      />
+    <section aria-labelledby="ecosystem-hero-title" className="relative text-white">
+      <div ref={track} className="relative lg:h-[560svh] motion-reduce:lg:h-auto">
+        <div className="relative isolate overflow-hidden px-6 pb-16 pt-28 md:px-16 lg:sticky lg:top-0 lg:flex lg:h-svh lg:items-center lg:py-0 motion-reduce:lg:static motion-reduce:lg:h-auto motion-reduce:lg:py-28">
+          <Backdrop name="moonlit-sea" strength={1} />
+          <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_center,transparent_38%,#08060a_92%)]" />
 
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_38%,#08060a_92%)] [mask-image:linear-gradient(to_bottom,#000_55%,transparent)]"
-      />
-
-      <Reveal threshold={0.1} className="relative z-10 w-full max-w-[1280px] px-4 pb-12 pt-24 md:px-0 md:py-0">
-        <div className="relative w-full max-md:mx-auto max-md:grid max-md:max-w-[420px] max-md:grid-cols-2 max-md:items-start max-md:gap-x-3 max-md:gap-y-3 md:aspect-[4/3]">
-          <article className="eco-center relative overflow-hidden rounded-[12px] border border-white/[0.08] bg-[#0c0d12] shadow-[0_24px_70px_rgba(0,0,0,0.75)] max-md:col-span-2 max-md:my-3 max-md:h-[230px] max-md:w-[84%] max-md:justify-self-center md:absolute md:left-[38.0%] md:top-[21%] md:z-10 md:h-[37.5%] md:w-[24.0%]">
-            <Image
-              src="/homepage/community-panel.png"
-              alt="Three Black technology community members on a panel"
-              fill
-              sizes="(max-width: 767px) 100vw, 25vw"
-              className="object-cover object-center brightness-[0.82] contrast-[1.05]"
-              priority
-            />
-            <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/25 to-black/80" />
-
-            <div className="absolute inset-x-0 top-[42%] flex flex-col items-center px-3 text-center">
-              <h1
-                id="ecosystem-hero-title"
-                className="text-[32px] font-bold leading-[1.02] tracking-[-0.04em] text-white sm:text-[36px] md:text-[clamp(1.6rem,2.6vw,2.5rem)]"
-              >
-                Who We
-                <br />
-                Work With
+          <div className="mx-auto grid w-full max-w-[1300px] gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:gap-16">
+            <div>
+              <p className="text-[11px] uppercase tracking-[0.3em] text-[#E97868]">Our ecosystem</p>
+              <h1 id="ecosystem-hero-title" className="mt-5 text-[clamp(2.4rem,5.2vw,4.6rem)] font-extralight uppercase leading-[1.05] tracking-[0.12em]">
+                Who we work with
               </h1>
-            </div>
 
-            <div className="absolute inset-x-0 bottom-[8%] flex justify-center px-3">
-             <Button variant="secondarySubtle" href="/contact" size="large">
+              <ul className="mt-10 hidden flex-col gap-1 lg:flex">
+                {audiences.map((audience, index) => (
+                  <li key={audience.number}>
+                    <button
+                      type="button"
+                      onClick={() => jump(index)}
+                      aria-current={index === active}
+                      className={`group flex w-full items-center gap-5 py-2 text-left text-[13px] uppercase tracking-[0.22em] transition-colors duration-500 ${index === active ? "text-[#FAFAF9]" : "text-white/35 hover:text-white/65"}`}
+                    >
+                      <span className={`block h-px transition-all duration-500 ${index === active ? "w-14 bg-[#E97868]" : "w-6 bg-white/25"}`} />
+                      <span className="w-6 text-[11px] tabular-nums">{audience.number}</span>
+                      {audience.label}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+
+              <div className="mt-10">
+                <Button variant="secondarySubtle" href="/contact" size="large">
                   Work with BTE <span className="text-xs">↗</span>
                 </Button>
-            </div>
-          </article>
-
-          {audiences.map((audience, index) => (
-            <article
-              key={audience.number}
-              style={{ "--i": index } as CSSProperties}
-              className={`eco-card group relative flex flex-col justify-between overflow-hidden rounded-[10px] border border-white/[0.07] p-4 shadow-[0_14px_34px_rgba(0,0,0,0.45)] backdrop-blur-xl ${audience.tone} max-md:min-h-[92px] max-md:w-full ${index === 0 || index === 1 ? "max-md:-order-1" : ""} ${index % 2 === 1 ? "max-md:mt-9" : ""} md:absolute ${audience.position} md:z-20 md:transition-transform md:duration-500 md:hover:z-30 md:hover:scale-[1.07] md:h-[16.5%] md:w-[16.2%] md:p-[1.35%]`}
-            >
-              <Image
-                src={audience.image}
-                alt=""
-                fill
-                sizes="(max-width: 767px) 50vw, 17vw"
-                className="pointer-events-none object-cover opacity-35 saturate-[0.85] transition duration-700 group-hover:scale-110 group-hover:opacity-80 group-hover:saturate-100"
-              />
-              <div
-                aria-hidden="true"
-                className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent"
-              />
-              <div
-                aria-hidden="true"
-                className="pointer-events-none absolute inset-0 rounded-[10px] bg-gradient-to-br from-white/[0.05] to-transparent"
-              />
-
-              <div className="relative z-10 flex w-full items-center justify-between">
-                <span className="eco-num text-[11px] font-medium leading-none tracking-[-0.02em] text-white/70 md:text-[clamp(0.62rem,0.8vw,0.8rem)]">
-                  {audience.number}
-                </span>
-                <span
-                  aria-hidden="true"
-                  className={`eco-dot h-[6px] w-[6px] rounded-full ${audience.accent} shadow-[0_0_8px_currentColor]`}
-                />
               </div>
+            </div>
 
-              <h2 className="relative z-10 whitespace-pre-line text-left text-[15px] font-medium leading-[1.14] tracking-[-0.025em] text-white/95 md:pb-[2%] md:text-[clamp(0.78rem,1.08vw,1.1rem)]">
-                {audience.label}
-              </h2>
-            </article>
-          ))}
+            <div className="relative hidden aspect-[4/3] overflow-hidden rounded-[14px] border border-white/[0.08] bg-[#0d0b10] shadow-[0_30px_80px_rgba(0,0,0,0.7)] lg:block">
+              {audiences.map((audience, index) => (
+                <Image
+                  key={audience.number}
+                  src={audience.image}
+                  alt=""
+                  fill
+                  sizes="45vw"
+                  priority={index === 0}
+                  className={`object-cover transition-all duration-[900ms] ease-out ${index === active ? "scale-100 opacity-100" : "scale-110 opacity-0"}`}
+                />
+              ))}
+              <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-[#0b090d]/85 via-[#0b090d]/10 to-transparent" />
+              <div className="absolute inset-x-0 bottom-0 flex items-end justify-between p-8">
+                <p className="text-[11px] uppercase tracking-[0.3em] text-white/60">{audiences[active].number} / 0{audiences.length}</p>
+                <p className="max-w-[16ch] text-right text-2xl font-extralight uppercase leading-tight tracking-[0.14em]">{audiences[active].label}</p>
+              </div>
+            </div>
+
+            <ul className="flex flex-col gap-4 lg:hidden">
+              {audiences.map((audience) => (
+                <li key={audience.number} className="relative flex h-[110px] items-end overflow-hidden rounded-[12px] border border-white/[0.08] p-5">
+                  <Image src={audience.image} alt="" fill sizes="100vw" className="object-cover opacity-50" />
+                  <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-[#0b090d]/85 to-transparent" />
+                  <p className="relative text-[13px] uppercase tracking-[0.2em]">
+                    <span className="mr-4 text-[11px] text-[#E97868]">{audience.number}</span>
+                    {audience.label}
+                  </p>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
-      </Reveal>
+      </div>
     </section>
   );
 }
