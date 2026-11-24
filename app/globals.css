@@ -39,25 +39,18 @@ h1, h2, h3, h4 {
 }
 
 .canvas {
+  --pp: 0;
   position: fixed;
   inset: 0;
   z-index: -1;
   overflow: hidden;
   pointer-events: none;
   background:
-    radial-gradient(60% 50% at 80% 12%, rgb(46 74 140 / 0.38), transparent 70%),
-    radial-gradient(50% 45% at 8% 70%, rgb(176 67 51 / 0.16), transparent 70%),
-    radial-gradient(70% 60% at 50% 110%, rgb(30 52 110 / 0.35), transparent 70%),
+    radial-gradient(62% 52% at calc(82% - var(--pp) * 40%) calc(14% + var(--pp) * 20%), rgb(52 88 190 / calc(clamp(0, 1 - var(--pp) * 2.2, 1) * 0.42)), transparent 70%),
+    radial-gradient(60% 50% at calc(30% + var(--pp) * 30%) 50%, rgb(112 84 214 / calc(clamp(0, 1 - max(var(--pp) - 0.5, 0.5 - var(--pp)) * 2.6, 1) * 0.36)), transparent 70%),
+    radial-gradient(64% 52% at calc(18% + var(--pp) * 60%) calc(95% - var(--pp) * 20%), rgb(214 98 88 / calc(clamp(0, (var(--pp) - 0.5) * 2.4, 1) * 0.3)), transparent 70%),
+    radial-gradient(70% 60% at 50% 110%, rgb(30 52 110 / 0.28), transparent 70%),
     #070b16;
-}
-.canvas::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: radial-gradient(rgb(255 255 255 / 0.07) 1px, transparent 1px);
-  background-size: 34px 34px;
-  mask-image: radial-gradient(ellipse at 60% 30%, #000, transparent 75%);
-  -webkit-mask-image: radial-gradient(ellipse at 60% 30%, #000, transparent 75%);
 }
 
 .wake-row { border-top: 1px solid rgb(255 255 255 / 0.1); }
