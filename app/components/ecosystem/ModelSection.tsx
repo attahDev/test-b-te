@@ -1,11 +1,9 @@
 "use client";
 
-import Image from "next/image";
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import SectionLabel from "../ui/SectionLabel";
 
 const REDUCED = "(prefers-reduced-motion: reduce)";
-const IMAGES = ["aurora", "desert-dunes", "wireframe-terrain", "orbital-rings", "colour-ink", "savanna-sunset", "fireflies"];
 
 const steps = [
   { title: "Community", text: "Everything starts with people. We bring founders, students, professionals and neighbours together around a shared ambition to take part in the digital economy." },
@@ -66,20 +64,6 @@ export default function ModelSection() {
       className="relative h-[340svh] motion-reduce:h-auto"
     >
       <div className="sticky top-0 flex h-svh flex-col overflow-hidden text-white motion-reduce:static motion-reduce:min-h-svh motion-reduce:py-16">
-        <div aria-hidden="true" className="pointer-events-none absolute inset-0">
-          {IMAGES.map((name, index) => (
-            <Image
-              key={name}
-              src={`/art/${name}.webp`}
-              alt=""
-              fill
-              sizes="100vw"
-              className={`object-cover object-[70%_center] transition-all duration-[1200ms] ease-out ${index === active ? "scale-100 opacity-35" : "scale-110 opacity-0"}`}
-            />
-          ))}
-          <div className="absolute inset-0 bg-[linear-gradient(to_right,#0b090d_8%,rgba(11,9,13,0.6)_50%,rgba(11,9,13,0.25))]" />
-          <div className="absolute inset-0 [background:linear-gradient(to_bottom,#0b090d,transparent_16%,transparent_84%,#0b090d)]" />
-        </div>
         <div className="relative mx-auto grid min-h-0 w-full max-w-[1280px] flex-1 grid-rows-[1fr_auto] gap-5 px-6 pb-8 pt-[12svh] sm:px-10 lg:grid-cols-[42%_1fr] lg:grid-rows-1 lg:gap-14 lg:px-12 lg:py-[12svh]">
           <div className="flex min-h-0 flex-col">
             <SectionLabel className="mb-4">Our Model</SectionLabel>
@@ -122,8 +106,6 @@ export default function ModelSection() {
                     style={{ height: `${22 + (index * 78) / (steps.length - 1)}%` }}
                     className="model-step group relative flex w-full flex-col justify-between overflow-hidden rounded-[6px] border border-white/10 p-2 text-left focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#e8776a] sm:p-3"
                   >
-                    <Image src={`/art/${IMAGES[index]}.webp`} alt="" fill sizes="14vw" className="model-art object-cover" />
-                    <span aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-[#0b090d]/80 via-[#0b090d]/10 to-transparent" />
                     <span aria-hidden="true" className="model-cap absolute inset-x-0 top-0 h-[3px] bg-[#e8776a]" />
                     <span className="relative text-xs font-light tracking-[0.2em] text-white/80 sm:text-base">0{index + 1}</span>
                     <span className="relative hidden text-[10px] font-light uppercase leading-tight tracking-[0.1em] text-white 2xl:block">{item.title}</span>
