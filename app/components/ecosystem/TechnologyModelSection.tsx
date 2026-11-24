@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, useSyncExternalStore, type CSSProperties, type ReactNode } from "react";
+import Backdrop from "@/app/components/ui/Backdrop";
 import Reveal from "../ui/Reveal";
 import SectionLabel from "../ui/SectionLabel";
 
@@ -112,6 +113,7 @@ export default function TechnologyModelSection() {
     <section aria-labelledby="technology-model-title" className="relative text-[#FAFAF9]">
       <div ref={sectionRef} style={reduced ? undefined : { height: `${groups.length * VH_PER_STEP + 100}svh` }} className="relative">
       <div className="sticky top-0 isolate flex h-svh flex-col justify-center overflow-hidden px-6 pb-8 pt-16 sm:px-10 md:px-14 lg:px-16 motion-reduce:static motion-reduce:h-auto motion-reduce:py-16">
+      <Backdrop name="tech-model" strength={0.4} />
       <Reveal threshold={0.15} className="relative z-10 mx-auto max-w-[1200px]">
         <div className="max-w-[530px]">
           <SectionLabel className="mb-5">Our Technology Model</SectionLabel>
