@@ -51,7 +51,7 @@ export default function Navbar() {
       aria-label="Main"
       className={`fixed left-1/2 z-50 flex -translate-x-1/2 items-center justify-between transition-all duration-500 ${
         scrolled
-          ? "top-3 w-[calc(100%-1.5rem)] max-w-[1100px] rounded-full border border-white/10 bg-[#070b16]/70 px-5 py-2 backdrop-blur-md md:px-8"
+          ? "top-3 w-[calc(100%-1.5rem)] max-w-[1100px] rounded-full border border-white/10 bg-[#0b090d]/70 px-5 py-2 backdrop-blur-md md:px-8"
           : "top-0 w-full px-6 py-5 md:px-16"
       }`}
     >
@@ -107,7 +107,7 @@ export default function Navbar() {
         {isMobileMenuOpen && (
           <div
             id="mobile-navigation-menu"
-            className="absolute right-0 top-full mt-3 w-[min(20rem,calc(100vw-3rem))] rounded-2xl border border-white/10 bg-[#0b1020]/95 p-4 backdrop-blur-md"
+            className="absolute right-0 top-full mt-3 w-[min(20rem,calc(100vw-3rem))] rounded-2xl border border-white/10 bg-[#120e15]/95 p-4 backdrop-blur-md"
           >
             <div className="flex flex-col items-stretch gap-1 text-sm text-[#FAFAF9]/85">
               {links.map((link) => {

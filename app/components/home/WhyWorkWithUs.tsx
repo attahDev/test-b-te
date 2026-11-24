@@ -184,7 +184,7 @@ export default function WhyWorkWithUs() {
               <article
                 key={reason.label}
                 style={{ zIndex: reasons.length - index }}
-                className="absolute inset-0 flex flex-col rounded-[16px] border border-white/15 bg-[#0b1224] p-6 shadow-[0_24px_60px_rgba(0,0,0,0.5)] will-change-transform md:p-8 motion-reduce:static motion-reduce:min-h-[340px]"
+                className="absolute inset-0 flex flex-col rounded-[16px] border border-white/15 bg-[#151118] p-6 shadow-[0_24px_60px_rgba(0,0,0,0.5)] will-change-transform md:p-8 motion-reduce:static motion-reduce:min-h-[340px]"
               >
                 <div className="flex items-start justify-between">
                   <span className="text-[56px] font-extralight leading-none tracking-[0.04em] text-[#E97868]/90 md:text-[72px]">0{index + 1}</span>

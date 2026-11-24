@@ -67,7 +67,7 @@ export default function ScrollBand() {
             <div className="absolute inset-x-0 -top-[5px] flex justify-between">
               {words.map((word, index) => (
                 <span key={word} className="relative">
-                  <span className={`block h-[11px] w-[11px] rounded-full border transition-all duration-500 ${index <= active ? "scale-110 border-[#E97868] bg-[#E97868] shadow-[0_0_14px_rgba(233,120,104,0.8)]" : "border-white/30 bg-[#070b16]"}`} />
+                  <span className={`block h-[11px] w-[11px] rounded-full border transition-all duration-500 ${index <= active ? "scale-110 border-[#E97868] bg-[#E97868] shadow-[0_0_14px_rgba(233,120,104,0.8)]" : "border-white/30 bg-[#0b090d]"}`} />
                   <span className={`absolute left-1/2 top-6 -translate-x-1/2 whitespace-nowrap text-[10px] uppercase tracking-[0.24em] transition-colors duration-500 ${index === active ? "text-[#FAFAF9]" : "text-white/35"}`}>
                     0{index + 1}
                   </span>

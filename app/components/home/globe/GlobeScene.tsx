@@ -90,7 +90,7 @@ export default function GlobeScene(props: SceneProps) {
         renderer.domElement.addEventListener("webglcontextrestored", () => window.clearTimeout(lostTimer));
 
         const material = globe.globeMaterial() as MeshPhongMaterial;
-        material.color.set("#d6dbe6");
+        material.color.set("#aab0bd");
         material.bumpScale = 6;
         material.shininess = 14;
         material.specular.set("#1c2a44");
@@ -226,7 +226,7 @@ export default function GlobeScene(props: SceneProps) {
       ref={hostRef}
       role="img"
       aria-label="Interactive 3D globe showing BTE locations. Scroll to move between places, or drag to turn the globe."
-      className={`absolute inset-0 transition-opacity duration-1000 ${ready ? "opacity-100" : "opacity-0"}`}
+      className={`absolute inset-0 [filter:saturate(0.68)_brightness(0.86)] transition-opacity duration-1000 ${ready ? "opacity-100" : "opacity-0"}`}
     />
   );
 }

@@ -18,7 +18,7 @@ export default function ContactPage() {
 
       <section aria-labelledby="connect-title" className="relative isolate flex min-h-[70svh] items-end overflow-hidden px-6 pb-16 pt-36 sm:px-10 md:pb-24 lg:px-14">
         <Image src="/homepage/architectural-background.png" alt="" aria-hidden="true" fill priority sizes="100vw" className="-z-10 object-cover object-center opacity-[0.12] mix-blend-screen" />
-        <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-t from-[#070b16] via-transparent to-transparent" />
+        <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-t from-[#0b090d] via-transparent to-transparent" />
         <div className="mx-auto w-full max-w-[1200px]">
           <SectionLabel className="mb-5">Connect</SectionLabel>
           <h1 id="connect-title" className="max-w-[760px] text-3xl font-extralight uppercase leading-[1.15] tracking-[0.1em] md:text-5xl">Work with BTE</h1>

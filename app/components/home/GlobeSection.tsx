@@ -71,14 +71,14 @@ export default function GlobeSection() {
         <div aria-hidden="true" className="tour-bg absolute inset-0 -z-10 opacity-85 [mask-image:linear-gradient(to_bottom,transparent,#000_28%)]" style={{ backgroundColor: bg }} />
         <div aria-hidden="true" className="absolute inset-0 -z-10 [mask-image:linear-gradient(to_bottom,transparent,#000_28%)]">
           <Image src="/homepage/starfield-background.png" alt="" fill sizes="100vw" className="object-cover opacity-40 mix-blend-screen" />
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_55%,transparent_30%,rgba(7,11,22,0.3)_100%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_55%,transparent_30%,rgba(11,9,13,0.3)_100%)]" />
         </div>
 
         <div className="absolute inset-0 [mask-image:linear-gradient(to_bottom,transparent,#000_14%)]">
           <GlobeScene stops={stops} mode={mode} activeId={activeId} visibleIds={visibleIds} onSelect={(id) => jump(stops.findIndex((item) => item.id === id) + 1)} />
         </div>
 
-        <div aria-hidden="true" className="pointer-events-none absolute inset-0 [mask-image:linear-gradient(to_bottom,transparent,#000_26%)] bg-[linear-gradient(to_top,rgba(7,11,22,0.62)_0%,rgba(7,11,22,0.4)_42%,transparent_62%)] lg:bg-[linear-gradient(to_right,rgba(7,11,22,0.5)_0%,rgba(7,11,22,0.28)_34%,transparent_56%)]" />
+        <div aria-hidden="true" className="pointer-events-none absolute inset-0 [mask-image:linear-gradient(to_bottom,transparent,#000_26%)] bg-[linear-gradient(to_top,rgba(11,9,13,0.62)_0%,rgba(11,9,13,0.4)_42%,transparent_62%)] lg:bg-[linear-gradient(to_right,rgba(11,9,13,0.5)_0%,rgba(11,9,13,0.28)_34%,transparent_56%)]" />
 
         <div className="pointer-events-none relative mx-auto flex min-h-0 w-full max-w-[1200px] flex-1 flex-col px-6 pb-16 pt-6 md:px-12 lg:grid lg:grid-cols-[0.95fr_1.05fr] lg:items-center lg:gap-10 lg:pb-20 lg:pt-10">
           <div aria-hidden="true" className="h-[27svh] flex-none lg:hidden" />

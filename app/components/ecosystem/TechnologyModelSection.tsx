@@ -136,7 +136,7 @@ export default function TechnologyModelSection() {
                     data-on={index === active}
                     className="tech-pill flex flex-none items-center gap-2 rounded-full border border-white/30 bg-white/5 py-1.5 pl-1.5 pr-3 text-left text-[11px] font-extrabold uppercase leading-tight tracking-tight sm:gap-3 sm:pr-5 sm:text-sm"
                   >
-                    <span className="grid h-6 w-6 flex-none place-items-center rounded-full bg-[#E97868] text-[10px] text-[#070b16] sm:h-7 sm:w-7 sm:text-xs">{item.num}</span>
+                    <span className="grid h-6 w-6 flex-none place-items-center rounded-full bg-[#E97868] text-[10px] text-[#0b090d] sm:h-7 sm:w-7 sm:text-xs">{item.num}</span>
                     {item.name}
                   </button>
                   <span aria-hidden="true" className="tech-line relative mx-1 h-px flex-1 bg-white/25" />

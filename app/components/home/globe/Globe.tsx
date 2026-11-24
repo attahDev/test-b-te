@@ -287,7 +287,7 @@ export default function Globe({ stops, mode, activeId, visibleIds, onSelect }: G
           ctx!.fillStyle = `rgb(${stop.rgb})`;
           ctx!.fill();
         } else {
-          ctx!.fillStyle = "#0b0c11";
+          ctx!.fillStyle = "#0d0b10";
           ctx!.fill();
           ctx!.strokeStyle = `rgb(${stop.rgb})`;
           ctx!.lineWidth = 1.6;

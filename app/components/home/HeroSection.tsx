@@ -8,7 +8,7 @@ export default function HeroSection() {
     <section className="relative min-h-svh overflow-hidden">
       <ScrollVar mode="leave" className="hero relative flex min-h-svh flex-col justify-center">
       <HeroVideo />
-      <div aria-hidden="true" className="absolute inset-0 bg-[linear-gradient(to_top,rgba(7,11,22,0.55),rgba(7,11,22,0.3)_55%,rgba(7,11,22,0.1))] md:bg-[linear-gradient(to_right,rgba(7,11,22,0.78),rgba(7,11,22,0.25)_55%,transparent)]" />
+      <div aria-hidden="true" className="absolute inset-0 bg-[linear-gradient(to_top,rgba(11,9,13,0.55),rgba(11,9,13,0.3)_55%,rgba(11,9,13,0.1))] md:bg-[linear-gradient(to_right,rgba(11,9,13,0.78),rgba(11,9,13,0.25)_55%,transparent)]" />
       
       <div className="hero-copy relative z-10 mx-auto w-full max-w-[1300px] px-6 pb-16 pt-32 md:px-16">
         <SectionLabel className="mb-10">Welcome to BTE</SectionLabel>

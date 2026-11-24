@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 :root {
-  --background: #070b16;
+  --background: #0b090d;
   --foreground: #FAFAF9;
   --brand-red: #B04333;
   --brand-light: #F2F1F0;
@@ -44,7 +44,7 @@ h1, h2, h3, h4 {
   z-index: -1;
   overflow: hidden;
   pointer-events: none;
-  background: #070b16;
+  background: #0b090d;
 }
 
 .wake-row { border-top: 1px solid rgb(255 255 255 / 0.1); }

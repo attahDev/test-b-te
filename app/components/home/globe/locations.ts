@@ -24,7 +24,7 @@ export type Stop = {
   href: string | null;
 };
 
-export const introBg = "#08090B";
+export const introBg = "#0b090d";
 
 export const stops: Stop[] = [
   {
