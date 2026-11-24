@@ -690,15 +690,22 @@ a, button {
 }
 
 
-.band-word-text {
+.band-title {
   color: transparent;
-  -webkit-text-stroke: 1px rgb(255 255 255 / 0.32);
-  transition: color 0.6s ease, -webkit-text-stroke-color 0.6s ease, transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+  -webkit-text-stroke: 1px rgb(255 255 255 / 0.3);
+  transition: color 0.7s ease, -webkit-text-stroke-color 0.7s ease;
 }
-.band-line[data-on="true"] .band-word-text { color: #fafaf9; -webkit-text-stroke-color: transparent; transform: translateX(14px); }
-@media (hover: hover) {
-  .band-line[data-on="false"]:hover .band-word-text { -webkit-text-stroke-color: rgb(255 255 255 / 0.6); }
-}
+.band-row { transition: opacity 0.9s ease, transform 1s cubic-bezier(0.2, 0.7, 0.2, 1); opacity: 0.55; transform: translateX(calc(var(--dir, 1) * 48px)); }
+.band-row[data-side="right"] { --dir: 1; }
+.band-row[data-side="left"] { --dir: -1; }
+.band-row[data-on="true"] { opacity: 1; transform: none; }
+.band-row[data-on="true"] .band-title { color: #fafaf9; -webkit-text-stroke-color: transparent; }
+.band-rule { transform: scaleX(0.3); transform-origin: left; transition: transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1); }
+.band-row[data-on="true"] .band-rule { transform: scaleX(1); }
+.band-text { opacity: 0; transform: translateY(14px); transition: opacity 0.8s ease 0.15s, transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) 0.15s; }
+.band-row[data-on="true"] .band-text { opacity: 1; transform: none; }
 @media (prefers-reduced-motion: reduce) {
-  .band-word-text { color: #fafaf9; -webkit-text-stroke-color: transparent; }
+  .band-row { opacity: 1; transform: none; }
+  .band-title { color: #fafaf9; -webkit-text-stroke-color: transparent; }
+  .band-text { opacity: 1; transform: none; }
 }
