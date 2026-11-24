@@ -1,19 +1,13 @@
-import Image from "next/image";
 import Button from "../ui/Button";
 import ScrollVar from "../ui/ScrollVar";
 import SectionLabel from "../ui/SectionLabel";
+import HeroVideo from "./HeroVideo";
 
 export default function HeroSection() {
   return (
     <section className="relative min-h-svh overflow-hidden">
       <ScrollVar mode="leave" className="hero relative flex min-h-svh flex-col justify-center">
-      <Image
-        src="/art/savanna-sunset.webp"
-        alt=""
-        fill
-        priority
-        className="hero-image object-cover opacity-75 brightness-90 [mask-image:linear-gradient(to_bottom,#000_50%,transparent_96%)]"
-      />
+      <HeroVideo />
       <div aria-hidden="true" className="absolute inset-0 bg-[linear-gradient(to_right,rgba(7,11,22,0.78),rgba(7,11,22,0.25)_55%,transparent)]" />
       
       <div className="hero-copy relative z-10 mx-auto w-full max-w-[1300px] px-6 pb-16 pt-32 md:px-16">
