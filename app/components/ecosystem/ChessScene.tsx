@@ -87,7 +87,7 @@ export default function ChessScene({ active, className = "" }: { active: number;
     if (!canvas || !context) return;
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const count = pieces.length;
-    const scales = pieces.map((_, i) => (i === activeRef.current ? 2.1 : 1.05));
+    const scales: number[] = pieces.map((_, i) => (i === activeRef.current ? 2.1 : 1.05));
     let yaw = -ringAngle(activeRef.current, count);
     let width = 0;
     let height = 0;
