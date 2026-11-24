@@ -39,7 +39,7 @@ export default function ScrollBand() {
     <div className="relative">
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 [mask-image:linear-gradient(to_bottom,transparent,#000_14%,#000_86%,transparent)]">
         <div className="sticky top-0 h-svh overflow-hidden">
-          <LoopVideo src="/video/nebula.mp4" poster="/video/nebula.jpg" className="opacity-40" />
+          <LoopVideo className="-scale-x-100 object-[40%_top] opacity-55" />
           <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(11,9,13,0.5),rgba(11,9,13,0.2)_50%,rgba(11,9,13,0.6))]" />
         </div>
       </div>

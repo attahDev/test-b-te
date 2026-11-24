@@ -1,5 +1,5 @@
-// First screen of the ecosystem page: moonlit backdrop, headline and a scroll cue.
-import Backdrop from "@/app/components/ui/Backdrop";
+// First screen of the ecosystem page: looping moonlit night sky, headline and a scroll cue.
+import LoopVideo from "../home/LoopVideo";
 import Button from "../ui/Button";
 import ScrollVar from "../ui/ScrollVar";
 import SectionLabel from "../ui/SectionLabel";
@@ -8,7 +8,7 @@ export default function EcosystemHeroSection() {
   return (
     <section className="relative min-h-svh overflow-hidden">
       <ScrollVar mode="leave" className="hero relative isolate flex min-h-svh flex-col justify-center">
-        <Backdrop name="moonlit-sea" strength={1} fade="bottom" />
+        <LoopVideo src="/video/moon.mp4" poster="/video/moon.jpg" className="hero-image object-[70%_center] [mask-image:linear-gradient(to_bottom,#000_60%,transparent_98%)]" />
         <div aria-hidden="true" className="absolute inset-0 bg-[linear-gradient(to_top,rgba(11,9,13,0.7),rgba(11,9,13,0.25)_55%,rgba(11,9,13,0.1))] md:bg-[linear-gradient(to_right,rgba(11,9,13,0.8),rgba(11,9,13,0.25)_55%,transparent)]" />
 
         <div className="hero-copy relative z-10 mx-auto w-full max-w-[1300px] px-6 pb-16 pt-32 md:px-16">
