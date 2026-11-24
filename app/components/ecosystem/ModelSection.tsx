@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
+import ChessScene from "./ChessScene";
 import SectionLabel from "../ui/SectionLabel";
 
 const REDUCED = "(prefers-reduced-motion: reduce)";
@@ -90,30 +91,28 @@ export default function ModelSection() {
             </div>
           </div>
 
-          <ol className="flex h-[30svh] min-h-0 min-w-0 items-end gap-1.5 sm:gap-2.5 lg:h-auto lg:gap-3">
-            {steps.map((item, index) => {
-              const risen = reduced || index <= active;
-              const isActive = index === active;
-              return (
-                <li key={item.title} className="flex h-full min-w-0 flex-1 items-end">
+          <div className="flex h-[38svh] min-h-0 min-w-0 flex-col lg:h-auto">
+            <div className="min-h-0 flex-1">
+              <ChessScene active={active} />
+            </div>
+            <ol className="mt-2 flex items-center justify-between gap-1 sm:gap-2">
+              {steps.map((item, index) => (
+                <li key={item.title} className="min-w-0 flex-1">
                   <button
                     type="button"
                     onClick={() => jump(index)}
-                    aria-current={isActive ? "step" : undefined}
+                    aria-current={index === active ? "step" : undefined}
                     aria-label={`Step ${index + 1}: ${item.title}`}
-                    data-risen={risen}
-                    data-active={isActive}
-                    style={{ height: `${22 + (index * 78) / (steps.length - 1)}%` }}
-                    className="model-step group relative flex w-full flex-col justify-between overflow-hidden rounded-[6px] border border-white/10 p-2 text-left focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#e8776a] sm:p-3"
+                    className={`flex w-full flex-col items-center gap-2 py-2 text-[10px] uppercase tracking-[0.12em] transition-colors duration-500 focus-visible:outline-2 focus-visible:outline-[#e8776a] sm:text-[11px] ${index === active ? "text-white" : "text-white/35 hover:text-white/70"}`}
                   >
-                    <span aria-hidden="true" className="model-cap absolute inset-x-0 top-0 h-[3px] bg-[#e8776a]" />
-                    <span className="relative text-xs font-light tracking-[0.2em] text-white/80 sm:text-base">0{index + 1}</span>
-                    <span className="relative hidden text-[10px] font-light uppercase leading-tight tracking-[0.1em] text-white 2xl:block">{item.title}</span>
+                    <span className={`block h-px w-full transition-colors duration-500 ${index === active ? "bg-[#e8776a]" : "bg-white/20"}`} />
+                    <span className="sm:hidden">0{index + 1}</span>
+                    <span className="hidden truncate sm:block">{item.title}</span>
                   </button>
                 </li>
-              );
-            })}
-          </ol>
+              ))}
+            </ol>
+          </div>
         </div>
       </div>
     </section>
