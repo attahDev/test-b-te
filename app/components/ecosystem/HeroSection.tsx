@@ -7,6 +7,7 @@ import Reveal from "../ui/Reveal";
 const audiences = [
   {
     number: "01.",
+    image: "/art/savanna-sunset.webp",
     label: "Government &\nPublic Sector",
     position: "md:left-[21.1%] md:top-[21%]",
     tone: "bg-[#5a3434]/45",
@@ -14,6 +15,7 @@ const audiences = [
   },
   {
     number: "02.",
+    image: "/art/misty-mountains.webp",
     label: "University &\nEducation",
     position: "md:left-[4.2%] md:top-[31.2%]",
     tone: "bg-[#3d282a]/55",
@@ -21,6 +23,7 @@ const audiences = [
   },
   {
     number: "03.",
+    image: "/art/wireframe-terrain.webp",
     label: "Technology\nCompanies",
     position: "md:left-[21.1%] md:top-[39.3%]",
     tone: "bg-[#2a2325]/70",
@@ -28,6 +31,7 @@ const audiences = [
   },
   {
     number: "04.",
+    image: "/art/dusk-clouds.webp",
     label: "Investor &\nFunders",
     position: "md:left-[33.4%] md:top-[60.3%]",
     tone: "bg-[#1e2736]/75",
@@ -35,6 +39,7 @@ const audiences = [
   },
   {
     number: "05.",
+    image: "/art/orbital-rings.webp",
     label: "Corporate",
     position: "md:left-[50.4%] md:top-[60.3%]",
     tone: "bg-[#1a1c22]/80",
@@ -42,6 +47,7 @@ const audiences = [
   },
   {
     number: "06.",
+    image: "/art/fireflies.webp",
     label: "Startups &\nFounders",
     position: "md:left-[62.7%] md:top-[21%]",
     tone: "bg-[#1f293a]/70",
@@ -49,6 +55,7 @@ const audiences = [
   },
   {
     number: "07.",
+    image: "/art/mudcloth.webp",
     label: "Community\nOrganisations",
     position: "md:left-[62.7%] md:top-[39.3%]",
     tone: "bg-[#1d222b]/75",
@@ -56,6 +63,7 @@ const audiences = [
   },
   {
     number: "08.",
+    image: "/art/desert-dunes.webp",
     label: "Ecosystems &\nInternational\nPartners",
     position: "md:left-[79.6%] md:top-[32.4%]",
     tone: "bg-[#181a20]/80",
@@ -123,8 +131,19 @@ export default function EcosystemHeroSection() {
             <article
               key={audience.number}
               style={{ "--i": index } as CSSProperties}
-              className={`eco-card relative flex flex-col justify-between overflow-hidden rounded-[10px] border border-white/[0.07] p-4 shadow-[0_14px_34px_rgba(0,0,0,0.45)] backdrop-blur-xl ${audience.tone} max-md:min-h-[92px] max-md:w-full ${index === 0 || index === 1 ? "max-md:-order-1" : ""} ${index % 2 === 1 ? "max-md:mt-9" : ""} md:absolute ${audience.position} md:z-20 md:h-[16.5%] md:w-[16.2%] md:p-[1.35%]`}
+              className={`eco-card group relative flex flex-col justify-between overflow-hidden rounded-[10px] border border-white/[0.07] p-4 shadow-[0_14px_34px_rgba(0,0,0,0.45)] backdrop-blur-xl ${audience.tone} max-md:min-h-[92px] max-md:w-full ${index === 0 || index === 1 ? "max-md:-order-1" : ""} ${index % 2 === 1 ? "max-md:mt-9" : ""} md:absolute ${audience.position} md:z-20 md:transition-transform md:duration-500 md:hover:z-30 md:hover:scale-[1.07] md:h-[16.5%] md:w-[16.2%] md:p-[1.35%]`}
             >
+              <Image
+                src={audience.image}
+                alt=""
+                fill
+                sizes="(max-width: 767px) 50vw, 17vw"
+                className="pointer-events-none object-cover opacity-35 saturate-[0.85] transition duration-700 group-hover:scale-110 group-hover:opacity-80 group-hover:saturate-100"
+              />
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent"
+              />
               <div
                 aria-hidden="true"
                 className="pointer-events-none absolute inset-0 rounded-[10px] bg-gradient-to-br from-white/[0.05] to-transparent"
