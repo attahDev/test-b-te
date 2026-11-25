@@ -2,7 +2,10 @@
 
 import { useEffect, useRef, useState } from "react";
 import SectionLabel from "../ui/SectionLabel";
+import dynamic from "next/dynamic";
 import WireScene from "./WireScene";
+
+const MeshScene = dynamic(() => import("./MeshScene"), { ssr: false });
 
 const items = [
   {
@@ -64,7 +67,8 @@ export default function WhatWeDoSection() {
       <div ref={track} className="relative h-[330svh] motion-reduce:h-auto">
         <div className="sticky top-0 isolate flex h-svh flex-col overflow-hidden px-6 pb-10 pt-28 md:px-16 motion-reduce:static motion-reduce:min-h-svh">
           <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 [mask-image:linear-gradient(to_bottom,transparent,#000_14%,#000_86%,transparent)]">
-            <WireScene active={active} />
+            <WireScene />
+            <MeshScene active={active} />
           </div>
 
           <div className="mx-auto flex w-full max-w-[1300px] flex-1 flex-col justify-between gap-8 lg:grid lg:grid-cols-[0.8fr_1fr_1.1fr] lg:items-center lg:gap-10">
