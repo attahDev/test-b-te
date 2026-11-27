@@ -9,8 +9,10 @@ export default function EcosystemHeroSection() {
   return (
     <section className="relative min-h-svh overflow-hidden">
       <ScrollVar mode="leave" className="hero relative isolate flex min-h-svh flex-col justify-center">
-        <LoopVideo src="/video/worldmap.mp4" poster="/video/worldmap.jpg" className="hero-image object-[70%_center]" />
+        <LoopVideo src="/video/worldmap.mp4" poster="/video/worldmap.jpg" className="globe-dive object-[70%_center]" />
         <div aria-hidden="true" className="absolute inset-0 bg-[linear-gradient(to_top,rgba(11,9,13,0.75),rgba(11,9,13,0.55)_55%,rgba(11,9,13,0.4))] md:bg-[linear-gradient(to_right,rgba(11,9,13,0.8),rgba(11,9,13,0.25)_55%,transparent)]" />
+
+        <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#0b090d] to-transparent" />
 
         <div className="hero-copy relative z-10 mx-auto w-full max-w-[1300px] px-6 pb-16 pt-32 md:px-16">
           <div className="enter mb-10" style={{ "--d": 0 } as CSSProperties}><SectionLabel>Our ecosystem</SectionLabel></div>

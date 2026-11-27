@@ -4,6 +4,7 @@
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import Button from "../ui/Button";
+import ScrollVar from "../ui/ScrollVar";
 
 const audiences = [
   { number: "01", image: "/art/aud-government.webp", label: "Government & Public Sector", text: "We help public bodies and agencies connect with Black-led technology talent, run programmes with local communities, and turn policy goals into projects people can see." },
@@ -64,7 +65,7 @@ export default function AudienceSection() {
                 fill
                 sizes="100vw"
                 priority={index === 0}
-                className={`object-cover object-[75%_center] transition-all duration-[1100ms] ease-out ${index === active ? "scale-100 opacity-70" : "scale-110 opacity-0"}`}
+                className={`object-cover object-[75%_center] max-lg:hidden transition-all duration-[1100ms] ease-out ${index === active ? "scale-100 opacity-70" : "scale-110 opacity-0"}`}
               />
             ))}
             <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(11,9,13,0.92),rgba(11,9,13,0.55)_45%,rgba(11,9,13,0.15))] max-lg:bg-[#0b090d]/70" />
@@ -116,17 +117,17 @@ export default function AudienceSection() {
               ))}
             </div>
 
-            <ul className="flex flex-col gap-4 lg:hidden">
+            <ul className="flex flex-col gap-14 lg:hidden">
               {audiences.map((audience) => (
-                <li key={audience.number} className="relative flex min-h-[170px] items-end overflow-hidden rounded-[12px] border border-white/[0.08] p-5">
-                  <Image src={audience.image} alt="" fill sizes="100vw" className="object-cover opacity-50" />
-                  <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-[#0b090d]/85 to-transparent" />
-                  <div className="relative">
-                    <p className="text-[13px] uppercase tracking-[0.2em]">
-                      <span className="mr-4 text-[11px] text-[#E97868]">{audience.number}</span>
-                      {audience.label}
-                    </p>
-                    <p className="mt-3 text-sm font-extralight leading-relaxed text-[#FAFAF9]/75">{audience.text}</p>
+                <li key={audience.number} className="md:grid md:grid-cols-2 md:items-center md:gap-10 md:even:[&>div:first-child]:order-2">
+                  <ScrollVar className="relative aspect-[16/10] overflow-hidden rounded-[12px] border border-white/[0.08]">
+                    <Image src={audience.image} alt="" fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover opacity-90 [transform:translateY(calc((var(--p)-0.5)*-36px))_scale(1.14)]" />
+                    <div aria-hidden="true" className="absolute inset-0 bg-[linear-gradient(to_top,#0b090d,transparent_45%)]" />
+                  </ScrollVar>
+                  <div className="mt-6 md:mt-0">
+                    <p className="text-[11px] uppercase tracking-[0.3em] text-[#E97868]">{audience.number} / 0{audiences.length}</p>
+                    <h3 className="mt-3 text-[clamp(1.1rem,3vw,1.5rem)] font-extralight uppercase leading-[1.15] tracking-[0.14em]">{audience.label}</h3>
+                    <p className="mt-4 text-[15px] font-extralight leading-relaxed tracking-wide text-[#FAFAF9]/75">{audience.text}</p>
                   </div>
                 </li>
               ))}
