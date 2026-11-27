@@ -1,4 +1,4 @@
-// First screen of the ecosystem page: looping moonlit night sky, headline and a scroll cue.
+// First screen of the ecosystem page: looping half-globe network video, headline and a scroll cue.
 import type { CSSProperties } from "react";
 import LoopVideo from "../home/LoopVideo";
 import Button from "../ui/Button";
@@ -9,8 +9,8 @@ export default function EcosystemHeroSection() {
   return (
     <section className="relative min-h-svh overflow-hidden">
       <ScrollVar mode="leave" className="hero relative isolate flex min-h-svh flex-col justify-center">
-        <LoopVideo src="/video/moon.mp4" poster="/video/moon.jpg" className="hero-image object-[70%_center] [mask-image:linear-gradient(to_bottom,#000_60%,transparent_98%)]" />
-        <div aria-hidden="true" className="absolute inset-0 bg-[linear-gradient(to_top,rgba(11,9,13,0.7),rgba(11,9,13,0.25)_55%,rgba(11,9,13,0.1))] md:bg-[linear-gradient(to_right,rgba(11,9,13,0.8),rgba(11,9,13,0.25)_55%,transparent)]" />
+        <LoopVideo src="/video/worldmap.mp4" poster="/video/worldmap.jpg" className="hero-image object-[70%_center]" />
+        <div aria-hidden="true" className="absolute inset-0 bg-[linear-gradient(to_top,rgba(11,9,13,0.75),rgba(11,9,13,0.55)_55%,rgba(11,9,13,0.4))] md:bg-[linear-gradient(to_right,rgba(11,9,13,0.8),rgba(11,9,13,0.25)_55%,transparent)]" />
 
         <div className="hero-copy relative z-10 mx-auto w-full max-w-[1300px] px-6 pb-16 pt-32 md:px-16">
           <div className="enter mb-10" style={{ "--d": 0 } as CSSProperties}><SectionLabel>Our ecosystem</SectionLabel></div>
