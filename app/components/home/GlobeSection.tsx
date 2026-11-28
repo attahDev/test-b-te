@@ -4,7 +4,6 @@ import Image from "next/image";
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import GlobeScene from "./globe/GlobeScene";
 import { introBg, stops } from "./globe/locations";
-import SectionLabel from "../ui/SectionLabel";
 
 const REDUCED = "(prefers-reduced-motion: reduce)";
 const STAGES = stops.length + 2;
@@ -86,12 +85,11 @@ export default function GlobeSection() {
             <div key={stage} className="panel-in">
               {mode === "intro" && (
                 <>
-                  <SectionLabel className="mb-4">Locations</SectionLabel>
                   <h2 id="locations-title" className="text-3xl font-extralight uppercase leading-[1.1] tracking-[0.1em] text-[#FAFAF9] md:text-4xl">
                     Welcome to Black Tech Expo
                   </h2>
                   <p className="mt-4 max-w-[480px] text-sm leading-relaxed text-[#FAFAF9]/75 md:text-base">
-                    We build and connect the people, technology and partnerships that help communities take part in the digital economy. Scroll to visit each place we work.
+                    We build and connect the people, technology and partnerships that help communities take part in the digital economy.
                   </p>
                 </>
               )}
@@ -170,7 +168,6 @@ export default function GlobeSection() {
 
               {mode === "finale" && (
                 <>
-                  <SectionLabel className="mb-4">The network</SectionLabel>
                   <h2 id="locations-title" className="text-3xl font-extralight uppercase leading-[1.1] tracking-[0.1em] text-[#FAFAF9] md:text-4xl">
                     One network, growing place by place
                   </h2>

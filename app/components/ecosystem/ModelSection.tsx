@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import ChessScene from "./ChessScene";
-import SectionLabel from "../ui/SectionLabel";
 
 const REDUCED = "(prefers-reduced-motion: reduce)";
 
@@ -68,7 +67,6 @@ export default function ModelSection() {
       <div className="sticky top-0 flex h-svh flex-col overflow-hidden text-white motion-reduce:static motion-reduce:min-h-svh motion-reduce:py-16">
         <div className="relative mx-auto grid min-h-0 w-full max-w-[1280px] flex-1 grid-rows-[1fr_auto] gap-5 px-6 pb-8 pt-[12svh] sm:px-10 lg:grid-cols-[42%_1fr] lg:grid-rows-1 lg:gap-14 lg:px-12 lg:py-[12svh]">
           <div className="flex min-h-0 flex-col">
-            <SectionLabel className="mb-4">Our Model</SectionLabel>
             <h2 id="ecosystem-model-title" className="text-2xl font-extralight uppercase leading-[1.1] tracking-[0.1em] sm:text-4xl lg:text-5xl">
               From Community
               <br />
@@ -86,7 +84,6 @@ export default function ModelSection() {
                 {step ? (
                   <>
                     <p className="flex items-baseline gap-3">
-                      <span className="text-4xl font-light leading-none text-[#e8776a] lg:text-6xl">0{active + 1}</span>
                       <span className="text-2xl font-bold tracking-[-0.03em] lg:text-3xl">{step.title}</span>
                     </p>
                     <p className="mt-3 max-w-[460px] text-[13px] leading-relaxed text-white/75 sm:text-sm lg:mt-4 lg:text-base">{step.text}</p>
@@ -95,7 +92,7 @@ export default function ModelSection() {
                   <>
                     <p className="text-2xl font-bold tracking-[-0.03em] lg:text-3xl">Seven steps, one board</p>
                     <p className="mt-3 max-w-[460px] text-[13px] leading-relaxed text-white/75 sm:text-sm lg:mt-4 lg:text-base">
-                      Every step of the model is a piece on the board, from the pawn that starts it to the king at the end. Scroll to move in on each one.
+                      Every step of the model is a piece on the board, from the pawn that starts it to the king at the end.
                     </p>
                   </>
                 )}
@@ -118,7 +115,6 @@ export default function ModelSection() {
                     className={`flex w-full flex-col items-center gap-2 py-2 text-[10px] uppercase tracking-[0.12em] transition-colors duration-500 focus-visible:outline-2 focus-visible:outline-[#e8776a] sm:text-[11px] ${index === active ? "text-white" : "text-white/35 hover:text-white/70"}`}
                   >
                     <span className={`block h-px w-full transition-colors duration-500 ${index === active ? "bg-[#e8776a]" : "bg-white/20"}`} />
-                    <span className="sm:hidden">0{index + 1}</span>
                     <span className="hidden truncate sm:block">{item.title}</span>
                   </button>
                 </li>

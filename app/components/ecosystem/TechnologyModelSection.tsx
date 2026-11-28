@@ -3,7 +3,6 @@
 import { useEffect, useRef, useState, useSyncExternalStore, type CSSProperties, type ReactNode } from "react";
 import Backdrop from "@/app/components/ui/Backdrop";
 import Reveal from "../ui/Reveal";
-import SectionLabel from "../ui/SectionLabel";
 
 const REDUCED = "(prefers-reduced-motion: reduce)";
 const VH_PER_STEP = 80;
@@ -116,7 +115,6 @@ export default function TechnologyModelSection() {
       <Backdrop name="tech-model" strength={0.4} />
       <Reveal threshold={0.15} className="relative z-10 mx-auto max-w-[1200px]">
         <div className="max-w-[530px]">
-          <SectionLabel className="mb-5">Our Technology Model</SectionLabel>
           <h2 id="technology-model-title" className="text-3xl font-extralight uppercase leading-[1.1] tracking-[0.1em] sm:text-4xl">
             The Technology Model
           </h2>

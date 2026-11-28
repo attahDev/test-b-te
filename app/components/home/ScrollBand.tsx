@@ -64,7 +64,6 @@ export default function ScrollBand() {
               >
                 <div className={`w-full lg:w-[62%] ${right ? "" : "lg:ml-[6%]"}`}>
                   <div className="flex items-center gap-4">
-                    <span className="text-[11px] tracking-[0.3em] text-[#E97868]">0{index + 1}</span>
                     <span aria-hidden="true" className="band-rule h-px w-16 bg-[#E97868]" />
                   </div>
                   <h2 className="band-title mt-4 text-[clamp(2.2rem,6.4vw,5.6rem)] font-extralight uppercase leading-[1.02] tracking-[0.1em]">{step.word}</h2>

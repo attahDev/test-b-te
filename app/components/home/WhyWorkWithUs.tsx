@@ -98,7 +98,6 @@ export default function WhyWorkWithUs() {
   const track = useRef<HTMLDivElement>(null);
   const deck = useRef<HTMLDivElement>(null);
   const bar = useRef<HTMLSpanElement>(null);
-  const counter = useRef<HTMLSpanElement>(null);
   const backdrop = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -134,7 +133,6 @@ export default function WhyWorkWithUs() {
       });
       if (bar.current) bar.current.style.transform = `scaleX(${progress.toFixed(4)})`;
       if (backdrop.current) backdrop.current.style.transform = `translate3d(${(-progress * 9).toFixed(2)}%, 0, 0)`;
-      if (counter.current) counter.current.textContent = `0${Math.round(position) + 1}`;
     };
 
     const onScroll = () => {
@@ -165,14 +163,10 @@ export default function WhyWorkWithUs() {
 
         <div className="mx-auto grid w-full max-w-[1300px] items-center gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
           <div>
-            <p className="text-[11px] uppercase tracking-[0.32em] text-[#E97868]">Why work with us</p>
-            <p className="mt-5 max-w-[20ch] text-2xl font-extralight leading-snug tracking-wide text-[#FAFAF9]/80 md:text-4xl">
+            <p className="max-w-[20ch] text-2xl font-extralight leading-snug tracking-wide text-[#FAFAF9]/80 md:text-4xl">
               Eight things we build, run and stand behind.
             </p>
             <div className="mt-8 hidden items-center gap-5 motion-reduce:hidden sm:flex" aria-hidden="true">
-              <span className="text-[11px] uppercase tracking-[0.3em] text-[#FAFAF9]/60">
-                <span ref={counter}>01</span> / 0{reasons.length}
-              </span>
               <span className="block h-px w-40 bg-white/10">
                 <span ref={bar} className="block h-full origin-left bg-[#E97868]" style={{ transform: "scaleX(0)" }} />
               </span>
@@ -186,8 +180,7 @@ export default function WhyWorkWithUs() {
                 style={{ zIndex: reasons.length - index }}
                 className="absolute inset-0 flex flex-col rounded-[16px] border border-white/15 bg-[#151118] p-6 shadow-[0_24px_60px_rgba(0,0,0,0.5)] will-change-transform md:p-8 motion-reduce:static motion-reduce:min-h-[340px]"
               >
-                <div className="flex items-start justify-between">
-                  <span className="text-[56px] font-extralight leading-none tracking-[0.04em] text-[#E97868]/90 md:text-[72px]">0{index + 1}</span>
+                <div className="flex items-start justify-end">
                   <svg viewBox="0 0 24 24" aria-hidden="true" className="h-10 w-10 text-[#E97868] md:h-12 md:w-12" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
                     <path d={icons[reason.label]} />
                   </svg>

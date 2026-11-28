@@ -1,7 +1,7 @@
 "use client";
 
 // Pinned tool group: cards rise from the bottom of the screen and settle into a grid, one after another, as you scroll.
-import { useEffect, useRef, useState, useSyncExternalStore, type CSSProperties } from "react";
+import { useEffect, useRef, useSyncExternalStore, type CSSProperties } from "react";
 import WakeList from "../ui/WakeList";
 import type { ToolGroup } from "./platformLayers";
 import { toolIconPath } from "./toolIcons";
@@ -18,7 +18,6 @@ function subscribe(notify: () => void) {
 export default function ToolHelix({ group }: { group: ToolGroup }) {
   const wrapper = useRef<HTMLDivElement>(null);
   const stage = useRef<HTMLDivElement>(null);
-  const [placed, setPlaced] = useState(0);
   const still = useSyncExternalStore(subscribe, () => window.matchMedia(REDUCED).matches, () => true);
   const count = group.tools.length;
   const columns = count <= 6 ? "lg:grid-cols-3" : "lg:grid-cols-4";
@@ -29,17 +28,11 @@ export default function ToolHelix({ group }: { group: ToolGroup }) {
     const target = stage.current;
     if (!node || !target) return;
     let frame = 0;
-    let current = 0;
     const update = () => {
       frame = 0;
       const box = node.getBoundingClientRect();
       const progress = Math.min(1, Math.max(0, -box.top / Math.max(1, box.height - window.innerHeight)));
       target.style.setProperty("--p", progress.toFixed(4));
-      const next = Math.min(count, Math.max(0, Math.floor(progress * (count + 1) - 0.2) + 1));
-      if (next !== current) {
-        current = next;
-        setPlaced(next);
-      }
     };
     const onScroll = () => {
       if (!frame) frame = requestAnimationFrame(update);
@@ -75,9 +68,7 @@ export default function ToolHelix({ group }: { group: ToolGroup }) {
       >
         <div className="flex items-end justify-between gap-6">
           <h3 className="text-xl font-extralight uppercase leading-[1.1] tracking-[0.12em] md:text-3xl">{group.title}</h3>
-          <p className="shrink-0 text-xs uppercase tracking-[0.28em] text-[#E97868]">
-            {group.upcoming ? "On the way" : `${String(placed).padStart(2, "0")} / ${String(count).padStart(2, "0")}`}
-          </p>
+          {group.upcoming && <p className="shrink-0 text-xs uppercase tracking-[0.28em] text-[#E97868]">On the way</p>}
         </div>
 
         <ul className={`grid min-h-0 grid-cols-2 content-start gap-2.5 sm:gap-3 lg:gap-4 ${columns}`}>

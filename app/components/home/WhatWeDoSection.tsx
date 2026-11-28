@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import SectionLabel from "../ui/SectionLabel";
 import dynamic from "next/dynamic";
 import WireScene from "./WireScene";
 
@@ -73,8 +72,7 @@ export default function WhatWeDoSection() {
 
           <div className="mx-auto flex w-full max-w-[1300px] flex-1 flex-col justify-between gap-8 lg:grid lg:grid-cols-[0.8fr_1fr_1.1fr] lg:items-center lg:gap-10">
             <div>
-              <SectionLabel>What we do</SectionLabel>
-              <p className="mt-6 max-w-[22ch] text-lg font-extralight leading-snug tracking-wide text-[#FAFAF9]/80 md:text-xl">
+              <p className="max-w-[22ch] text-lg font-extralight leading-snug tracking-wide text-[#FAFAF9]/80 md:text-xl">
                 Three ways we help communities get started and keep going.
               </p>
               <ul className="mt-8 flex flex-col gap-3">
@@ -87,7 +85,7 @@ export default function WhatWeDoSection() {
                       className={`flex items-center gap-4 text-left text-[11px] uppercase tracking-[0.22em] transition-colors duration-500 ${index === active ? "text-[#FAFAF9]" : "text-white/35 hover:text-white/65"}`}
                     >
                       <span className={`block h-px transition-all duration-500 ${index === active ? "w-12 bg-[#E97868]" : "w-6 bg-white/25"}`} />
-                      0{index + 1}
+                      {item.title}
                     </button>
                   </li>
                 ))}
@@ -103,8 +101,7 @@ export default function WhatWeDoSection() {
                   aria-hidden={index !== active}
                   className={`absolute inset-x-0 top-0 transition-all duration-700 lg:top-1/2 lg:-translate-y-1/2 ${index === active ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-6 opacity-0"}`}
                 >
-                  <span className="text-[56px] font-extralight leading-none tracking-[0.04em] text-[#E97868]/90 md:text-[72px]">0{index + 1}</span>
-                  <h2 className="mt-4 text-2xl font-extralight uppercase leading-[1.1] tracking-[0.1em] text-[#FAFAF9] sm:text-3xl lg:text-4xl">{item.title}</h2>
+                  <h2 className="text-2xl font-extralight uppercase leading-[1.1] tracking-[0.1em] text-[#FAFAF9] sm:text-3xl lg:text-4xl">{item.title}</h2>
                   <p className="mt-5 max-w-[44ch] text-base font-light leading-relaxed text-[#FAFAF9]/70 md:text-lg">{item.text}</p>
                 </div>
               ))}

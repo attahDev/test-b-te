@@ -49,7 +49,6 @@ export default function MoreThanNetworkSection() {
               style={{ "--i": index } as CSSProperties}
               className="net-card group relative flex flex-col overflow-hidden rounded-[18px] border border-white/10 bg-white/[0.04] p-3 backdrop-blur-sm md:p-4"
             >
-              <span className="net-num font-mono text-xs tracking-[0.2em] text-[#FAFAF9]/45">0{index + 1}</span>
               <div className={`net-icon mt-3 flex aspect-[4/3] items-center justify-center rounded-[12px] p-4 ${pillar.tile}`}>
                 <Image
                   src={pillar.icon}

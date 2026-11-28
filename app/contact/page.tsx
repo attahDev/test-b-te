@@ -4,7 +4,6 @@ import ContactForm from "../components/contact/ContactForm";
 import Footer from "../components/shared/Footer";
 import Navbar from "../components/shared/Navbar";
 import Button from "../components/ui/Button";
-import SectionLabel from "../components/ui/SectionLabel";
 
 export const metadata: Metadata = {
   title: "Contact - Black Tech Expo",
@@ -20,7 +19,6 @@ export default function ContactPage() {
         <Image src="/homepage/architectural-background.png" alt="" aria-hidden="true" fill priority sizes="100vw" className="-z-10 object-cover object-center opacity-[0.12] mix-blend-screen" />
         <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-t from-[#0b090d] via-transparent to-transparent" />
         <div className="mx-auto w-full max-w-[1200px]">
-          <SectionLabel className="mb-5">Connect</SectionLabel>
           <h1 id="connect-title" className="max-w-[760px] text-3xl font-extralight uppercase leading-[1.15] tracking-[0.1em] md:text-5xl">Work with BTE</h1>
           <p className="mt-6 max-w-[520px] text-base leading-relaxed text-white/75 md:text-lg">
             Partner with us, fund the work, build alongside us or join the network.
