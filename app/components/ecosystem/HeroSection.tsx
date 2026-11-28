@@ -2,16 +2,17 @@
 
 // First screen of the ecosystem page: a globe that zooms in as you scroll until it lands on an aerial city
 import dynamic from "next/dynamic";
-import Image from "next/image";
 import { useEffect, useRef, type CSSProperties } from "react";
 import Button from "../ui/Button";
 import SectionLabel from "../ui/SectionLabel";
+import CityPan from "./CityPan";
 
 const GlobeScene = dynamic(() => import("./GlobeScene"), { ssr: false });
 
 export default function EcosystemHeroSection() {
   const track = useRef<HTMLDivElement>(null);
   const progress = useRef(0);
+  const cityProgress = useRef(0);
 
   useEffect(() => {
     const node = track.current;
@@ -21,6 +22,7 @@ export default function EcosystemHeroSection() {
       frame = 0;
       const box = node.getBoundingClientRect();
       progress.current = Math.min(1, Math.max(0, -box.top / Math.max(1, box.height - window.innerHeight)));
+      cityProgress.current = Math.min(1, Math.max(0, (progress.current - 0.28) / 0.72));
       node.style.setProperty("--p", progress.current.toFixed(4));
     };
     const onScroll = () => {
@@ -43,7 +45,9 @@ export default function EcosystemHeroSection() {
           <div className="globe-layer absolute inset-0">
             <GlobeScene progress={progress} />
           </div>
-          <Image src="/art/city-night.webp" alt="" fill sizes="100vw" priority className="globe-city object-cover object-[75%_center] opacity-0" />
+          <div className="globe-city absolute inset-0 opacity-0">
+            <CityPan progress={cityProgress} from={0} to={0.3} />
+          </div>
           <div aria-hidden="true" className="globe-shade absolute inset-0 bg-[linear-gradient(to_right,rgba(11,9,13,0.92),rgba(11,9,13,0.55)_45%,rgba(11,9,13,0.15))] max-lg:bg-[#0b090d]/70" />
 
           <div className="globe-copy relative z-10 mx-auto w-full max-w-[1300px] px-6 pb-16 pt-32 md:px-16">

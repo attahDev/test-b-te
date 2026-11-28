@@ -1,9 +1,9 @@
 "use client";
 
 // Pinned "Who we work with" stage: audience list on the left, over a single city image
-import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import Button from "../ui/Button";
+import CityPan from "./CityPan";
 
 const audiences = [
   { number: "01", label: "Government & Public Sector", text: "We help public bodies and agencies connect with Black-led technology talent, run programmes with local communities, and turn policy goals into projects people can see." },
@@ -19,6 +19,7 @@ const audiences = [
 export default function AudienceSection() {
   const [active, setActive] = useState(0);
   const track = useRef<HTMLDivElement>(null);
+  const pan = useRef(0);
 
   useEffect(() => {
     const node = track.current;
@@ -26,9 +27,10 @@ export default function AudienceSection() {
     let frame = 0;
     const update = () => {
       frame = 0;
-      if (window.innerWidth < 1024) return;
       const box = node.getBoundingClientRect();
       const progress = -box.top / Math.max(1, box.height - window.innerHeight);
+      pan.current = Math.min(1, Math.max(0, progress));
+      if (window.innerWidth < 1024) return;
       setActive(Math.min(audiences.length - 1, Math.max(0, Math.floor(progress * audiences.length))));
     };
     const onScroll = () => {
@@ -54,11 +56,15 @@ export default function AudienceSection() {
   return (
     <section aria-labelledby="audience-title" className="relative text-white">
       <div ref={track} className="relative lg:h-[560svh] motion-reduce:lg:h-auto">
-        <div className="relative isolate overflow-hidden px-6 pb-16 pt-28 md:px-16 lg:sticky lg:top-0 lg:flex lg:h-svh lg:items-center lg:py-0 motion-reduce:lg:static motion-reduce:lg:h-auto motion-reduce:lg:py-28">
+        <div className="relative isolate px-6 pb-16 pt-28 md:px-16 lg:sticky lg:top-0 lg:flex lg:overflow-hidden lg:h-svh lg:items-center lg:py-0 motion-reduce:lg:static motion-reduce:lg:h-auto motion-reduce:lg:py-28">
           <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 bg-[#0b090d]">
-            <Image src="/art/city-night.webp" alt="" fill sizes="100vw" className="object-cover object-[75%_center] opacity-70" />
-            <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(11,9,13,0.92),rgba(11,9,13,0.55)_45%,rgba(11,9,13,0.15))] max-lg:bg-[#0b090d]/70" />
-            <div className="absolute inset-0 [background:linear-gradient(to_bottom,transparent_86%,#0b090d)]" />
+            <div className="sticky top-0 h-svh overflow-hidden">
+              <div className="absolute inset-0 opacity-70">
+                <CityPan progress={pan} from={0.3} to={1} />
+              </div>
+              <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(11,9,13,0.92),rgba(11,9,13,0.55)_45%,rgba(11,9,13,0.15))] max-lg:bg-[#0b090d]/70" />
+              <div className="absolute inset-0 [background:linear-gradient(to_bottom,transparent_86%,#0b090d)]" />
+            </div>
           </div>
 
           <div className="mx-auto grid w-full max-w-[1300px] gap-12 lg:grid-cols-[0.95fr_1.05fr] lg:items-center lg:gap-16">
