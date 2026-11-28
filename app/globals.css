@@ -535,6 +535,7 @@ a, button {
 .globe-copy { opacity: clamp(0, calc(1 - var(--p, 0) * 6), 1); transform: translateY(calc(var(--p, 0) * -120px)); }
 .globe-layer { opacity: clamp(0, calc(1 - (var(--p, 0) - 0.3) * 5), 1); filter: blur(calc(clamp(0, (var(--p, 0) - 0.3) * 6, 1) * 10px)); }
 .globe-city { opacity: calc(clamp(0, (var(--p, 0) - 0.28) * 3.5, 1) * 0.7); transform: scale(calc(1.55 - clamp(0, (var(--p, 0) - 0.28) / 0.72, 1) * 0.55)); will-change: transform, opacity; }
+.aud-in { opacity: clamp(0, calc((var(--p, 0) - 0.75) * 4), 1); }
 .globe-shade { opacity: calc(0.5 + clamp(0, (var(--p, 0) - 0.28) * 2.5, 1) * 0.5); }
 .hero-copy { opacity: calc(1 - var(--p, 0) * 1.5); transform: translateY(calc(var(--p, 0) * -40px)); }
 

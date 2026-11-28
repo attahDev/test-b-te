@@ -1,4 +1,3 @@
-import AudienceSection from "@/app/components/ecosystem/AudienceSection";
 import BuildWithUsSection from "@/app/components/ecosystem/BuildWithUsSection";
 import EcosystemHeroSection from "@/app/components/ecosystem/HeroSection";
 import PlatformToolsSection from "@/app/components/ecosystem/PlatformToolsSection";
@@ -13,7 +12,6 @@ export default function EcosystemPage() {
     <main className="flex min-h-screen flex-col text-white">
       <Navbar />
       <EcosystemHeroSection />
-      <AudienceSection />
       <ModelSection />
       <TechnologyModelSection />
       <PlatformToolsSection />
