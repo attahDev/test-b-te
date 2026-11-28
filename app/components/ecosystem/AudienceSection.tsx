@@ -1,20 +1,19 @@
 "use client";
 
-// Pinned "Who we work with" stage: audience list on the left, image that swaps as you scroll on the right
+// Pinned "Who we work with" stage: audience list on the left, over a single city image
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import Button from "../ui/Button";
-import ScrollVar from "../ui/ScrollVar";
 
 const audiences = [
-  { number: "01", image: "/art/aud-government.webp", label: "Government & Public Sector", text: "We help public bodies and agencies connect with Black-led technology talent, run programmes with local communities, and turn policy goals into projects people can see." },
-  { number: "02", image: "/art/aud-university.webp", label: "University & Education", text: "Universities and colleges partner with us on learning areas, mentoring and placements that carry students from the classroom into real technology careers." },
-  { number: "03", image: "/art/aud-technology.webp", label: "Technology Companies", text: "Technology companies find early talent, test products with real communities and build partnerships that open up new markets and new hires." },
-  { number: "04", image: "/art/aud-investors.webp", label: "Investor & Funders", text: "Investors and funders get a clear route to founders and community projects with real traction, backed by the support structures that help them grow." },
-  { number: "05", image: "/art/aud-corporate.webp", label: "Corporate", text: "Corporate partners work with us on supplier diversity, skills pipelines and sponsorship that reaches communities they have struggled to reach alone." },
-  { number: "06", image: "/art/aud-startups.webp", label: "Startups & Founders", text: "Startups and founders get mentoring, tools and introductions, from first idea to first customer, alongside people who have done it before." },
-  { number: "07", image: "/art/aud-community.webp", label: "Community Organisations", text: "Community organisations bring local reach and trust; we bring programmes, tools and a wider network, so good work travels further." },
-  { number: "08", image: "/art/aud-international.webp", label: "Ecosystems & International Partners", text: "International partners and ecosystems link with us to share knowledge, exchange talent and build bridges between Black tech communities across regions." },
+  { number: "01", label: "Government & Public Sector", text: "We help public bodies and agencies connect with Black-led technology talent, run programmes with local communities, and turn policy goals into projects people can see." },
+  { number: "02", label: "University & Education", text: "Universities and colleges partner with us on learning areas, mentoring and placements that carry students from the classroom into real technology careers." },
+  { number: "03", label: "Technology Companies", text: "Technology companies find early talent, test products with real communities and build partnerships that open up new markets and new hires." },
+  { number: "04", label: "Investor & Funders", text: "Investors and funders get a clear route to founders and community projects with real traction, backed by the support structures that help them grow." },
+  { number: "05", label: "Corporate", text: "Corporate partners work with us on supplier diversity, skills pipelines and sponsorship that reaches communities they have struggled to reach alone." },
+  { number: "06", label: "Startups & Founders", text: "Startups and founders get mentoring, tools and introductions, from first idea to first customer, alongside people who have done it before." },
+  { number: "07", label: "Community Organisations", text: "Community organisations bring local reach and trust; we bring programmes, tools and a wider network, so good work travels further." },
+  { number: "08", label: "Ecosystems & International Partners", text: "International partners and ecosystems link with us to share knowledge, exchange talent and build bridges between Black tech communities across regions." },
 ];
 
 export default function AudienceSection() {
@@ -57,19 +56,9 @@ export default function AudienceSection() {
       <div ref={track} className="relative lg:h-[560svh] motion-reduce:lg:h-auto">
         <div className="relative isolate overflow-hidden px-6 pb-16 pt-28 md:px-16 lg:sticky lg:top-0 lg:flex lg:h-svh lg:items-center lg:py-0 motion-reduce:lg:static motion-reduce:lg:h-auto motion-reduce:lg:py-28">
           <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 bg-[#0b090d]">
-            {audiences.map((audience, index) => (
-              <Image
-                key={audience.number}
-                src={audience.image}
-                alt=""
-                fill
-                sizes="100vw"
-                priority={index === 0}
-                className={`object-cover object-[75%_center] max-lg:hidden transition-all duration-[1100ms] ease-out ${index === active ? "scale-100 opacity-70" : "scale-110 opacity-0"}`}
-              />
-            ))}
+            <Image src="/art/city-night.webp" alt="" fill sizes="100vw" className="object-cover object-[75%_center] opacity-70" />
             <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(11,9,13,0.92),rgba(11,9,13,0.55)_45%,rgba(11,9,13,0.15))] max-lg:bg-[#0b090d]/70" />
-            <div className="absolute inset-0 [background:linear-gradient(to_bottom,#0b090d,transparent_14%,transparent_86%,#0b090d)]" />
+            <div className="absolute inset-0 [background:linear-gradient(to_bottom,transparent_86%,#0b090d)]" />
           </div>
 
           <div className="mx-auto grid w-full max-w-[1300px] gap-12 lg:grid-cols-[0.95fr_1.05fr] lg:items-center lg:gap-16">
@@ -117,18 +106,14 @@ export default function AudienceSection() {
               ))}
             </div>
 
-            <ul className="flex flex-col gap-14 lg:hidden">
+            <ul className="flex flex-col gap-10 lg:hidden">
               {audiences.map((audience) => (
-                <li key={audience.number} className="md:grid md:grid-cols-2 md:items-center md:gap-10 md:even:[&>div:first-child]:order-2">
-                  <ScrollVar className="relative aspect-[16/10] overflow-hidden rounded-[12px] border border-white/[0.08]">
-                    <Image src={audience.image} alt="" fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover opacity-90 [transform:translateY(calc((var(--p)-0.5)*-36px))_scale(1.14)]" />
-                    <div aria-hidden="true" className="absolute inset-0 bg-[linear-gradient(to_top,#0b090d,transparent_45%)]" />
-                  </ScrollVar>
-                  <div className="mt-6 md:mt-0">
+                <li key={audience.number} className="border-t border-white/[0.12] pt-6 md:grid md:grid-cols-[0.8fr_1.2fr] md:gap-10">
+                  <div>
                     <p className="text-[11px] uppercase tracking-[0.3em] text-[#E97868]">{audience.number} / 0{audiences.length}</p>
                     <h3 className="mt-3 text-[clamp(1.1rem,3vw,1.5rem)] font-extralight uppercase leading-[1.15] tracking-[0.14em]">{audience.label}</h3>
-                    <p className="mt-4 text-[15px] font-extralight leading-relaxed tracking-wide text-[#FAFAF9]/75">{audience.text}</p>
                   </div>
+                  <p className="mt-4 text-[15px] font-extralight leading-relaxed tracking-wide text-[#FAFAF9]/75 md:mt-0">{audience.text}</p>
                 </li>
               ))}
             </ul>

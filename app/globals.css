@@ -532,7 +532,10 @@ a, button {
 @keyframes enter-rise { from { opacity: 0; transform: translateY(18px); } }
 @media (prefers-reduced-motion: reduce) { .enter { animation: none; } }
 .hero-image { transform: scale(calc(1.02 + var(--p, 0) * 0.28)) translateY(calc(var(--p, 0) * 9%)); will-change: transform; }
-.globe-dive { transform-origin: 70% 95%; transform: scale(calc(1 + var(--p, 0) * 1.1)); opacity: calc(1 - var(--p, 0) * 1.25); will-change: transform, opacity; }
+.globe-copy { opacity: clamp(0, calc(1 - var(--p, 0) * 6), 1); transform: translateY(calc(var(--p, 0) * -120px)); }
+.globe-layer { opacity: clamp(0, calc(1 - (var(--p, 0) - 0.3) * 5), 1); filter: blur(calc(clamp(0, (var(--p, 0) - 0.3) * 6, 1) * 10px)); }
+.globe-city { opacity: calc(clamp(0, (var(--p, 0) - 0.28) * 3.5, 1) * 0.7); transform: scale(calc(1.55 - clamp(0, (var(--p, 0) - 0.28) / 0.72, 1) * 0.55)); will-change: transform, opacity; }
+.globe-shade { opacity: calc(0.5 + clamp(0, (var(--p, 0) - 0.28) * 2.5, 1) * 0.5); }
 .hero-copy { opacity: calc(1 - var(--p, 0) * 1.5); transform: translateY(calc(var(--p, 0) * -40px)); }
 
 .band-image { transform: scale(calc(1.45 - var(--p, 1) * 0.4)) translateY(calc((0.5 - var(--p, 1)) * 12%)); will-change: transform; }
@@ -544,8 +547,7 @@ a, button {
   letter-spacing: calc(0.1em + clamp(0, (var(--p, 1) - var(--start)) * 4, 0.2) * 0.4em);
 }
 @media (prefers-reduced-motion: reduce) {
-  .hero-image, .band-image, .globe-dive { transform: none; opacity: 1; }
-  .band-word, .band-kicker { opacity: 1; transform: none; }
+  .hero-image, .band-image,   .band-word, .band-kicker { opacity: 1; transform: none; }
 }
 
 .contours-layer {
