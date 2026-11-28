@@ -1,5 +1,6 @@
 "use client";
 
+import SectionLabel from "../ui/SectionLabel";
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import ChessScene from "./ChessScene";
 
@@ -67,6 +68,7 @@ export default function ModelSection() {
       <div className="sticky top-0 flex h-svh flex-col overflow-hidden text-white motion-reduce:static motion-reduce:min-h-svh motion-reduce:py-16">
         <div className="relative mx-auto grid min-h-0 w-full max-w-[1280px] flex-1 grid-rows-[1fr_auto] gap-5 px-6 pb-8 pt-[12svh] sm:px-10 lg:grid-cols-[42%_1fr] lg:grid-rows-1 lg:gap-14 lg:px-12 lg:py-[12svh]">
           <div className="flex min-h-0 flex-col">
+            <SectionLabel className="mb-4">Our Model</SectionLabel>
             <h2 id="ecosystem-model-title" className="text-2xl font-extralight uppercase leading-[1.1] tracking-[0.1em] sm:text-4xl lg:text-5xl">
               From Community
               <br />

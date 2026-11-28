@@ -1,5 +1,6 @@
 "use client";
 
+import SectionLabel from "../ui/SectionLabel";
 import { useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import WireScene from "./WireScene";
@@ -72,7 +73,8 @@ export default function WhatWeDoSection() {
 
           <div className="mx-auto flex w-full max-w-[1300px] flex-1 flex-col justify-between gap-8 lg:grid lg:grid-cols-[0.8fr_1fr_1.1fr] lg:items-center lg:gap-10">
             <div>
-              <p className="max-w-[22ch] text-lg font-extralight leading-snug tracking-wide text-[#FAFAF9]/80 md:text-xl">
+              <SectionLabel>What we do</SectionLabel>
+              <p className="mt-6 max-w-[22ch] text-lg font-extralight leading-snug tracking-wide text-[#FAFAF9]/80 md:text-xl">
                 Three ways we help communities get started and keep going.
               </p>
               <ul className="mt-8 flex flex-col gap-3">

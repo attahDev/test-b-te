@@ -1,4 +1,5 @@
 import type { CSSProperties } from "react";
+import SectionLabel from "../ui/SectionLabel";
 import Button from "../ui/Button";
 import ScrollVar from "../ui/ScrollVar";
 import HeroVideo from "./HeroVideo";
@@ -11,6 +12,7 @@ export default function HeroSection() {
       <div aria-hidden="true" className="absolute inset-0 bg-[linear-gradient(to_top,rgba(11,9,13,0.55),rgba(11,9,13,0.3)_55%,rgba(11,9,13,0.1))] md:bg-[linear-gradient(to_right,rgba(11,9,13,0.78),rgba(11,9,13,0.25)_55%,transparent)]" />
       
       <div className="hero-copy relative z-10 mx-auto w-full max-w-[1300px] px-6 pb-16 pt-32 md:px-16">
+        <div className="enter mb-10" style={{ "--d": 0 } as CSSProperties}><SectionLabel>Welcome to BTE</SectionLabel></div>
         <h1 style={{ "--d": 1 } as CSSProperties} className="enter max-w-[16ch] text-4xl font-extralight uppercase leading-[1.05] tracking-[0.12em] text-[#FAFAF9] sm:text-5xl lg:text-6xl">
           More than a network
         </h1>

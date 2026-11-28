@@ -163,7 +163,8 @@ export default function WhyWorkWithUs() {
 
         <div className="mx-auto grid w-full max-w-[1300px] items-center gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
           <div>
-            <p className="max-w-[20ch] text-2xl font-extralight leading-snug tracking-wide text-[#FAFAF9]/80 md:text-4xl">
+            <p className="text-[11px] uppercase tracking-[0.32em] text-[#E97868]">Why work with us</p>
+            <p className="mt-5 max-w-[20ch] text-2xl font-extralight leading-snug tracking-wide text-[#FAFAF9]/80 md:text-4xl">
               Eight things we build, run and stand behind.
             </p>
             <div className="mt-8 hidden items-center gap-5 motion-reduce:hidden sm:flex" aria-hidden="true">

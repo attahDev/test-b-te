@@ -1,3 +1,4 @@
+import SectionLabel from "../ui/SectionLabel";
 import Button from "../ui/Button";
 import Reveal from "../ui/Reveal";
 import WhyWorkWithUs from "./WhyWorkWithUs";
@@ -8,6 +9,7 @@ export default function WhoWeAreSection() {
       <div className="px-6 pb-12 pt-16 md:px-16 md:pb-16 md:pt-24">
         <div className="mx-auto w-full max-w-[1300px]">
           <Reveal>
+            <SectionLabel className="fade-up mb-8">Who we are</SectionLabel>
             <h2 className="fade-up max-w-[26ch] text-2xl font-extralight uppercase leading-[1.2] tracking-[0.1em] sm:text-3xl lg:text-4xl" style={{ "--i": 1 } as React.CSSProperties}>
               Black Tech Expo was created to do more than run events.
             </h2>

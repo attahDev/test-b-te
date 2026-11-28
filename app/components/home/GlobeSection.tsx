@@ -1,5 +1,6 @@
 "use client";
 
+import SectionLabel from "../ui/SectionLabel";
 import Image from "next/image";
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import GlobeScene from "./globe/GlobeScene";
@@ -85,6 +86,7 @@ export default function GlobeSection() {
             <div key={stage} className="panel-in">
               {mode === "intro" && (
                 <>
+                  <SectionLabel className="mb-4">Locations</SectionLabel>
                   <h2 id="locations-title" className="text-3xl font-extralight uppercase leading-[1.1] tracking-[0.1em] text-[#FAFAF9] md:text-4xl">
                     Welcome to Black Tech Expo
                   </h2>
@@ -168,6 +170,7 @@ export default function GlobeSection() {
 
               {mode === "finale" && (
                 <>
+                  <SectionLabel className="mb-4">The network</SectionLabel>
                   <h2 id="locations-title" className="text-3xl font-extralight uppercase leading-[1.1] tracking-[0.1em] text-[#FAFAF9] md:text-4xl">
                     One network, growing place by place
                   </h2>

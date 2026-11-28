@@ -1,6 +1,7 @@
 "use client";
 
 import Button from "../ui/Button";
+import SectionLabel from "../ui/SectionLabel";
 import ToolHelix from "./ToolHelix";
 import { toolGroups } from "./platformLayers";
 
@@ -8,6 +9,7 @@ export default function PlatformToolsSection() {
   return (
     <section id="platform-tools" aria-labelledby="platform-tools-title" className="relative isolate px-6 py-20 md:px-16 md:py-24">
       <div className="relative mx-auto w-full max-w-[1300px]">
+        <SectionLabel className="mb-8">BTE Platform</SectionLabel>
         <h2 id="platform-tools-title" className="max-w-[16ch] text-3xl font-extralight uppercase leading-[1.15] tracking-[0.1em] md:text-5xl">
           What members can use
         </h2>

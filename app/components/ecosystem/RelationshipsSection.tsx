@@ -1,5 +1,6 @@
 import Backdrop from "@/app/components/ui/Backdrop";
 import Image from "next/image";
+import SectionLabel from "../ui/SectionLabel";
 
 type Partner = { name: string; role?: string; logo?: string; mark?: string };
 
@@ -59,6 +60,7 @@ export default function RelationshipsSection() {
       <Backdrop name="mudcloth" strength={0.5} />
       <div className="relative mx-auto max-w-[1200px] px-6 sm:px-10 lg:px-14">
         <div className="relative min-h-[190px] pr-32 sm:min-h-[185px] sm:pr-44 md:min-h-[205px]">
+          <SectionLabel className="mb-4">Our Relationships</SectionLabel>
           <h2 id="relationships-title" className="text-4xl font-extralight uppercase leading-none tracking-[0.1em] sm:text-4xl">
             Relationships
           </h2>
